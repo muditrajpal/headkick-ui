@@ -2,12 +2,24 @@ import React from 'react';
 import PokedexHeader from './components/PokedexHeader'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <PokedexHeader author={'@atypical.engineer'} name={"Greg"} />
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      name: "Greg"
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <PokedexHeader
+          author={'@atypical.engineer'}
+          name={this.state.name}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
