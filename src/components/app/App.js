@@ -13,44 +13,18 @@ import {
   Segment,
   Sidebar, MenuItem
 } from 'semantic-ui-react'
-
+import {GridExampleVerticallyDivided} from '../grid-view'
 const initialState = {
   loading: false,
   results: [],
   value: '',
 }
-
-const options = [
-  { key: 1, text: 'EN', value: 1 },
-  { key: 2, text: 'SPN', value: 2 },
-  { key: 3, text: 'POR', value: 3 },
-]
-
-const GridExampleVerticallyDivided = () => (
-  <Grid className='gridview' divided='vertically'>
-    <Grid.Row columns={2}>
-      <Grid.Column width={10}>
-        <Image src='https://via.placeholder.com/300.png/09f/fff' />
-      </Grid.Column>
-      <Grid.Column width={6}>
-        <Image src='https://via.placeholder.com/300.png/09f/fff' />
-      </Grid.Column>
-    </Grid.Row>
-
-    <Grid.Row columns={3}>
-      <Grid.Column>
-        <Image src='https://via.placeholder.com/300.png/09f/fff' />
-      </Grid.Column>
-      <Grid.Column>
-        <Image src='https://via.placeholder.com/300.png/09f/fff' />
-      </Grid.Column>
-      <Grid.Column>
-        <Image src='https://via.placeholder.com/300.png/09f/fff' />
-      </Grid.Column>
-    </Grid.Row>
-  </Grid>
-)
 const App = () => {
+  const options = [
+    { key: 1, text: 'EN', value: 1 },
+    { key: 2, text: 'SPN', value: 2 },
+    { key: 3, text: 'POR', value: 3 },
+  ]
   const {loading, results, value} = initialState
   const [visible, setVisible] = React.useState(true)
   return (
