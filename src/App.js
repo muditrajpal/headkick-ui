@@ -11,7 +11,7 @@ import {
   Search,
   Menu,
   Segment,
-  Sidebar
+  Sidebar, MenuItem
 } from 'semantic-ui-react'
 
 const initialState = {
@@ -19,6 +19,13 @@ const initialState = {
   results: [],
   value: '',
 }
+
+const options = [
+  { key: 1, text: 'EN', value: 1 },
+  { key: 2, text: 'SPN', value: 2 },
+  { key: 3, text: 'POR', value: 3 },
+]
+
 const GridExampleVerticallyDivided = () => (
   <Grid className='gridview' divided='vertically'>
     <Grid.Row columns={2}>
@@ -48,46 +55,33 @@ const App = () => {
   const [visible, setVisible] = React.useState(true)
   return (
   <div>
-    <Menu fixed='top' inverted>
+    <Menu fixed='top' className="borderless">
         <Menu.Item 
           as='a' 
           header
           className='Header'
-          onClick={() => setVisible(!visible)}
+          size='large'
+          onClick={() => setVisible(!visible)
+          }
         >
-          HeadKick
-          <Icon name='content' style={{ marginLeft: '1.5em' }} />
+          <Icon name='content' size='large' style={{ marginLeft: '0.5em' }} />
         </Menu.Item>
-        <Menu.Item as='a' header>
-          Project Name
+        <Menu.Item as='a' header style={{fontSize : '24px', color : '#0D1757'}}>
+          HEADKICK
         </Menu.Item>
-        <Menu.Item as='a'>Home</Menu.Item>
-
-        <Dropdown item simple text='Dropdown'>
-          <Dropdown.Menu>
-            <Dropdown.Item>List Item</Dropdown.Item>
-            <Dropdown.Item>List Item</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Header>Header Item</Dropdown.Header>
-            <Dropdown.Item>
-              <i className='dropdown icon' />
-              <span className='text'>Submenu</span>
-              <Dropdown.Menu>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown.Item>
-            <Dropdown.Item>List Item</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Search
-          style={{marginLeft: '100px'}}
-          loading={loading}
-          onResultSelect={(e, data) => {}}
-          onSearchChange={() => {}}
-          results={results}
-          value={value}
-        />
+        <Menu.Item >
+          <Search style={{ paddingLeft: '500px' }} class="text" placeholder="Search news, blogs, matches, schedules..">
+          </Search>
+        </Menu.Item>
+        <Menu.Item>
+          <Dropdown style={{border : '1px solid #DEDEDF', fontSize : '14px'}} text={options[0]['text']} options={options} simple item />
+        </Menu.Item>
+        <Menu.Item >
+          <button class="ui basic button large" style={{marginRight: '0.5em', border : '1px solid #0D1757', borderInlineStyle: 'solid', color : '#0D1757'}}>Sign in</button>
+        </Menu.Item>
+        <Menu.Item>
+          <button class="ui button large" style={{marginRight: '0.5em', backgroundColor : '#0D1757', color : '#FFFFFF'}}>Sign up</button>
+        </Menu.Item>
     </Menu>
 
     <Segment text style={{ marginTop: '76px' }}>
@@ -178,7 +172,9 @@ const App = () => {
         </List>
       </Container>
     </Segment>
+    
   </div>
+  
 )}
 
 export default App
