@@ -14,51 +14,36 @@ import {
   Sidebar, MenuItem
 } from 'semantic-ui-react'
 import {GridExampleVerticallyDivided} from '../grid-view'
+import {header} from '../header'
+import {signinform} from '../signinform'
+
 const initialState = {
   loading: false,
   results: [],
-  value: '',
+  value: ''
 }
+
 const App = () => {
-  const options = [
-    { key: 1, text: 'EN', value: 1 },
-    { key: 2, text: 'SPN', value: 2 },
-    { key: 3, text: 'POR', value: 3 },
-  ]
+
   const {loading, results, value} = initialState
   const [visible, setVisible] = React.useState(true)
   return (
   <div>
+  
     <Menu fixed='top' className="borderless">
-        <Menu.Item 
-          as='a' 
-          header
-          className='Header'
-          size='large'
-          onClick={() => setVisible(!visible)
-          }
-        >
-          <Icon name='content' size='large' style={{ marginLeft: '0.5em' }} />
-        </Menu.Item>
-        <Menu.Item as='a' header style={{fontSize : '24px', color : '#0D1757'}}>
-          HEADKICK
-        </Menu.Item>
-        <Menu.Item >
-          <Search style={{ paddingLeft: '500px' }} class="text" placeholder="Search news, blogs, matches, schedules..">
-          </Search>
-        </Menu.Item>
-        <Menu.Item>
-          <Dropdown style={{border : '1px solid #DEDEDF', fontSize : '14px'}} text={options[0]['text']} options={options} simple item />
-        </Menu.Item>
-        <Menu.Item >
-          <button class="ui basic button large" style={{marginRight: '0.5em', border : '1px solid #0D1757', borderInlineStyle: 'solid', color : '#0D1757'}}>Sign in</button>
-        </Menu.Item>
-        <Menu.Item>
-          <button class="ui button large" style={{marginRight: '0.5em', backgroundColor : '#0D1757', color : '#FFFFFF'}}>Sign up</button>
-        </Menu.Item>
+    <Menu.Item 
+      as='a' 
+      header
+      className='Header'
+      onClick={() => setVisible(!visible)
+      }
+    >
+      <Icon name='content'/>
+    </Menu.Item>
+    {header()}
     </Menu>
-
-    <Segment text style={{ marginTop: '76px' }}>
+      
+    <Segment text style={{ marginTop: '74px' }}>
     <Sidebar.Pushable as={Segment}>
           <Sidebar
             as={Menu}
@@ -146,7 +131,7 @@ const App = () => {
         </List>
       </Container>
     </Segment>
-    
+    {signinform()}
   </div>
   
 )}

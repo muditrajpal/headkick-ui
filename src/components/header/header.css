@@ -1,0 +1,45 @@
+.headkicklogo {
+    font-size : 24px;
+    color : #0D1757;
+}
+
+.ui.menu .header.item, .ui.vertical.menu .header.item {
+    font-size : 24px;
+    color : #0D1757;
+} 
+
+.ui.item.simple.dropdown{
+    margin-top : 10px;
+    font-size : 14px;
+}
+
+.ui.icon.input {
+    margin-top : 10px;
+}
+
+.ui.grid>.row>[class*="center aligned"].column.column, .ui.grid>[class*="center aligned"].column.column, .ui.grid>[class*="center aligned"].row>.column, .ui[class*="center aligned"].grid>.column, .ui[class*="center aligned"].grid>.row>.column {
+    padding : 0px 0px;
+    margin : 0px 0px 0px;
+}
+
+.ui.grid>.row {
+    padding : 0px 0px;
+    margin : 0px 0px 0px;
+}
+
+.ui.item.simple.dropdown {
+    border : 1px solid #DEDEDF;
+}
+
+.ui.basic.button {
+    margin-top: 10px;
+    border : 1px solid #0D1757;
+    border-inline-style: solid;
+    color : #0D1757;
+}
+
+.ui.button {
+    margin-top: 10px;
+    background-color : #0D1757;
+    color : #FFFFFF;
+}
