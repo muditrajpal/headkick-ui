@@ -11,62 +11,39 @@ import {
   Search,
   Menu,
   Segment,
-  Sidebar
+  Sidebar, MenuItem
 } from 'semantic-ui-react'
 import {GridExampleVerticallyDivided} from '../grid-view'
+import {header} from '../header'
+import {signinform} from '../signinform'
+
 const initialState = {
   loading: false,
   results: [],
-  value: '',
+  value: ''
 }
+
 const App = () => {
+
   const {loading, results, value} = initialState
   const [visible, setVisible] = React.useState(true)
   return (
   <div>
-    <Menu fixed='top' inverted>
-        <Menu.Item 
-          as='a' 
-          header
-          className='Header'
-          onClick={() => setVisible(!visible)}
-        >
-          HeadKick
-          <Icon name='content' style={{ marginLeft: '1.5em' }} />
-        </Menu.Item>
-        <Menu.Item as='a' header>
-          Project Name
-        </Menu.Item>
-        <Menu.Item as='a'>Home</Menu.Item>
-
-        <Dropdown item simple text='Dropdown'>
-          <Dropdown.Menu>
-            <Dropdown.Item>List Item</Dropdown.Item>
-            <Dropdown.Item>List Item</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Header>Header Item</Dropdown.Header>
-            <Dropdown.Item>
-              <i className='dropdown icon' />
-              <span className='text'>Submenu</span>
-              <Dropdown.Menu>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown.Item>
-            <Dropdown.Item>List Item</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Search
-          style={{marginLeft: '100px'}}
-          loading={loading}
-          onResultSelect={(e, data) => {}}
-          onSearchChange={() => {}}
-          results={results}
-          value={value}
-        />
+  
+    <Menu fixed='top' className="borderless">
+    <Menu.Item 
+      as='a' 
+      header
+      className='Header'
+      onClick={() => setVisible(!visible)
+      }
+    >
+      <Icon name='content'/>
+    </Menu.Item>
+    {header()}
     </Menu>
-
-    <Segment text style={{ marginTop: '76px' }}>
+      
+    <Segment text style={{ marginTop: '74px' }}>
     <Sidebar.Pushable as={Segment}>
           <Sidebar
             as={Menu}
@@ -154,7 +131,9 @@ const App = () => {
         </List>
       </Container>
     </Segment>
+    {signinform()}
   </div>
+  
 )}
 
 export default App
