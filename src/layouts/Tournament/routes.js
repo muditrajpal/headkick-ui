@@ -1,5 +1,7 @@
 import TournamentManager from "views/TournamentManager";
 import TournamentOverview from "views/TournamentOverview";
+import TournamentList from "views/TournamentList";
+
 export default [
   {
     path: "/overview",
@@ -8,9 +10,19 @@ export default [
     layout: "/tournament",
   },
   {
-    path: "/manage",
     name: "Matches",
-    component: TournamentManager,
-    layout: "/tournament",
+    collapse: true,
+    views: [
+      {
+        path: "/matches/list",
+        layout: "/tournament",
+        component: TournamentList,
+      },
+      {
+        path: "/matches/select",
+        layout: "/tournament",
+        component: TournamentManager,
+      },
+    ],
   },
 ];

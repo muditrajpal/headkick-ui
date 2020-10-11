@@ -1,0 +1,18 @@
+.tournamentNav {
+  position: relative;
+  float: left;
+  width: 100%;
+  .ui.menu .item{
+      font-size: 1.2rem;
+  }
+  .ui.tabular.menu .active.item{
+    background: #0D1757;
+    color: #E4C389;
+    border-color: #0D1757;
+  }
+  .createTeam {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.5rem;
+  }
+}

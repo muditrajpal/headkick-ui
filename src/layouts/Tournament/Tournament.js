@@ -1,44 +1,16 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
+import TournamentNav from "components/TournamentNav";
+import { getActiveRoute, getRoutes } from "utils/layout";
 import routes from "./routes";
 
 const Tournament = () => {
-  const getActiveRoute = (routes1) => {
-    let activeRoute = "Default Brand Text";
-    for (let i = 0; i < routes1.length; i++) {
-      if (routes1[i].collapse) {
-        let collapseActiveRoute = getActiveRoute(routes1[i].views);
-        if (collapseActiveRoute !== activeRoute) {
-          return collapseActiveRoute;
-        }
-      } else {
-        if (
-          window.location.href.indexOf(routes1[i].layout + routes1[i].path) !==
-          -1
-        ) {
-          return routes1[i].name;
-        }
-      }
-    }
-    return activeRoute;
-  };
-  const getRoutes = (routes) => {
-    return routes.map((prop, key) => {
-      if (prop.collapse) {
-        return getRoutes(prop.views);
-      }
-      return (
-        <Route
-          path={prop.layout + prop.path}
-          component={prop.component}
-          key={key}
-        />
-      );
-    });
-  };
-
+  const activeRoute = getActiveRoute(routes);
   return (
-    <div>
+    <div className="tournamentLayout">
+      <TournamentNav
+        activeTab={activeRoute && activeRoute.length ? activeRoute[1] : null}
+      />
       <Switch>
         {getRoutes(routes)}
         <Redirect from="/tournament" to="/tournament/overview" />
