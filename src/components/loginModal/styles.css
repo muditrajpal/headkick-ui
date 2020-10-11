@@ -1,0 +1,80 @@
+.login-modal {
+  padding: 10px 20px;
+  width: 400px !important;
+  position: relative;
+}
+
+.login-modal__header-secondary {
+  margin-top: 7px !important;
+}
+
+.login-modal__pass-visible-icon {
+  position: absolute;
+  margin-top: 10px !important;
+  margin-left: -30px !important;
+  color: #888;
+  cursor: pointer;
+}
+
+.login-modal__form__chechbox-and-forget-password {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-modal__oauth {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-modal__oauth__items {
+  border: 1px solid #bbb !important;
+  color: #0d1757 !important;
+}
+
+.login-modal__oauth__items i {
+  color: #000 !important;
+  width: 45px;
+}
+
+.login-modal__close-btn {
+  background: #bbb !important;
+  padding: 5px 0 5px 5px !important;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.login-modal__signup-link {
+  font-size: 12px;
+  display: block;
+  text-align: center;
+  margin-bottom: 13px;
+}
+
+.background-none {
+  background: transparent !important;
+}
+
+.text-grey {
+  color: #888 !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.font-size-small {
+  font-size: smaller !important;
+}
+
+.text-blue {
+  color: #2bdede;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-bold {
+    font-weight: 700;
+}
