@@ -23,7 +23,7 @@ const TournamentNav = ({ activeTab }) => {
             : ""
         }
       />
-      <Button basic color="black" size="small" className="createTeam">
+      <Button basic color="black" size="mini" className="createTeam">
         <Icon name="plus" /> Create Team
       </Button>
     </div>

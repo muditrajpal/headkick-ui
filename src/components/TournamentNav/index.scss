@@ -1,7 +1,6 @@
 .tournamentNav {
-  position: relative;
-  float: left;
-  width: 100%;
+  position: absolute;
+  width: calc(100% - 2rem);
   .ui.menu .item{
       font-size: 1.2rem;
   }
@@ -13,6 +12,6 @@
   .createTeam {
     position: absolute;
     right: 0.3rem;
-    top: 0.5rem;
+    top: 0.1rem;
   }
 }
