@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Table, Icon } from "semantic-ui-react";
 import CountryImg from "assets/imgs/c.png";
-
+import history from "historyObj";
 const List = () => (
   <Table padded singleLine>
     <Table.Header>
@@ -35,7 +35,7 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" />
+          <Button circular color="blue" icon="angle right" onClick={()=>history.push("/tournament/matches/select?id=123")} />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -57,7 +57,7 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" />
+          <Button circular color="blue" icon="angle right"  onClick={()=>history.push("/tournament/matches/select?id=123")} />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -79,7 +79,7 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" />
+          <Button circular color="blue" icon="angle right"  onClick={()=>history.push("/tournament/matches/select?id=123")}  />
         </Table.Cell>
       </Table.Row>
     </Table.Body>
