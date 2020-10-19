@@ -46,3 +46,20 @@ body {
 
   }
 }
+div::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px #3a94a9;
+	background-color: #F5F5F5;
+}
+
+div::-webkit-scrollbar
+{
+    width: 6px;
+    height: 6px;
+	background-color: #F5F5F5;
+}
+
+div::-webkit-scrollbar-thumb
+{
+	background-color: #3a94a9;
+}

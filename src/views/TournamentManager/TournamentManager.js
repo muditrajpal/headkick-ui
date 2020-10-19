@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, List, Image, Card, Button, Icon } from "semantic-ui-react";
 import teamLogo from "assets/imgs/w.png";
-import SendInviteModal from "components/SendInviteModal"
 import history from "historyObj";
 
 const TournamentManager = () => {
@@ -72,7 +71,6 @@ const TournamentManager = () => {
           </Grid>
         </div>
       </div>
-      <SendInviteModal/>
     </div>
   );
 };

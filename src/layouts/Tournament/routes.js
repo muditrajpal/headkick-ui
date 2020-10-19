@@ -1,6 +1,8 @@
 import TournamentManager from "views/TournamentManager";
 import TournamentOverview from "views/TournamentOverview";
 import TournamentList from "views/TournamentList";
+import ScheduleMatches from "views/ScheduleMatches";
+
 
 export default [
   {
@@ -22,6 +24,11 @@ export default [
         path: "/matches/select",
         layout: "/tournament",
         component: TournamentManager,
+      },
+      {
+        path: "/matches/schedule",
+        layout: "/tournament",
+        component: ScheduleMatches,
       },
     ],
   },

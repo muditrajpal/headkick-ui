@@ -2,6 +2,11 @@ import React from "react";
 import { Button, Table, Icon } from "semantic-ui-react";
 import CountryImg from "assets/imgs/c.png";
 import history from "historyObj";
+import AddTeamDetailModal from "components/AddTeamDetailModal";
+import GroupDetailModal from "components/GroupDetailModal";
+import SendInviteModal from "components/SendInviteModal"
+import GroupCreationModal from "components/GroupCreationModal"
+
 const List = () => (
   <Table padded singleLine>
     <Table.Header>
@@ -101,6 +106,10 @@ const TournamentList = () => {
         </div>
         {List()}
       </div>
+      {/* <GroupDetailModal /> */}
+      {/* <AddTeamDetailModal /> */}
+      {/* <SendInviteModal/> */}
+{/* <GroupCreationModal/> */}
     </div>
   );
 };

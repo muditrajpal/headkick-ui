@@ -1,0 +1,43 @@
+.addTeamDetailModal{
+    padding: 0.2rem 1.5rem;
+    .ui.header{
+        font-size: 1.5rem;
+        padding-left: unset;
+        padding-right: unset;
+        padding-bottom: 1rem;
+        color: #12216D;
+        font-weight: 700;
+        border-bottom: unset;
+    }
+    .subHead{
+        font-size: 1.2rem;
+        font-weight: 500;
+
+    }
+    .actions-divider{
+        margin-top: 1.5rem;    }
+    .ui.form .field>label{
+        font-weight: 500;
+    }
+    button.submit{
+        float: right;
+    margin-bottom: 1.5rem !important;
+    font-weight: 500!important;
+    }
+    button.close{
+        position: absolute!important;
+        top: 0!important;
+        right: 0.5rem!important;
+        padding: 0!important;
+        color: white!important;
+        height: 1.5rem!important;
+        width: 1.5rem!important;
+        font-size: 1rem!important;
+        font-weight: 500!important;
+
+    }
+    .content{
+        padding: 0 !important;
+    margin-top: 1.5rem ;
+    }
+}
