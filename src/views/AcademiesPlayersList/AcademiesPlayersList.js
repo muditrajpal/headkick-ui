@@ -15,11 +15,13 @@ const PlayerListContainer = styled.div`
   width: 100%;
   height: calc(100vh - 240px);
   overflow: auto;
+  border-radius: 10px;
 `;
 
 const MockData = [
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -30,7 +32,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -41,7 +44,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -52,7 +56,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -63,7 +68,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -74,7 +80,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -85,7 +92,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -96,7 +104,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -107,7 +116,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -118,7 +128,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -129,7 +140,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -140,7 +152,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -151,7 +164,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -162,7 +176,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -173,7 +188,8 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -184,7 +200,56 @@ const MockData = [
     id: "1122",
   },
   {
-    photo: "https://ramcotubular.com/wp-content/uploads/default-avatar.jpg",
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
+    name: "Lionel Messi",
+    academy: "AFC Academy",
+    age: 30,
+    nationality: "AG",
+    matches: 45,
+    position: "LW",
+    goals: 600,
+    id: "1122",
+  },
+  {
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
+    name: "Lionel Messi",
+    academy: "AFC Academy",
+    age: 30,
+    nationality: "AG",
+    matches: 45,
+    position: "LW",
+    goals: 600,
+    id: "1122",
+  },
+  {
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
+    name: "Lionel Messi",
+    academy: "AFC Academy",
+    age: 30,
+    nationality: "AG",
+    matches: 45,
+    position: "LW",
+    goals: 600,
+    id: "1122",
+  },
+  {
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
+    name: "Lionel Messi",
+    academy: "AFC Academy",
+    age: 30,
+    nationality: "AG",
+    matches: 45,
+    position: "LW",
+    goals: 600,
+    id: "1122",
+  },
+  {
+    photo:
+      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
     name: "Lionel Messi",
     academy: "AFC Academy",
     age: 30,
@@ -231,7 +296,7 @@ const List = () => (
                 <Button
                   circular
                   color="blue"
-                  icon="edit outline"
+                  icon="pencil alternate"
                   onClick={
                     () => alert("Under Development")
                     //TODO: history.push(`/academies/players/list/select?id=${data.id}`)

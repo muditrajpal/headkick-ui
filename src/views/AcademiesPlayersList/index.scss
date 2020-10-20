@@ -47,8 +47,12 @@
       }
     }
     tbody {
+      tr:nth-child(even) {
+        background-color: #f6f7fe;
+      }
       tr {
         td {
+          border: none !important;
           font-size: 1rem !important;
           text-align: center !important;
           font-weight: 500 !important;
