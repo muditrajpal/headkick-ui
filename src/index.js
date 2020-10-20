@@ -6,8 +6,6 @@ import { Route, Switch, Redirect, Router } from "react-router-dom";
 import Tournament from "layouts/Tournament";
 import Academies from "layouts/Academies";
 import Sidebar from "components/Sidebar";
-import Header from "components/Header";
-
 import PageNotFound from "views/PageNotFound";
 import history from "historyObj";
 
