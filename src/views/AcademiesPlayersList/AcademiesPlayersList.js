@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Table, Icon} from "semantic-ui-react";
-// import CountryImg from "assets/imgs/c.png";
-// import history from "historyObj";
+import CountryImg from "assets/imgs/c.png";
+import history from "historyObj";
 import styled from "styled-components";
 
 const PlayerProfileContainer = styled.div`
@@ -288,7 +288,9 @@ const List = () => (
               </Table.Cell>
               <Table.Cell>{data.academy}</Table.Cell>
               <Table.Cell>{data.age}</Table.Cell>
-              <Table.Cell>{data.nationality}</Table.Cell>
+              <Table.Cell>
+                <img src={CountryImg} />
+              </Table.Cell>
               <Table.Cell>{data.matches}</Table.Cell>
               <Table.Cell>{data.position}</Table.Cell>
               <Table.Cell>{data.goals}</Table.Cell>
@@ -297,9 +299,8 @@ const List = () => (
                   circular
                   color="blue"
                   icon="pencil alternate"
-                  onClick={
-                    () => alert("Under Development")
-                    //TODO: history.push(`/academies/players/list/select?id=${data.id}`)
+                  onClick={() =>
+                    history.push(`/academies/players/list/select?id=${data.id}`)
                   }
                 />
               </Table.Cell>

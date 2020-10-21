@@ -1,5 +1,6 @@
-import AcademiesOverview from "views/AcademiesOverview"
+import AcademiesOverview from "views/AcademiesOverview";
 import AcademiesPlayersList from "views/AcademiesPlayersList";
+import AcademiesPlayerDetails from "views/AcademiesPlayerDetails";
 
 export default [
   {
@@ -16,6 +17,11 @@ export default [
         path: "/players/list",
         layout: "/academies",
         component: AcademiesPlayersList,
+      },
+      {
+        path: "/players/list/select",
+        layout: "/academies",
+        component: AcademiesPlayerDetails,
       },
     ],
   },
