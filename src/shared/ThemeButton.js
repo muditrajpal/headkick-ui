@@ -27,7 +27,8 @@ const ButtonContainer = styled.button`
 
 const ThemeButton = (props) => (
   <ButtonContainer
-    disable={props.isDisabled}
+    style={props.customCss}
+    disable={props.isDisableds}
     isDisabled={props.isDisabled}
     onClick={props.onClickAction}
   >
