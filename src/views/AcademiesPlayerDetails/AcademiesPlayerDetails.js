@@ -28,20 +28,17 @@ const DetailsContainer = styled(Column)`
 `;
 
 const DeatilTabs = styled.div`
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  grid-template-areas:
-    "uploadPhoto playerInfo playerInfo playerInfo trophies trophies connectWithPlayer connectWithPlayer"
-    "shooting1 shooting1 defence defence shooting2 shooting2 shooting3 shooting3"
-    "shooting1 shooting1 mental mental goalkeeper goalkeeper shooting3 shooting3"
-    "shooting4 shooting4 mental mental goalkeeper goalkeeper specialities specialities";
+  padding: 15px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  flex-wrap: wrap;
 `;
 
-const UploadPhotoContainer = styled.div`
-  grid-area: uploadPhoto;
+const UploadPhotoContainer = styled(Column)`
+  flex: 1;
   align-items: center;
-  max-width: 148px;
+  width: 100%;
 `;
 
 const UploadPhotoGrid = styled.div`
@@ -54,11 +51,13 @@ const UploadPhotoGrid = styled.div`
   height: 117px;
   width: 117px;
   margin: 0 auto 44px auto;
+  color: #0d1757;
+  font-size: 12px;
 `;
 
 const TabBoxContainer = styled(Column)`
+  height: 100%;
   border: 1px solid #e9ecfb;
-  box-sizing: border-box;
   border-radius: 4px;
   background-color: white;
 `;
@@ -91,9 +90,9 @@ const EditTabLink = styled(Column)`
   cursor: pointer;
 `;
 
-const PlayerInfoContainer = styled.div`
+const PlayerInfoContainer = styled(Column)`
+  flex: 3;
   width: 100%;
-  grid-area: playerInfo;
 `;
 
 const TextLabel = styled.div`
@@ -118,9 +117,10 @@ const PlayerInfoTextLabel = styled(TextLabel)`
   padding-bottom: 5px;
 `;
 
-const TrophiesContainer = styled.div`
+const TrophiesContainer = styled(Column)`
+  flex: 2;
   width: 100%;
-  grid-area: trophies;
+  justify-content: center;
 `;
 
 const TrophiesTextLabel = styled(TextLabel)`
@@ -137,9 +137,10 @@ const TrophyIconContainer = styled.span`
   color: #e4c389;
 `;
 
-const ConnectWithPlayerContainer = styled.div`
+const ConnectWithPlayerContainer = styled(Column)`
+  flex: 2.5;
   width: 100%;
-  grid-area: connectWithPlayer;
+  justify-content: center;
 `;
 
 const SocialIconContainer = styled(Column)`
@@ -147,10 +148,15 @@ const SocialIconContainer = styled(Column)`
   padding: 0 18px 14px 0;
 `;
 
+const ShootingContainer = styled(Column)`
+  flex: 1;
+  width: 100%;
+`;
+
 const UploadPhoto = () => (
   <UploadPhotoContainer>
     <UploadPhotoGrid>
-      <Icon name="plus" size="big" color="blue" />
+      <Icon name="plus" size="huge" />
     </UploadPhotoGrid>
     <ThemeButton
       customCss={{width: "148px"}}
@@ -223,7 +229,7 @@ const Trophies = (props) => (
       tabTitle={"Trophies"}
       editAction={() => alert("Under Development")}
       children={
-        <table cellPadding={2} style={{margin: "auto", paddingTop: 14}}>
+        <table cellPadding={2} style={{margin: "auto"}}>
           <tr>
             <td>
               <TrophiesTextLabel>La Liga</TrophiesTextLabel>
@@ -289,7 +295,7 @@ const ConnectWithPlayer = (props) => (
       tabTitle={"Connect with player"}
       editAction={() => alert("Under Development")}
       children={
-        <Column style={{padding: "19px 31px"}}>
+        <Column style={{padding: "0 31px", margin: "auto 0"}}>
           <Row>
             <SocialIconContainer>
               <Icon name="facebook f" size="large" />
@@ -316,9 +322,46 @@ const ConnectWithPlayer = (props) => (
   </ConnectWithPlayerContainer>
 );
 
-const AcademiesPlayerDetails = () => (
+const Shooting = (props) => (
+  <ShootingContainer>
+    <TabContainer
+      tabTitle={"Shooting"}
+      editAction={() => alert("Under Development")}
+      children={
+        <Column style={{padding: 15, gap: 15}}>
+          <Row>
+            <TextLabel>Heading</TextLabel>
+          </Row>
+          <Row>
+            <TextLabel>Shot Power</TextLabel>
+          </Row>
+          <Row>
+            <TextLabel>Finishing</TextLabel>
+          </Row>
+          <Row>
+            <TextLabel>Longshots</TextLabel>
+          </Row>
+          <Row>
+            <TextLabel>Curves</TextLabel>
+          </Row>
+          <Row>
+            <TextLabel>FK Acc</TextLabel>
+          </Row>
+          <Row>
+            <TextLabel>Penalties</TextLabel>
+          </Row>
+          <Row>
+            <TextLabel>Volleys</TextLabel>
+          </Row>
+        </Column>
+      }
+    />
+  </ShootingContainer>
+);
+
+const AcademiesPlayerDetails = (props) => (
   <DetailsContainer>
-    <Row>
+    <Row style={{paddingBottom: 15}}>
       <Column style={{alignItems: "flex-start", flex: 1}}>
         <Button
           style={{maxWidth: 121}}
@@ -338,12 +381,26 @@ const AcademiesPlayerDetails = () => (
         />
       </Column>
     </Row>
-    <DeatilTabs style={{padding: 30, width: "100%"}}>
-      <UploadPhoto />
-      <PlayerInfo />
-      <Trophies />
-      <ConnectWithPlayer />
-    </DeatilTabs>
+    <Column style={{overflowY: "auto", maxHeight: "calc(100vh - 260px)"}}>
+      <DeatilTabs>
+        <UploadPhoto {...props} />
+        <PlayerInfo {...props} />
+        <Trophies {...props} />
+        <ConnectWithPlayer {...props} />
+      </DeatilTabs>
+      <DeatilTabs>
+        <Shooting {...props} />
+        <Shooting {...props} />
+        <Shooting {...props} />
+        <Shooting {...props} />
+      </DeatilTabs>
+      <DeatilTabs>
+        <Shooting {...props} />
+        <Shooting {...props} />
+        <Shooting {...props} />
+        <Shooting {...props} />
+      </DeatilTabs>
+    </Column>
   </DetailsContainer>
 );
 
