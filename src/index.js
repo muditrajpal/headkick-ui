@@ -7,8 +7,6 @@ import TournamentManager from "layouts/TournamentManager";
 import TournamentGuest from "layouts/TournamentGuest";
 import Academies from "layouts/Academies";
 import Sidebar from "components/Sidebar";
-import Header from "components/Header";
-
 import PageNotFound from "views/PageNotFound";
 import history from "historyObj";
 
