@@ -2,7 +2,7 @@ import TournamentManager from "views/TournamentManager";
 import TournamentOverview from "views/TournamentOverview";
 import TournamentList from "views/TournamentList";
 import ScheduleMatches from "views/ScheduleMatches";
-
+import TournamentFixtures from "views/TournamentFixtures";
 
 export default [
   {
@@ -31,5 +31,29 @@ export default [
         component: ScheduleMatches,
       },
     ],
+  },
+  {
+    path: "/academies",
+    name: "Fixtures",
+    component: TournamentFixtures,
+    layout: "/tournament",
+  },
+  {
+    path: "/players",
+    name: "Fixtures",
+    component: TournamentFixtures,
+    layout: "/tournament",
+  },
+  {
+    path: "/team",
+    name: "Fixtures",
+    component: TournamentFixtures,
+    layout: "/tournament",
+  },
+  {
+    path: "/fixtures",
+    name: "Fixtures",
+    component: TournamentFixtures,
+    layout: "/tournament",
   },
 ];
