@@ -1,8 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {Button, Icon} from "semantic-ui-react";
 import history from "historyObj";
-import ThemeButton from "shared/ThemeButton";
+import ThemeButton from "shared/components/ThemeButton";
+import moment from "moment";
 
 const Row = styled.div`
   display: flex;
@@ -149,9 +150,51 @@ const SocialIconContainer = styled(Column)`
 `;
 
 const ShootingContainer = styled(Column)`
+  width: 23.08%;
+`;
+
+const SkillProgressContainer = styled(Row)`
   flex: 1;
   width: 100%;
+  justify-content: space-between;
 `;
+
+const getProgressBarColor = (percentage) => {
+  if (percentage >= 25 && percentage < 50) return "#E4C389";
+  else if (percentage >= 50) return "#1F94FF";
+  else return "#979797";
+};
+
+const ProgressbarContainer = styled(Column)`
+  width: 55%;
+  .progress {
+    margin: 0 !important;
+    border-radius: 0;
+    .bar {
+      height: 10px !important;
+      border-radius: 0;
+      ${({progress}) =>
+        progress &&
+        css`
+          width: ${progress}%;
+          background: ${getProgressBarColor(progress)};
+        `}
+    }
+  }
+`;
+
+const getSocialIcon = (socialPlatform) => {
+  switch (socialPlatform) {
+    case "FACEBOOK":
+      return "facebook f";
+    case "TWITTER":
+      return "twitter";
+    case "INSTAGRAM":
+      return "instagram";
+    default:
+      return "";
+  }
+};
 
 const UploadPhoto = () => (
   <UploadPhotoContainer>
@@ -180,41 +223,49 @@ const TabContainer = (props) => (
 const PlayerInfo = (props) => (
   <PlayerInfoContainer>
     <TabContainer
-      tabTitle={"Lionel Messi"}
+      tabTitle={props?.playerDetails?.bio?.fullName || ""}
       editAction={() => alert("Under Development")}
       children={
         <table cellPadding={11} cellSpacing={10}>
           <tr>
             <td>
               <PlayerInfoTextLabel>Height</PlayerInfoTextLabel>
-              <TextValue>170cm</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.height || ""}cm</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Weight</PlayerInfoTextLabel>
-              <TextValue>60kg</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.weight || ""}kg</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Date of Birth</PlayerInfoTextLabel>
-              <TextValue>14/09/1997</TextValue>
+              <TextValue>
+                {(props?.playerDetails?.bio?.dateOfBirth &&
+                  moment(props.playerDetails.bio.dateOfBirth).format(
+                    "DD/MM/YYYY"
+                  )) ||
+                  ""}
+              </TextValue>
             </td>
           </tr>
 
           <tr>
             <td>
               <PlayerInfoTextLabel>Position</PlayerInfoTextLabel>
-              <TextValue>RW</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.position || ""}</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Work Rate</PlayerInfoTextLabel>
-              <TextValue>60kg</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.workRate || ""}</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Preferred foot</PlayerInfoTextLabel>
-              <TextValue>Left</TextValue>
+              <TextValue>
+                {props?.playerDetails?.bio?.preferredFoot || ""}
+              </TextValue>
             </td>
           </tr>
         </table>
@@ -230,59 +281,33 @@ const Trophies = (props) => (
       editAction={() => alert("Under Development")}
       children={
         <table cellPadding={2} style={{margin: "auto"}}>
-          <tr>
-            <td>
-              <TrophiesTextLabel>La Liga</TrophiesTextLabel>
-            </td>
-            <td>
-              <TrophyIconContainer>
-                <Icon name="trophy" size="big" />
-              </TrophyIconContainer>
-            </td>
-            <td>
-              <TextLabel>
-                <span>
-                  <TrophiesNumber>2</TrophiesNumber> Titles
-                </span>
-              </TextLabel>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <TrophiesTextLabel>PL</TrophiesTextLabel>
-            </td>
-            <td>
-              <TrophyIconContainer>
-                <Icon name="trophy" size="big" />
-              </TrophyIconContainer>
-            </td>
-            <td>
-              <TextLabel>
-                <span>
-                  <TrophiesNumber>2</TrophiesNumber> Titles
-                </span>
-              </TextLabel>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <TrophiesTextLabel>FIFA</TrophiesTextLabel>
-            </td>
-            <td>
-              <TrophyIconContainer>
-                <Icon name="trophy" size="big" />
-              </TrophyIconContainer>
-            </td>
-            <td>
-              <TextLabel>
-                <span>
-                  <TrophiesNumber>2</TrophiesNumber> Titles
-                </span>
-              </TextLabel>
-            </td>
-          </tr>
+          {props?.playerDetails?.trophies?.length &&
+            props.playerDetails.trophies.map((trophyInfo) => {
+              return (
+                <tr>
+                  <td>
+                    <TrophiesTextLabel>
+                      {trophyInfo?.leagueName || ""}
+                    </TrophiesTextLabel>
+                  </td>
+                  <td>
+                    <TrophyIconContainer>
+                      <Icon name="trophy" size="big" />
+                    </TrophyIconContainer>
+                  </td>
+                  <td>
+                    <TextLabel>
+                      <span>
+                        <TrophiesNumber>
+                          {trophyInfo?.titles || ""}
+                        </TrophiesNumber>{" "}
+                        Titles
+                      </span>
+                    </TextLabel>
+                  </td>
+                </tr>
+              );
+            })}
         </table>
       }
     />
@@ -296,63 +321,47 @@ const ConnectWithPlayer = (props) => (
       editAction={() => alert("Under Development")}
       children={
         <Column style={{padding: "0 31px", margin: "auto 0"}}>
-          <Row>
-            <SocialIconContainer>
-              <Icon name="facebook f" size="large" />
-            </SocialIconContainer>
-            <TextLabel>@lionelmessi</TextLabel>
-          </Row>
-
-          <Row>
-            <SocialIconContainer>
-              <Icon name="twitter" size="large" />
-            </SocialIconContainer>
-            <TextLabel>@lionelmessi</TextLabel>
-          </Row>
-
-          <Row>
-            <SocialIconContainer>
-              <Icon name="instagram" size="large" />
-            </SocialIconContainer>
-            <TextLabel>@lionelmessi</TextLabel>
-          </Row>
+          {props?.playerDetails?.socialAccounts?.length &&
+            props.playerDetails.socialAccounts.map((socialData) => {
+              return (
+                <Row>
+                  <SocialIconContainer>
+                    <Icon
+                      name={getSocialIcon(socialData?.account || "")}
+                      size="large"
+                    />
+                  </SocialIconContainer>
+                  <a href={socialData?.link} target="_blank">
+                    <TextLabel>{socialData?.name}</TextLabel>
+                  </a>
+                </Row>
+              );
+            })}
         </Column>
       }
     />
   </ConnectWithPlayerContainer>
 );
 
-const Shooting = (props) => (
+const Skills = (props) => (
   <ShootingContainer>
     <TabContainer
-      tabTitle={"Shooting"}
+      tabTitle={props?.categoryName || ""}
       editAction={() => alert("Under Development")}
       children={
         <Column style={{padding: 15, gap: 15}}>
-          <Row>
-            <TextLabel>Heading</TextLabel>
-          </Row>
-          <Row>
-            <TextLabel>Shot Power</TextLabel>
-          </Row>
-          <Row>
-            <TextLabel>Finishing</TextLabel>
-          </Row>
-          <Row>
-            <TextLabel>Longshots</TextLabel>
-          </Row>
-          <Row>
-            <TextLabel>Curves</TextLabel>
-          </Row>
-          <Row>
-            <TextLabel>FK Acc</TextLabel>
-          </Row>
-          <Row>
-            <TextLabel>Penalties</TextLabel>
-          </Row>
-          <Row>
-            <TextLabel>Volleys</TextLabel>
-          </Row>
+          {props?.subCategories?.length && props.subCategories.map((skill)=>{
+            return (
+              <SkillProgressContainer>
+                <TextLabel>{skill?.skillName || ""}</TextLabel>
+                <ProgressbarContainer progress={skill?.progress || 0}>
+                  <div class="ui small progress">
+                    <div class="bar" />
+                  </div>
+                </ProgressbarContainer>
+              </SkillProgressContainer>
+            );
+          })}
         </Column>
       }
     />
@@ -389,16 +398,10 @@ const AcademiesPlayerDetails = (props) => (
         <ConnectWithPlayer {...props} />
       </DeatilTabs>
       <DeatilTabs>
-        <Shooting {...props} />
-        <Shooting {...props} />
-        <Shooting {...props} />
-        <Shooting {...props} />
-      </DeatilTabs>
-      <DeatilTabs>
-        <Shooting {...props} />
-        <Shooting {...props} />
-        <Shooting {...props} />
-        <Shooting {...props} />
+        {props?.playerDetails?.skills?.length &&
+        props.playerDetails.skills.map((skill)=>{
+          return <Skills {...skill} />;
+        })}
       </DeatilTabs>
     </Column>
   </DetailsContainer>
