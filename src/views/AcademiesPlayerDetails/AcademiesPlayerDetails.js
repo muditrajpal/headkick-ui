@@ -149,8 +149,8 @@ const SocialIconContainer = styled(Column)`
   padding: 0 18px 14px 0;
 `;
 
-const ShootingContainer = styled(Column)`
-  width: 23.08%;
+const SkillContainer = styled(Column)`
+  width: calc(25% - 22.5px);
 `;
 
 const SkillProgressContainer = styled(Row)`
@@ -230,12 +230,12 @@ const PlayerInfo = (props) => (
           <tr>
             <td>
               <PlayerInfoTextLabel>Height</PlayerInfoTextLabel>
-              <TextValue>{props?.playerDetails?.bio?.height || ""}cm</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.height || ""}</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Weight</PlayerInfoTextLabel>
-              <TextValue>{props?.playerDetails?.bio?.weight || ""}kg</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.weight || ""}</TextValue>
             </td>
 
             <td>
@@ -299,9 +299,9 @@ const Trophies = (props) => (
                     <TextLabel>
                       <span>
                         <TrophiesNumber>
-                          {trophyInfo?.titles || ""}
+                          {trophyInfo?.number || ""}
                         </TrophiesNumber>{" "}
-                        Titles
+                        {trophyInfo?.type || ""}
                       </span>
                     </TextLabel>
                   </td>
@@ -344,28 +344,29 @@ const ConnectWithPlayer = (props) => (
 );
 
 const Skills = (props) => (
-  <ShootingContainer>
+  <SkillContainer>
     <TabContainer
       tabTitle={props?.categoryName || ""}
       editAction={() => alert("Under Development")}
       children={
         <Column style={{padding: 15, gap: 15}}>
-          {props?.subCategories?.length && props.subCategories.map((skill)=>{
-            return (
-              <SkillProgressContainer>
-                <TextLabel>{skill?.skillName || ""}</TextLabel>
-                <ProgressbarContainer progress={skill?.progress || 0}>
-                  <div class="ui small progress">
-                    <div class="bar" />
-                  </div>
-                </ProgressbarContainer>
-              </SkillProgressContainer>
-            );
-          })}
+          {props?.subCategories?.length &&
+            props.subCategories.map((skill) => {
+              return (
+                <SkillProgressContainer>
+                  <TextLabel>{skill?.skillName || ""}</TextLabel>
+                  <ProgressbarContainer progress={skill?.progress || 0}>
+                    <div class="ui small progress">
+                      <div class="bar" />
+                    </div>
+                  </ProgressbarContainer>
+                </SkillProgressContainer>
+              );
+            })}
         </Column>
       }
     />
-  </ShootingContainer>
+  </SkillContainer>
 );
 
 const AcademiesPlayerDetails = (props) => (
@@ -385,7 +386,9 @@ const AcademiesPlayerDetails = (props) => (
       <Column style={{alignItems: "flex-end", flex: 1}}>
         <ThemeButton
           isDisabled={false}
-          onClickAction={() => alert("Under Development")}
+          onClickAction={() =>
+            props.toggleStateBoolean("isEditPlayerDetailsModalOpen")
+          }
           children="Edit All"
         />
       </Column>
@@ -399,9 +402,9 @@ const AcademiesPlayerDetails = (props) => (
       </DeatilTabs>
       <DeatilTabs>
         {props?.playerDetails?.skills?.length &&
-        props.playerDetails.skills.map((skill)=>{
-          return <Skills {...skill} />;
-        })}
+          props.playerDetails.skills.map((skill) => {
+            return <Skills {...skill} />;
+          })}
       </DeatilTabs>
     </Column>
   </DetailsContainer>

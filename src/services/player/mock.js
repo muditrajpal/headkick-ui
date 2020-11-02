@@ -3,22 +3,34 @@ const playerDetails = {
   bio: {
     photo: "",
     fullName: "Gaurang Bhardwaj",
-    height: Math.floor(Math.random() * 200),
-    weight: Math.floor(Math.random() * 100),
+    height: `${Math.floor(Math.random() * 200)} cm`,
+    weight: `${Math.floor(Math.random() * 200)} kg`,
     dateOfBirth: Date.now(), //Timestamp
     position: "RW",
     workRate: Math.floor(Math.random() * 50),
     preferredFoot: "Left",
   },
   trophies: [
-    {leagueName: "La Liga", titles: Math.floor(Math.random() * 10)},
-    {leagueName: "La Liga", titles: Math.floor(Math.random() * 10)},
-    {leagueName: "La Liga", titles: Math.floor(Math.random() * 10)},
+    {
+      leagueName: "La Liga",
+      number: Math.floor(Math.random() * 10),
+      type: "Trophies",
+    },
+    {
+      leagueName: "La Liga",
+      number: Math.floor(Math.random() * 10),
+      type: "Titles",
+    },
+    {
+      leagueName: "La Liga",
+      number: Math.floor(Math.random() * 10),
+      type: "Titles",
+    },
   ],
   socialAccounts: [
-    {account: "FACEBOOK", name: "facebook/name", link: "https://facebook.com"},
-    {account: "INSTAGRAM", name: "instagram_name", link: "https://twitter.com"},
-    {account: "TWITTER", name: "@twitterName", link: "https://instagram.com"},
+    {account: "FACEBOOK", name: "facebook", link: "https://facebook.com"},
+    {account: "INSTAGRAM", name: "instagram", link: "https://twitter.com"},
+    {account: "TWITTER", name: "twitter", link: "https://instagram.com"},
   ],
   skills: [
     {
