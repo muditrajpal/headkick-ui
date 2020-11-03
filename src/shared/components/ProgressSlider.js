@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const ProgressSliderContainer = styled.input`
   -webkit-appearance: none;
+  width: 100%;
   height: 10px;
   background: #e6e6e6;
   outline: none;

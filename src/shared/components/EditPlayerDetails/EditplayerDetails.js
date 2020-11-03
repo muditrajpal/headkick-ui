@@ -2,7 +2,7 @@ import React from "react";
 import CustomModal from "../CustomModal";
 import styled from "styled-components";
 import ThemeButton from "../ThemeButton";
-import ProgressSlider from "../ProgressSlider"
+import ProgressSlider from "../ProgressSlider";
 import {Icon} from "semantic-ui-react";
 import moment from "moment";
 
@@ -182,6 +182,11 @@ const SkillProgressContainer = styled(Row)`
   flex: 1;
   width: 100%;
   justify-content: space-between;
+`;
+
+const ProgressSliderContainer = styled(Column)`
+  width: 100%;
+  padding: 0 20px;
 `;
 
 const UploadPhoto = (props) => (
@@ -390,11 +395,13 @@ const Skills = (props) => (
               return (
                 <SkillProgressContainer>
                   <TextLabel>{skill?.skillName || ""}</TextLabel>
-                  <ProgressSlider
-                    min={0}
-                    max={100}
-                    value={skill?.progress || 0}
-                  />
+                  <ProgressSliderContainer>
+                    <ProgressSlider
+                      min={0}
+                      max={100}
+                      value={skill?.progress || 0}
+                    />
+                  </ProgressSliderContainer>
                   <TextLabel style={{fontWeight: "bold"}}>
                     {skill?.progress || 0}
                   </TextLabel>

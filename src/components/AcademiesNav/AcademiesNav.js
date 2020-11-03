@@ -3,10 +3,10 @@ import { Tab, Button, Icon } from "semantic-ui-react";
 import history from "historyObj";
 
 const panes = [
-  { menuItem: "Overview", path: "/academies/overview" },
-  { menuItem: "Players", path: "/academies/players/list" },
-  { menuItem: "Teams" },
-  { menuItem: "Training" },
+  {menuItem: "Overview", path: "/academies/overview"},
+  {menuItem: "Players", path: "/academies/players/list"},
+  {menuItem: "Teams", path: "/academies/teams"},
+  {menuItem: "Training"},
 ];
 
 const AcademiesNav = ({ activeTab }) => {

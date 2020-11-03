@@ -1,6 +1,8 @@
 import AcademiesOverview from "views/AcademiesOverview";
 import AcademiesPlayersList from "views/AcademiesPlayersList";
 import AcademiesPlayerDetails from "views/AcademiesPlayerDetails";
+import Teams from "views/Teams";
+
 
 export default [
   {
@@ -24,5 +26,11 @@ export default [
         component: AcademiesPlayerDetails,
       },
     ],
+  },
+  {
+    path: "/teams",
+    name: "Teams",
+    component: Teams,
+    layout: "/academies",
   },
 ];
