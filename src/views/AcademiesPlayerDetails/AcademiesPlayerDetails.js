@@ -1,8 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {Button, Icon} from "semantic-ui-react";
 import history from "historyObj";
-import ThemeButton from "shared/ThemeButton";
+import ThemeButton from "shared/components/ThemeButton";
+import moment from "moment";
 
 const Row = styled.div`
   display: flex;
@@ -28,20 +29,17 @@ const DetailsContainer = styled(Column)`
 `;
 
 const DeatilTabs = styled.div`
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-  grid-template-areas:
-    "uploadPhoto playerInfo playerInfo playerInfo trophies trophies connectWithPlayer connectWithPlayer"
-    "shooting1 shooting1 defence defence shooting2 shooting2 shooting3 shooting3"
-    "shooting1 shooting1 mental mental goalkeeper goalkeeper shooting3 shooting3"
-    "shooting4 shooting4 mental mental goalkeeper goalkeeper specialities specialities";
+  padding: 15px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  flex-wrap: wrap;
 `;
 
-const UploadPhotoContainer = styled.div`
-  grid-area: uploadPhoto;
+const UploadPhotoContainer = styled(Column)`
+  flex: 1;
   align-items: center;
-  max-width: 148px;
+  width: 100%;
 `;
 
 const UploadPhotoGrid = styled.div`
@@ -54,11 +52,13 @@ const UploadPhotoGrid = styled.div`
   height: 117px;
   width: 117px;
   margin: 0 auto 44px auto;
+  color: #0d1757;
+  font-size: 12px;
 `;
 
 const TabBoxContainer = styled(Column)`
+  height: 100%;
   border: 1px solid #e9ecfb;
-  box-sizing: border-box;
   border-radius: 4px;
   background-color: white;
 `;
@@ -91,9 +91,9 @@ const EditTabLink = styled(Column)`
   cursor: pointer;
 `;
 
-const PlayerInfoContainer = styled.div`
+const PlayerInfoContainer = styled(Column)`
+  flex: 3;
   width: 100%;
-  grid-area: playerInfo;
 `;
 
 const TextLabel = styled.div`
@@ -118,9 +118,10 @@ const PlayerInfoTextLabel = styled(TextLabel)`
   padding-bottom: 5px;
 `;
 
-const TrophiesContainer = styled.div`
+const TrophiesContainer = styled(Column)`
+  flex: 2;
   width: 100%;
-  grid-area: trophies;
+  justify-content: center;
 `;
 
 const TrophiesTextLabel = styled(TextLabel)`
@@ -137,9 +138,10 @@ const TrophyIconContainer = styled.span`
   color: #e4c389;
 `;
 
-const ConnectWithPlayerContainer = styled.div`
+const ConnectWithPlayerContainer = styled(Column)`
+  flex: 2.5;
   width: 100%;
-  grid-area: connectWithPlayer;
+  justify-content: center;
 `;
 
 const SocialIconContainer = styled(Column)`
@@ -147,10 +149,57 @@ const SocialIconContainer = styled(Column)`
   padding: 0 18px 14px 0;
 `;
 
+const SkillContainer = styled(Column)`
+  width: calc(25% - 22.5px);
+`;
+
+const SkillProgressContainer = styled(Row)`
+  flex: 1;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+const getProgressBarColor = (percentage) => {
+  if (percentage >= 25 && percentage < 50) return "#E4C389";
+  else if (percentage >= 50) return "#1F94FF";
+  else return "#979797";
+};
+
+const ProgressbarContainer = styled(Column)`
+  width: 55%;
+  .progress {
+    margin: 0 !important;
+    border-radius: 0;
+    .bar {
+      height: 10px !important;
+      border-radius: 0;
+      ${({progress}) =>
+        progress &&
+        css`
+          width: ${progress}%;
+          background: ${getProgressBarColor(progress)};
+        `}
+    }
+  }
+`;
+
+const getSocialIcon = (socialPlatform) => {
+  switch (socialPlatform) {
+    case "FACEBOOK":
+      return "facebook f";
+    case "TWITTER":
+      return "twitter";
+    case "INSTAGRAM":
+      return "instagram";
+    default:
+      return "";
+  }
+};
+
 const UploadPhoto = () => (
   <UploadPhotoContainer>
     <UploadPhotoGrid>
-      <Icon name="plus" size="big" color="blue" />
+      <Icon name="plus" size="huge" />
     </UploadPhotoGrid>
     <ThemeButton
       customCss={{width: "148px"}}
@@ -174,41 +223,49 @@ const TabContainer = (props) => (
 const PlayerInfo = (props) => (
   <PlayerInfoContainer>
     <TabContainer
-      tabTitle={"Lionel Messi"}
+      tabTitle={props?.playerDetails?.bio?.fullName || ""}
       editAction={() => alert("Under Development")}
       children={
         <table cellPadding={11} cellSpacing={10}>
           <tr>
             <td>
               <PlayerInfoTextLabel>Height</PlayerInfoTextLabel>
-              <TextValue>170cm</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.height || ""}</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Weight</PlayerInfoTextLabel>
-              <TextValue>60kg</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.weight || ""}</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Date of Birth</PlayerInfoTextLabel>
-              <TextValue>14/09/1997</TextValue>
+              <TextValue>
+                {(props?.playerDetails?.bio?.dateOfBirth &&
+                  moment(props.playerDetails.bio.dateOfBirth).format(
+                    "DD/MM/YYYY"
+                  )) ||
+                  ""}
+              </TextValue>
             </td>
           </tr>
 
           <tr>
             <td>
               <PlayerInfoTextLabel>Position</PlayerInfoTextLabel>
-              <TextValue>RW</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.position || ""}</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Work Rate</PlayerInfoTextLabel>
-              <TextValue>60kg</TextValue>
+              <TextValue>{props?.playerDetails?.bio?.workRate || ""}</TextValue>
             </td>
 
             <td>
               <PlayerInfoTextLabel>Preferred foot</PlayerInfoTextLabel>
-              <TextValue>Left</TextValue>
+              <TextValue>
+                {props?.playerDetails?.bio?.preferredFoot || ""}
+              </TextValue>
             </td>
           </tr>
         </table>
@@ -223,60 +280,34 @@ const Trophies = (props) => (
       tabTitle={"Trophies"}
       editAction={() => alert("Under Development")}
       children={
-        <table cellPadding={2} style={{margin: "auto", paddingTop: 14}}>
-          <tr>
-            <td>
-              <TrophiesTextLabel>La Liga</TrophiesTextLabel>
-            </td>
-            <td>
-              <TrophyIconContainer>
-                <Icon name="trophy" size="big" />
-              </TrophyIconContainer>
-            </td>
-            <td>
-              <TextLabel>
-                <span>
-                  <TrophiesNumber>2</TrophiesNumber> Titles
-                </span>
-              </TextLabel>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <TrophiesTextLabel>PL</TrophiesTextLabel>
-            </td>
-            <td>
-              <TrophyIconContainer>
-                <Icon name="trophy" size="big" />
-              </TrophyIconContainer>
-            </td>
-            <td>
-              <TextLabel>
-                <span>
-                  <TrophiesNumber>2</TrophiesNumber> Titles
-                </span>
-              </TextLabel>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <TrophiesTextLabel>FIFA</TrophiesTextLabel>
-            </td>
-            <td>
-              <TrophyIconContainer>
-                <Icon name="trophy" size="big" />
-              </TrophyIconContainer>
-            </td>
-            <td>
-              <TextLabel>
-                <span>
-                  <TrophiesNumber>2</TrophiesNumber> Titles
-                </span>
-              </TextLabel>
-            </td>
-          </tr>
+        <table cellPadding={2} style={{margin: "auto"}}>
+          {props?.playerDetails?.trophies?.length &&
+            props.playerDetails.trophies.map((trophyInfo) => {
+              return (
+                <tr>
+                  <td>
+                    <TrophiesTextLabel>
+                      {trophyInfo?.leagueName || ""}
+                    </TrophiesTextLabel>
+                  </td>
+                  <td>
+                    <TrophyIconContainer>
+                      <Icon name="trophy" size="big" />
+                    </TrophyIconContainer>
+                  </td>
+                  <td>
+                    <TextLabel>
+                      <span>
+                        <TrophiesNumber>
+                          {trophyInfo?.number || ""}
+                        </TrophiesNumber>{" "}
+                        {trophyInfo?.type || ""}
+                      </span>
+                    </TextLabel>
+                  </td>
+                </tr>
+              );
+            })}
         </table>
       }
     />
@@ -289,36 +320,58 @@ const ConnectWithPlayer = (props) => (
       tabTitle={"Connect with player"}
       editAction={() => alert("Under Development")}
       children={
-        <Column style={{padding: "19px 31px"}}>
-          <Row>
-            <SocialIconContainer>
-              <Icon name="facebook f" size="large" />
-            </SocialIconContainer>
-            <TextLabel>@lionelmessi</TextLabel>
-          </Row>
-
-          <Row>
-            <SocialIconContainer>
-              <Icon name="twitter" size="large" />
-            </SocialIconContainer>
-            <TextLabel>@lionelmessi</TextLabel>
-          </Row>
-
-          <Row>
-            <SocialIconContainer>
-              <Icon name="instagram" size="large" />
-            </SocialIconContainer>
-            <TextLabel>@lionelmessi</TextLabel>
-          </Row>
+        <Column style={{padding: "0 31px", margin: "auto 0"}}>
+          {props?.playerDetails?.socialAccounts?.length &&
+            props.playerDetails.socialAccounts.map((socialData) => {
+              return (
+                <Row>
+                  <SocialIconContainer>
+                    <Icon
+                      name={getSocialIcon(socialData?.account || "")}
+                      size="large"
+                    />
+                  </SocialIconContainer>
+                  <a href={socialData?.link} target="_blank">
+                    <TextLabel>{socialData?.name}</TextLabel>
+                  </a>
+                </Row>
+              );
+            })}
         </Column>
       }
     />
   </ConnectWithPlayerContainer>
 );
 
-const AcademiesPlayerDetails = () => (
+const Skills = (props) => (
+  <SkillContainer>
+    <TabContainer
+      tabTitle={props?.categoryName || ""}
+      editAction={() => alert("Under Development")}
+      children={
+        <Column style={{padding: 15, gap: 15}}>
+          {props?.subCategories?.length &&
+            props.subCategories.map((skill) => {
+              return (
+                <SkillProgressContainer>
+                  <TextLabel>{skill?.skillName || ""}</TextLabel>
+                  <ProgressbarContainer progress={skill?.progress || 0}>
+                    <div class="ui small progress">
+                      <div class="bar" />
+                    </div>
+                  </ProgressbarContainer>
+                </SkillProgressContainer>
+              );
+            })}
+        </Column>
+      }
+    />
+  </SkillContainer>
+);
+
+const AcademiesPlayerDetails = (props) => (
   <DetailsContainer>
-    <Row>
+    <Row style={{paddingBottom: 15}}>
       <Column style={{alignItems: "flex-start", flex: 1}}>
         <Button
           style={{maxWidth: 121}}
@@ -333,17 +386,27 @@ const AcademiesPlayerDetails = () => (
       <Column style={{alignItems: "flex-end", flex: 1}}>
         <ThemeButton
           isDisabled={false}
-          onClickAction={() => alert("Under Development")}
+          onClickAction={() =>
+            props.toggleStateBoolean("isEditPlayerDetailsModalOpen")
+          }
           children="Edit All"
         />
       </Column>
     </Row>
-    <DeatilTabs style={{padding: 30, width: "100%"}}>
-      <UploadPhoto />
-      <PlayerInfo />
-      <Trophies />
-      <ConnectWithPlayer />
-    </DeatilTabs>
+    <Column style={{overflowY: "auto", maxHeight: "calc(100vh - 260px)"}}>
+      <DeatilTabs>
+        <UploadPhoto {...props} />
+        <PlayerInfo {...props} />
+        <Trophies {...props} />
+        <ConnectWithPlayer {...props} />
+      </DeatilTabs>
+      <DeatilTabs>
+        {props?.playerDetails?.skills?.length &&
+          props.playerDetails.skills.map((skill) => {
+            return <Skills {...skill} />;
+          })}
+      </DeatilTabs>
+    </Column>
   </DetailsContainer>
 );
 
