@@ -122,7 +122,7 @@ const TableRow = styled.tr`
 `;
 
 const DateContainer = styled(Row)`
-  margin-left: -24px;
+  margin-left: -16px;
   color: rgba(0, 0, 0, 0.4);
 `;
 
@@ -179,7 +179,7 @@ const TrainingRow = (props) => (
                 </Column>
                 <DateContainer>
                   {trainingInfo?.date &&
-                    moment(trainingInfo.date).format("DD M")}
+                    moment(trainingInfo.date).format("DD MMM")}
                 </DateContainer>
               </Column>
             </TrainingInfoCenterAligned>
