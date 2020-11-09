@@ -2,7 +2,9 @@ import AcademiesOverview from "views/AcademiesOverview";
 import AcademiesPlayersList from "views/AcademiesPlayersList";
 import AcademiesPlayerDetails from "views/AcademiesPlayerDetails";
 import Teams from "views/Teams";
-
+import MyTraining from "views/MyTraining";
+import NewTraining from "views/NewTraining";
+import ViewTraining from "views/ViewTraining";
 
 export default [
   {
@@ -32,5 +34,27 @@ export default [
     name: "Teams",
     component: Teams,
     layout: "/academies",
+  },
+  {
+    path: "/training",
+    collapse: true,
+    name: "Training",
+    views: [
+      {
+        path: "/training",
+        layout: "/academies",
+        component: MyTraining,
+      },
+      {
+        path: "/training/add-new-training",
+        layout: "/academies",
+        component: NewTraining,
+      },
+      {
+        path: "/training/view-training",
+        layout: "/academies",
+        component: ViewTraining,
+      },
+    ],
   },
 ];

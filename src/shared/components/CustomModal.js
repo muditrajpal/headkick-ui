@@ -4,13 +4,13 @@ import {Modal} from "semantic-ui-react";
 
 const ModalContainer = styled(Modal)`
   :first-child {
-    width: 90%;
+    width: ${({width}) => width};
     border-radius: 10px;
   }
 `;
 
 const CustomModal = (props) => (
-  <ModalContainer open={props.isOpen}>
+  <ModalContainer open={props.isOpen} width={props.width || "90%"}>
     {props.children}
   </ModalContainer>
 );
