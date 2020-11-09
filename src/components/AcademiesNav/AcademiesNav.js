@@ -1,15 +1,15 @@
 import React from "react";
-import { Tab, Button, Icon } from "semantic-ui-react";
+import {Tab, Button, Icon} from "semantic-ui-react";
 import history from "historyObj";
 
 const panes = [
   {menuItem: "Overview", path: "/academies/overview"},
   {menuItem: "Players", path: "/academies/players/list"},
   {menuItem: "Teams", path: "/academies/teams"},
-  {menuItem: "Training"},
+  {menuItem: "Training", path: "/academies/training"},
 ];
 
-const AcademiesNav = ({ activeTab }) => {
+const AcademiesNav = ({activeTab}) => {
   return (
     <div className="academiesNav">
       <Tab
