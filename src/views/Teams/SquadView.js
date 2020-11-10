@@ -17,7 +17,7 @@ const Column = styled.div`
 const SquadViewContainer = styled(Column)`
   gap: 32px;
   overflow-y: auto;
-  max-height: calc(100vh - 380px);
+  max-height: calc(100vh - 400px);
 `;
 
 const FormationContainer = styled(Row)`
