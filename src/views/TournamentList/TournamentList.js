@@ -6,6 +6,8 @@ import AddTeamDetailModal from "components/AddTeamDetailModal";
 import GroupDetailModal from "components/GroupDetailModal";
 import SendInviteModal from "components/SendInviteModal"
 import GroupCreationModal from "components/GroupCreationModal"
+import showHideBlockUI from "components/showHideBlockUI";
+import showHideNotification from "components/showHideNotification";
 
 const List = () => (
   <Table padded singleLine>
@@ -92,6 +94,7 @@ const List = () => (
 );
 
 const TournamentList = () => {
+  showHideNotification("help me sajkjhh ja hjadsjlas adsjladskhl adsklhads ladskjadsklhadslkh ads adskhlasdklhaskhl askhladlh adsl kaslkh asdlkh ads  khladslkhads adskhl adskhl", "success");
   return (
     <div className="tournamentList">
       <div className="listItem">
