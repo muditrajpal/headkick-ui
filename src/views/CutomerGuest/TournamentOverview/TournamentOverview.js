@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react';
 
-const TournamentOverview = ()=><div>TournamentOverview</div>
+const TournamentOverview = () => <div>TournamentOverview</div>;
 
 export default TournamentOverview;
