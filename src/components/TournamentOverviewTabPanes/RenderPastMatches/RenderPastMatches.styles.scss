@@ -1,0 +1,83 @@
+.pastMatchCard {
+  padding: 0.5rem 0 rem 0 !important;
+  margin: 0 0.5rem !important;
+}
+
+.currentTeam {
+  width: min-content !important;
+  padding: 0.5rem 0 !important;
+  & img {
+    border-radius: 50px;
+  }
+}
+
+.currentTeamName {
+  padding: 0 0 0 14px !important;
+
+  & p {
+    padding: 14px 0;
+    font-size: 24px;
+  }
+}
+
+.firstDivider {
+  width: 95%;
+  margin: auto !important;
+  background-color: rgba(13, 23, 87, 0.2);
+  margin-bottom: 1rem;
+}
+
+.secondDivider {
+  width: 95%;
+  margin: 1rem auto 0 auto !important;
+  background-color: #f6f7fe;
+}
+
+.match {
+  margin-top: 0.5rem !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 0rem !important;
+  width: 100% !important;
+}
+
+.matchDuration {
+  padding: 0 2rem;
+}
+
+.teamOne,
+.teamTwo {
+  padding: 0 2rem !important;
+}
+
+.teamOneImg,
+.teamTwoImg {
+  padding: 14px 0 !important;
+  width: min-content !important;
+
+  & img {
+    border-radius: 50px;
+  }
+}
+
+.teamOneName,
+.teamTwoName {
+  padding: 0 0 0 14px !important;
+  width: min-content !important;
+
+  & p {
+    padding: 14px 0 !important;
+  }
+}
+
+.matchResult {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50px;
+}
+
+.matchDivider {
+  padding: 0 !important;
+  width: min-content !important;
+}

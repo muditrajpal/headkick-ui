@@ -16,7 +16,6 @@ const Column = styled.div`
 
 const SquadViewContainer = styled(Column)`
   gap: 32px;
-
 `;
 
 const FormationContainer = styled(Row)`
