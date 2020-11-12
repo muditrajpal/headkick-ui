@@ -1,0 +1,51 @@
+.onGoingMatchesCard {
+  padding: 0.5rem 1rem 0 !important;
+  width: 95% !important;
+  margin: 0 auto !important;
+}
+
+.onGoingMatchStatus {
+  margin-left: '30px' !important;
+}
+
+.leagueName {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+
+  & p {
+    margin-left: 0.5rem;
+  }
+}
+
+.firstDivider {
+  width: 95%;
+  margin: auto !important;
+  background-color: rgba(13, 23, 87, 0.2);
+  margin-bottom: 1rem;
+}
+
+.matchScoreBoard {
+  width: 95%;
+  margin: 0 auto !important;
+}
+
+.secondDivider {
+  width: 95%;
+  margin: 1rem auto !important;
+  background-color: #f6f7fe;
+}
+
+.imageContainer {
+  & img {
+    border-radius: 50px;
+    margin: auto;
+  }
+}
+
+.teamName {
+  font-size: 18px;
+  font-weight: 700;
+}

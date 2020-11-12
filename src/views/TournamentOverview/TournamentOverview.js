@@ -9,32 +9,44 @@ import {
   leagueOptions,
   blogData,
   overviewVideoInfo,
+  upcomingmatches,
+  pastmatchesdata,
 } from './dummyData';
-import OnGoingMatchesRender from '../../components/OnGoingMatchesRender/OnGoingMatchesRender';
+import {
+  RenderOnGoingMatches,
+  RenderUpComingMatches,
+  RenderPastMatches,
+} from './../../components/TournamentOverviewTabPanes/index';
 
 const panes = [
   {
     menuItem: 'On going matches',
-    render: ({ onGoingMatches }) => {
-      const onGoingMatchesJSX = OnGoingMatchesRender(
-        onGoingMatches,
-        leagueOptions
+    render: ({ dataongoingmatches }) => {
+      return (
+        <RenderOnGoingMatches
+          dataongoingmatches={dataongoingmatches}
+          leagueOptions={leagueOptions}
+        />
       );
-      return onGoingMatchesJSX;
     },
   },
   {
     menuItem: 'Upcoming matches',
-    render: () => <Tab.Pane>Upcoming matches content</Tab.Pane>,
+
+    render: ({ upcomingmatches }) => {
+      return <RenderUpComingMatches upcomingmatches={upcomingmatches} />;
+    },
   },
   {
-    menuItem: 'Post matches',
-    render: () => <Tab.Pane>Post matches content</Tab.Pane>,
+    menuItem: 'Past matches',
+    render: ({ pastmatchesdata }) => {
+      return <RenderPastMatches pastmatchesdata={pastmatchesdata} />;
+    },
   },
 ];
 
 const TournamentOverview = () => {
-  const [onGoingMatches, setOnGoingMatches] = useState([]);
+  const [dataongoingmatches, setOnGoingMatches] = useState([]);
   useEffect(() => {
     setOnGoingMatches(onGoingMatchDummyData);
   }, []);
@@ -43,7 +55,12 @@ const TournamentOverview = () => {
       <Grid stackable columns={2}>
         <Grid.Column width={11}>
           <Segment className="columnItem matchDashboard">
-            <Tab onGoingMatches={onGoingMatches} panes={panes} />
+            <Tab
+              dataongoingmatches={dataongoingmatches}
+              upcomingmatches={upcomingmatches}
+              pastmatchesdata={pastmatchesdata}
+              panes={panes}
+            />
           </Segment>
         </Grid.Column>
         <Grid.Column width={5}>

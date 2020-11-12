@@ -14,6 +14,181 @@ export const onGoingMatchDummyData = [
   },
 ];
 
+export const upcomingmatches = [
+  {
+    matchId: 1,
+    teamOne: 'Barcelona',
+    teamOneIcon: 'https://via.placeholder.com/21x21',
+    teamTwo: 'Arsenal',
+    teamTwoIcon: 'https://via.placeholder.com/21x21',
+    matchDate: '10-09-2021',
+    matchTime: '19:00',
+    matchLink: 'https://example.com',
+  },
+  {
+    matchId: 2,
+    teamOne: 'Real Madrid',
+    teamOneIcon: 'https://via.placeholder.com/21x21',
+    teamTwo: 'Liverpool',
+    teamTwoIcon: 'https://via.placeholder.com/21x21',
+    matchDate: '15-09-2021',
+    matchTime: '15:00',
+    matchLink: 'https://example.com',
+  },
+  {
+    matchId: 3,
+    teamOne: 'Mancester City',
+    teamOneIcon: 'https://via.placeholder.com/21x21',
+    teamTwo: 'Aston Villa',
+    teamTwoIcon: 'https://via.placeholder.com/21x21',
+    matchDate: '19-09-2021',
+    matchTime: '17:00',
+    matchLink: 'https://example.com',
+  },
+  {
+    matchId: 4,
+    teamOne: 'Real Madrid',
+    teamOneIcon: 'https://via.placeholder.com/21x21',
+    teamTwo: 'Mancester City',
+    teamTwoIcon: 'https://via.placeholder.com/21x21',
+    matchDate: '15-09-2021',
+    matchTime: '15:00',
+    matchLink: 'https://example.com',
+  },
+  {
+    matchId: 5,
+    teamOne: 'Real Madrid',
+    teamOneIcon: 'https://via.placeholder.com/21x21',
+    teamTwo: 'Arsenal',
+    teamTwoIcon: 'https://via.placeholder.com/21x21',
+    matchDate: '15-09-2021',
+    matchTime: '15:00',
+    matchLink: 'https://example.com',
+  },
+];
+
+const pastMatchesTeamList = [
+  {
+    key: 'barcelona',
+    text: 'barcelona',
+    value: 'BRCA',
+    image: {
+      avatar: true,
+      src: 'https://via.placeholder.com/30x30',
+    },
+  },
+  {
+    key: 'manchesterUnited',
+    text: 'Manchester United',
+    value: 'MANU',
+    image: {
+      avatar: true,
+      src: 'https://via.placeholder.com/30x30',
+    },
+  },
+];
+
+const pastMatches = [
+  {
+    team: 'Barcelona',
+    teamIcon: 'https://via.placeholder.com/21x21',
+    matches: [
+      {
+        matchId: '1',
+        teamOne: 'Barcelona',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Real Medrid',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '90',
+        extraTime: '0',
+        color: 'red',
+      },
+      {
+        matchId: '2',
+        teamOne: 'Barcelona',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Arsenal',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '94',
+        extraTime: '4',
+        color: 'green',
+      },
+      {
+        matchId: '3',
+        teamOne: 'Barcelona',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Juventus',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '120',
+        extraTime: '30',
+        color: 'blue',
+      },
+      {
+        matchId: '4',
+        teamOne: 'Barcelona',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Mancester City',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '90',
+        extraTime: '0',
+        color: 'red',
+      },
+    ],
+  },
+  {
+    team: 'Manchester United',
+    teamIcon: 'https://via.placeholder.com/21x21',
+    matches: [
+      {
+        matchId: '1',
+        teamOne: 'Manchester United',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Arsenal',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '95',
+        extraTime: '5',
+        color: 'blue',
+      },
+      {
+        matchId: '2',
+        teamOne: 'Manchester United',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Real Medrid',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '90',
+        extraTime: '0',
+        color: 'green',
+      },
+
+      {
+        matchId: '3',
+        teamOne: 'Manchester United',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Juventus',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '120',
+        extraTime: '30',
+        color: 'red',
+      },
+      {
+        matchId: '4',
+        teamOne: 'Manchester United',
+        teamOneIcon: 'https://via.placeholder.com/21x21',
+        teamTwo: 'Mancester City',
+        teamTwoIcon: 'https://via.placeholder.com/21x21',
+        matchDuration: '90',
+        extraTime: '0',
+        color: 'red',
+      },
+    ],
+  },
+];
+
+export const pastmatchesdata = {
+  pastMatches,
+  pastMatchesTeamList,
+};
+
 export const leagueOptions = [
   {
     key: 'epl',

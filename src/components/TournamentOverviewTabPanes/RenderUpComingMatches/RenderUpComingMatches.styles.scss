@@ -1,0 +1,56 @@
+.upComingMatchCard {
+  margin-top: 0.5rem;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0.5rem 0rem !important;
+  width: 95% !important;
+  margin: auto !important;
+}
+
+.vsDivider {
+  background-color: #0d1757;
+  color: white;
+  text-align: center;
+  width: 49px !important;
+  height: 26px !important;
+  border-radius: 5px;
+  font-weight: 400;
+  padding-top: 4px !important;
+  font-size: 14px;
+}
+
+.teamContainer {
+  padding: 0 2rem;
+}
+
+.divider {
+  width: 95%;
+  margin: 0 auto !important;
+  background-color: #f6f7fe;
+}
+
+.teamOneImg,
+.teamTwoImg {
+  width: min-content;
+  padding: 14px 0;
+  & img {
+    border-radius: 50%;
+  }
+}
+
+.teamOneName,
+.teamTwoName {
+  padding: 0 0 0 14px !important;
+  & p {
+    padding: 14px 0 !important;
+  }
+}
+
+.matchTime {
+  width: min-content !important;
+  padding: 0 !important;
+}
+
+.teamTwoContainer {
+  padding: 0 2rem !important;
+}
