@@ -28,6 +28,8 @@ const TeamsContainer = styled.div`
   box-shadow: 0px 0px 20px #edeffc;
   border-radius: 10px;
   width: 98.3%;
+  overflow-y: auto;
+  max-height:calc(100vh - 9rem);
 `;
 
 const TextHeading = styled(Row)`

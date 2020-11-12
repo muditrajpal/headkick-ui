@@ -7,6 +7,8 @@ const panes = [
   {menuItem: "Players", path: "/academies/players/list"},
   {menuItem: "Teams", path: "/academies/teams"},
   {menuItem: "Training", path: "/academies/training"},
+  {menuItem: "My Calendar", path: "/academies/myCalendar"},
+
 ];
 
 const AcademiesNav = ({activeTab}) => {

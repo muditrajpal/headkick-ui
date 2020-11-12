@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Segment, Tab } from 'semantic-ui-react';
 
 // internal imports
-import BlogSection from './../../components/BlogSection/BlogSection';
+import BlogSection from 'components/BlogSection/BlogSection';
 import { TournamentOverviewContainer } from './TournamentOverview.styles';
 import {
   onGoingMatchDummyData,
@@ -10,7 +10,7 @@ import {
   blogData,
   overviewVideoInfo,
 } from './dummyData';
-import OnGoingMatchesRender from '../../components/OnGoingMatchesRender/OnGoingMatchesRender';
+import OnGoingMatchesRender from 'components/OnGoingMatchesRender/OnGoingMatchesRender';
 
 const panes = [
   {

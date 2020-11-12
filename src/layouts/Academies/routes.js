@@ -1,17 +1,30 @@
-import AcademiesOverview from "views/AcademiesOverview";
+import AcademiesList from "views/AcademiesList";
 import AcademiesPlayersList from "views/AcademiesPlayersList";
 import AcademiesPlayerDetails from "views/AcademiesPlayerDetails";
 import Teams from "views/Teams";
 import MyTraining from "views/MyTraining";
 import NewTraining from "views/NewTraining";
 import ViewTraining from "views/ViewTraining";
+import AcademiesDetails from "views/AcademiesDetails";
+import TeamList from "views/TeamList"
+import MyCalendar from "views/MyCalendar";
 
 export default [
   {
-    path: "/overview",
-    name: "Overview",
-    component: AcademiesOverview,
-    layout: "/academies",
+    name: "Academy",
+    collapse: true,
+    views: [
+      {
+        path: "/list",
+        layout: "/academies",
+        component: AcademiesList,
+      },
+      {
+        path: "/select",
+        layout: "/academies",
+        component: AcademiesDetails,
+      },
+    ],
   },
   {
     name: "Players",
@@ -30,10 +43,20 @@ export default [
     ],
   },
   {
-    path: "/teams",
+    collapse: true,
+    views: [
+      {
+        path: "/teams/select",
+        layout: "/academies",
+        component: Teams,
+      },
+      {
+        path: "/teams",
+        layout: "/academies",
+        component: TeamList,
+      },
+    ],
     name: "Teams",
-    component: Teams,
-    layout: "/academies",
   },
   {
     path: "/training",
@@ -54,6 +77,17 @@ export default [
         path: "/training/view-training",
         layout: "/academies",
         component: ViewTraining,
+      },
+    ],
+  },
+  {
+    collapse: true,
+    name: "My Calendar",
+    views: [
+      {
+        path: "/myCalendar",
+        layout: "/academies",
+        component: MyCalendar,
       },
     ],
   },

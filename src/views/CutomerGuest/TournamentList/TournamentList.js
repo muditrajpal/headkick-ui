@@ -189,7 +189,6 @@ const TournamentList = () => {
           Tournaments happening around the world
           <Input icon='search' placeholder='Search...' className="searchInput"/>
         </div>
-
         {List()}
       </div>
       <CustomerGuestMatchModal/>

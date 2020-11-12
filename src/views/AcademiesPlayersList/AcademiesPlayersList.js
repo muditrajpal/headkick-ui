@@ -1,5 +1,5 @@
-import React from "react";
-import {Button, Table, Icon} from "semantic-ui-react";
+import React, { useState } from "react";
+import { Button, Table, Dropdown, Select } from "semantic-ui-react";
 import CountryImg from "assets/imgs/c.png";
 import history from "historyObj";
 import styled from "styled-components";
@@ -313,10 +313,35 @@ const List = () => (
 );
 
 const AcademiesPlayersList = () => {
+  const [titleSelected,setTitleSelected] = useState(1)
   return (
     <div className="academiesPlayersList">
       <div className="listItem">
-        <div className="title">Players</div>
+        <div className="title">
+          <span className={titleSelected===1?"":"disabled"} onClick={()=>setTitleSelected(1)}>My Academy Players</span>
+          <span className={titleSelected===2?"":"disabled"} onClick={()=>setTitleSelected(2)}>All Players</span>
+          <span className="rightContent">
+            <span className="filter">Filter</span>
+            <Dropdown text="Sort">
+              <Dropdown.Menu>
+                <Dropdown.Item text="A" />
+                <Dropdown.Item text="B" description="ctrl + o" />
+                <Dropdown.Item text="C" description="ctrl + s" />
+              </Dropdown.Menu>
+            </Dropdown>
+            <Button className="submit purpleBttn" onClick={() => {}} positive>
+              Add Players
+            </Button>
+          </span>
+        </div>
+        {titleSelected==2?
+        <div className="filterOptions">
+          <span>Filter By: </span>
+          <Select placeholder='Academy' options={[ ]} />
+          <Select placeholder='Nationality' options={[ ]}/>
+          <Select placeholder='Age' options={[ ]} />
+          <Select placeholder='Positions' options={[ ]} />
+        </div>:""}
         {List()}
       </div>
     </div>

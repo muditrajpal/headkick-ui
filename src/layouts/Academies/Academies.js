@@ -13,7 +13,7 @@ const Academies = () => {
       />
       <Switch>
         {getRoutes(routes)}
-        <Redirect from="/academies" to="/academies/overview" />
+        <Redirect from="/academies" to="/academies/list" />
       </Switch>
     </div>
   );
