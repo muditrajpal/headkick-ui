@@ -8,10 +8,11 @@ import ViewTraining from "views/ViewTraining";
 import AcademiesDetails from "views/AcademiesDetails";
 import TeamList from "views/TeamList"
 import MyCalendar from "views/MyCalendar";
+import AcademiesPlayerEdit from "views/AcademiesPlayerEdit";
 
 export default [
   {
-    name: "Academy",
+    name: "Overview",
     collapse: true,
     views: [
       {
@@ -36,9 +37,14 @@ export default [
         component: AcademiesPlayersList,
       },
       {
-        path: "/players/list/select",
+        path: "/players/select",
         layout: "/academies",
         component: AcademiesPlayerDetails,
+      },
+      {
+        path: "/players/select/edit",
+        layout: "/academies",
+        component: AcademiesPlayerEdit,
       },
     ],
   },

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import EditPlayerDetailsComponent from "./EditplayerDetails";
+import AcademiesPlayerEdit from "./AcademiesPlayerEdit";
 
 export const editType = {
   ALL: "All",
@@ -21,7 +21,7 @@ class EditPlayerDetails extends Component {
 
   render() {
     return (
-      <EditPlayerDetailsComponent
+      <AcademiesPlayerEdit
         playerDetails={this.state.playerDetails}
         onCloseAction={this.props.onCloseAction}
         modalName={this.props.modalName}

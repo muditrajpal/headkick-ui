@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Button, Table, Dropdown, Select } from "semantic-ui-react";
 import CountryImg from "assets/imgs/c.png";
 import history from "historyObj";
 import styled from "styled-components";
+import queryString from "query-string";
+import {fetchPlayerList} from "apis/player"
 
 const PlayerProfileContainer = styled.div`
   display: flex;
@@ -18,308 +20,77 @@ const PlayerListContainer = styled.div`
   border-radius: 10px;
 `;
 
-const MockData = [
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-  {
-    photo:
-      "https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4",
-    name: "Lionel Messi",
-    academy: "AFC Academy",
-    age: 30,
-    nationality: "AG",
-    matches: 45,
-    position: "LW",
-    goals: 600,
-    id: "1122",
-  },
-];
-
-const List = () => (
-  <PlayerListContainer>
-    <Table padded singleLine>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell singleLine>NAME</Table.HeaderCell>
-          <Table.HeaderCell>ACADEMY</Table.HeaderCell>
-          <Table.HeaderCell>AGE</Table.HeaderCell>
-          <Table.HeaderCell>NATIONALITY</Table.HeaderCell>
-          <Table.HeaderCell>MATCHES</Table.HeaderCell>
-          <Table.HeaderCell>POSITION</Table.HeaderCell>
-          <Table.HeaderCell>GOALS</Table.HeaderCell>
-          <Table.HeaderCell></Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {MockData.map((data, index) => {
-          return (
-            <Table.Row>
-              <Table.Cell>
-                <PlayerProfileContainer>
-                  <img src={data.photo} className="player-photo" />
-                  {data.name}
-                </PlayerProfileContainer>
-              </Table.Cell>
-              <Table.Cell>{data.academy}</Table.Cell>
-              <Table.Cell>{data.age}</Table.Cell>
-              <Table.Cell>
-                <img src={CountryImg} />
-              </Table.Cell>
-              <Table.Cell>{data.matches}</Table.Cell>
-              <Table.Cell>{data.position}</Table.Cell>
-              <Table.Cell>{data.goals}</Table.Cell>
-              <Table.Cell>
-                <Button
-                  circular
-                  color="blue"
-                  icon="pencil alternate"
-                  onClick={() =>
-                    history.push(`/academies/players/list/select?id=${data.id}`)
-                  }
-                />
-              </Table.Cell>
-            </Table.Row>
-          );
-        })}
-      </Table.Body>
-    </Table>
-  </PlayerListContainer>
+const PlayerItem = ({ data }) => (
+  <Table.Row>
+    <Table.Cell>
+      <PlayerProfileContainer>
+        <img src={data.photo} className="player-photo" />
+        {data.name}
+      </PlayerProfileContainer>
+    </Table.Cell>
+    <Table.Cell>{data.academy}</Table.Cell>
+    <Table.Cell>{data.age}</Table.Cell>
+    <Table.Cell>
+      <img src={CountryImg} />
+    </Table.Cell>
+    <Table.Cell>{data.matches}</Table.Cell>
+    <Table.Cell>{data.position}</Table.Cell>
+    <Table.Cell>{data.goals}</Table.Cell>
+    <Table.Cell>
+      <Button
+        circular
+        color="blue"
+        icon="pencil alternate"
+        onClick={() =>
+          history.push(`/academies/players/list/select?id=${data._id}`)
+        }
+      />
+    </Table.Cell>
+  </Table.Row>
 );
 
-const AcademiesPlayersList = () => {
-  const [titleSelected,setTitleSelected] = useState(1)
+const AcademiesPlayersList = (props) => {
+  const search = props.location.search;
+  const queryStringSearch = queryString.parse(search);
+  const page = queryStringSearch.page || 1;
+  const sortBy = queryStringSearch.sortBy || "";
+  const [playersList, setPlayersList] = useState([]);
+  const [titleSelected, setTitleSelected] = useState(queryStringSearch.myAcademy?1:2);
+  useEffect(() => {
+    const filter = {};
+    const sort = {};
+    if (sortBy) {
+      sort[sortBy] = 1;
+    }
+    fetchPlayerList({
+      page,
+      filter:JSON.stringify(filter),
+      limit: 20,
+      sort: JSON.stringify(sort),
+      myAcademy:titleSelected==1
+    })
+      .then((data) => {
+        setPlayersList(data && data.length ? data : []);
+      })
+      .catch(() => {});
+  }, [page]);
+
   return (
     <div className="academiesPlayersList">
       <div className="listItem">
         <div className="title">
-          <span className={titleSelected===1?"":"disabled"} onClick={()=>setTitleSelected(1)}>My Academy Players</span>
-          <span className={titleSelected===2?"":"disabled"} onClick={()=>setTitleSelected(2)}>All Players</span>
+          <span
+            className={titleSelected === 1 ? "" : "disabled"}
+            onClick={() => setTitleSelected(1)}
+          >
+            My Academy Players
+          </span>
+          <span
+            className={titleSelected === 2 ? "" : "disabled"}
+            onClick={() => setTitleSelected(2)}
+          >
+            All Players
+          </span>
           <span className="rightContent">
             <span className="filter">Filter</span>
             <Dropdown text="Sort">
@@ -334,15 +105,38 @@ const AcademiesPlayersList = () => {
             </Button>
           </span>
         </div>
-        {titleSelected==2?
-        <div className="filterOptions">
-          <span>Filter By: </span>
-          <Select placeholder='Academy' options={[ ]} />
-          <Select placeholder='Nationality' options={[ ]}/>
-          <Select placeholder='Age' options={[ ]} />
-          <Select placeholder='Positions' options={[ ]} />
-        </div>:""}
-        {List()}
+        {titleSelected == 2 ? (
+          <div className="filterOptions">
+            <span>Filter By: </span>
+            <Select placeholder="Academy" options={[]} />
+            <Select placeholder="Nationality" options={[]} />
+            <Select placeholder="Age" options={[]} />
+            <Select placeholder="Positions" options={[]} />
+          </div>
+        ) : (
+          ""
+        )}
+        <PlayerListContainer>
+          <Table padded singleLine>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell singleLine>NAME</Table.HeaderCell>
+                <Table.HeaderCell>ACADEMY</Table.HeaderCell>
+                <Table.HeaderCell>AGE</Table.HeaderCell>
+                <Table.HeaderCell>NATIONALITY</Table.HeaderCell>
+                <Table.HeaderCell>MATCHES</Table.HeaderCell>
+                <Table.HeaderCell>POSITION</Table.HeaderCell>
+                <Table.HeaderCell>GOALS</Table.HeaderCell>
+                <Table.HeaderCell></Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {playersList.map((data) => (
+                <PlayerItem data={data} key={data._id} />
+              ))}
+            </Table.Body>
+          </Table>
+        </PlayerListContainer>
       </div>
     </div>
   );

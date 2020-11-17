@@ -1,8 +1,8 @@
 import React from "react";
-import CustomModal from "../CustomModal";
+import CustomModal from "shared/components/CustomModal";
 import styled from "styled-components";
-import ThemeButton from "../ThemeButton";
-import ProgressSlider from "../ProgressSlider";
+import ThemeButton from "shared/components/ThemeButton";
+import ProgressSlider from "shared/components/ProgressSlider";
 import {Icon} from "semantic-ui-react";
 import moment from "moment";
 
@@ -414,7 +414,7 @@ const Skills = (props) => (
   </SkillContainer>
 );
 
-const EditPlayerDetails = (props) => {
+const AcademiesPlayerEdit = (props) => {
   return (
     <CustomModal
       isOpen={true}
@@ -463,4 +463,4 @@ const EditPlayerDetails = (props) => {
   );
 };
 
-export default EditPlayerDetails;
+export default AcademiesPlayerEdit;

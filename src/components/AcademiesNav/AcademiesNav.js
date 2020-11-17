@@ -3,8 +3,8 @@ import {Tab, Button, Icon} from "semantic-ui-react";
 import history from "historyObj";
 
 const panes = [
-  {menuItem: "Overview", path: "/academies/overview"},
-  {menuItem: "Players", path: "/academies/players/list"},
+  {menuItem: "Overview", path: "/academies/list?page=1"},
+  {menuItem: "Players", path: "/academies/players/list?myAcademy=true&page=1"},
   {menuItem: "Teams", path: "/academies/teams"},
   {menuItem: "Training", path: "/academies/training"},
   {menuItem: "My Calendar", path: "/academies/myCalendar"},

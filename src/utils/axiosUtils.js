@@ -53,43 +53,12 @@ axios.interceptors.response.use(
   }
 );
 
-export class Services {
-  static getCall(url, auth, options = {}) {
-    if (!auth) {
-      return axios.get(url, options);
-    } else {
-      return axios.get(url, config);
-    }
-  }
 
-  static postCall(url, params, auth) {
-    if (!auth) {
-      return axios.post(url, params);
-    } else {
-      return axios.post(url, params, auth);
-    }
-  }
-
-  static putCall(url, params, auth) {
-    if (!auth) {
-      return axios.put(url, params);
-    } else {
-      return axios.put(url, params, auth);
-    }
-  }
-
-  static deleteCall(url, auth) {
-    if (!auth) {
-      return axios.delete(url);
-    } else {
-      return axios.delete(url, config);
-    }
-  }
-  static msgFromError = (err) =>
+  export const msgFromError = (err) =>
     err &&
     err.response &&
     err.response.data &&
     err.response.data.error &&
     err.response.data.error.msg &&
     err.response.data.error.msg;
-}
+
