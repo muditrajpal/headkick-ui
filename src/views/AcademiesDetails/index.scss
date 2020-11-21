@@ -1,0 +1,33 @@
+.academiesDetails{
+.tournamentOverviewImage {
+    height: 16rem!important;
+        background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.027),
+        rgba(134, 134, 134, 0.178)
+      ),
+      url('https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ec595d45f39760007b05c07%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D989%26cropX2%3D2480%26cropY1%3D74%26cropY2%3D1564') !important;
+    background-color: #cfcfcf !important;
+    background-size: cover !important;
+    margin: 0 30px 0 0 !important;
+  
+    position: relative;
+  }
+  
+  .tournamentOverviewImageText {
+    padding: 20px;
+  }
+  
+  .tournamentOverviewImageTextTitle {
+    color: white;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0 !important;
+  }
+  
+  .tournamentOverviewImageTextSubtitle {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+}

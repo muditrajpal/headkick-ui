@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {Input, Search, Checkbox} from "semantic-ui-react";
+import { Input, Search, Checkbox } from "semantic-ui-react";
 import ThemeButton from "shared/components/ThemeButton";
 import history from "historyObj";
 
@@ -105,7 +105,7 @@ const PlayerPhoto = styled.img`
   border-radius: 50%;
 `;
 
-const PlayerInfoColumns = ({photo, name, position, matches, goals}) => (
+const PlayerInfoColumns = ({ photo, name, position, matches, goals }) => (
   <>
     <PlayerNamePhotoTableColumn>
       <PlayerNamePhotoContainer>
@@ -119,117 +119,58 @@ const PlayerInfoColumns = ({photo, name, position, matches, goals}) => (
   </>
 );
 
-const PlayerInfoRow = (props) => (
-  <tbody>
-    <TableRow>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <PlayerInfoColumns
-        photo="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-        name={"Lionel Messi"}
-        position={"RW"}
-        matches={"24"}
-        goals={"20"}
-      />
-    </TableRow>
-    <TableRow>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <PlayerInfoColumns
-        photo="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-        name={"Lionel Messi"}
-        position={"RW"}
-        matches={"24"}
-        goals={"20"}
-      />
-    </TableRow>
-    <TableRow>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <PlayerInfoColumns
-        photo="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-        name={"Lionel Messi"}
-        position={"RW"}
-        matches={"24"}
-        goals={"20"}
-      />
-    </TableRow>
-    <TableRow>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <PlayerInfoColumns
-        photo="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-        name={"Lionel Messi"}
-        position={"RW"}
-        matches={"24"}
-        goals={"20"}
-      />
-    </TableRow>
-    <TableRow>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <PlayerInfoColumns
-        photo="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-        name={"Lionel Messi"}
-        position={"RW"}
-        matches={"24"}
-        goals={"20"}
-      />
-    </TableRow>
-    <TableRow>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <PlayerInfoColumns
-        photo="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-        name={"Lionel Messi"}
-        position={"RW"}
-        matches={"24"}
-        goals={"20"}
-      />
-    </TableRow>
-    <TableRow>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <PlayerInfoColumns
-        photo="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-        name={"Lionel Messi"}
-        position={"RW"}
-        matches={"24"}
-        goals={"20"}
-      />
-    </TableRow>
-  </tbody>
-);
-
-const PlayerList = (props) => (
-  <PlayerSelectorContainer>
-    <TableHeader>
-      <CheckBoxTableColumn>
-        <Checkbox />
-      </CheckBoxTableColumn>
-      <TableColumn>Name</TableColumn>
-      <PlayerInfoCenterAligned>Position</PlayerInfoCenterAligned>
-      <PlayerInfoCenterAligned>Matches</PlayerInfoCenterAligned>
-      <PlayerInfoCenterAligned>Goals</PlayerInfoCenterAligned>
-    </TableHeader>
-    <PlayerInfoRow {...props} />
-  </PlayerSelectorContainer>
-);
-
-const Step2 = (props) => (
+const Step2 = ({ playersList, toggleStep, trainingData, onChange }) => (
   <>
     <Header>
-      <HeaderText>Step 2/3: Select Player ({"0"})</HeaderText>
+      <HeaderText>
+        Step 2/3: Select Player ({trainingData.players.length})
+      </HeaderText>
       <SearchBox placeholder="Search for player and positions" />
     </Header>
-    <PlayerList {...props} />
+    <PlayerSelectorContainer>
+      <TableHeader>
+        <CheckBoxTableColumn>
+          <Checkbox 
+           onChange={(e, { checked })=> {
+            if(checked){
+              trainingData.players=playersList.map(r=>r._id)
+            }else{
+              trainingData.players = []
+            }
+            onChange("players",trainingData.players)
+          }}
+          checked={playersList.every(player=>trainingData.players.includes(player._id))}/>
+          
+        </CheckBoxTableColumn>
+        <TableColumn>Name</TableColumn>
+        <PlayerInfoCenterAligned>Position</PlayerInfoCenterAligned>
+        <PlayerInfoCenterAligned>Matches</PlayerInfoCenterAligned>
+        <PlayerInfoCenterAligned>Goals</PlayerInfoCenterAligned>
+      </TableHeader>
+      {playersList.map((player) => (
+        <TableRow>
+          <CheckBoxTableColumn>
+            <Checkbox
+            onChange={(e, { checked })=> {
+              if(checked){
+                trainingData.players.push(player._id)
+              }else{
+                trainingData.players = trainingData.players.filter(r=>r!==player._id)
+              }
+              onChange("players",trainingData.players)
+            }}
+            checked={trainingData.players.includes(player._id)}/>
+          </CheckBoxTableColumn>
+          <PlayerInfoColumns
+            photo={player.img}
+            name={player.name}
+            position={player.position}
+            matches={player.matches}
+            goals={player.goals}
+          />
+        </TableRow>
+      ))}
+    </PlayerSelectorContainer>
     <Divider />
     <ButtonContainer>
       <ThemeButton
@@ -240,13 +181,13 @@ const Step2 = (props) => (
           border: "1px solid #0D1757",
         }}
         isDisabled={false}
-        onClickAction={() => props.toggleStep(1)}
+        onClickAction={() => toggleStep(1)}
         children="Previous"
       />
       <ThemeButton
-        customCss={{width: 121}}
+        customCss={{ width: 121 }}
         isDisabled={false}
-        onClickAction={() => props.toggleStep(3)}
+        onClickAction={() => toggleStep(3)}
         children="Next"
       />
     </ButtonContainer>

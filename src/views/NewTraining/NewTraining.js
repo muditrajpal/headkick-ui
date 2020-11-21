@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Step1 from "./Step1";
 import Step2 from "./Step2";
 import Step3 from "./Step3/Step3";
+import { fetchPlayerList } from "apis/player";
+import { addUpdateTraining } from "apis/training";
+import history from "historyObj"
 
 const NewTrainingBody = styled.div`
   display: flex;
@@ -24,16 +27,89 @@ const NewTrainingContainer = styled.div`
   margin: 0 auto;
   width: 75%;
   padding: 30px;
+  max-height: calc(100vh - 11rem);
+  overflow-y: auto;
 `;
 
-const NewTraining = (props) => (
-  <NewTrainingBody>
-    <NewTrainingContainer>
-      {props.step === 1 && <Step1 toggleStep={props.toggleStep} />}
-      {props.step === 2 && <Step2 toggleStep={props.toggleStep} />}
-      {props.step === 3 && <Step3 toggleStep={props.toggleStep} />}
-    </NewTrainingContainer>
-  </NewTrainingBody>
-);
+const NewTraining = (props) => {
+  const [trainingData, setTrainingData] = useState({
+    name: "",
+    date: { dd: "", mm: "", yyyy: "" },
+    players: [],
+    drills: [],
+  });
+  const [playersList, setPlayersList] = useState([]);
+  const [playersCount, setPlayersCount] = useState(0);
+
+  useEffect(() => {
+    setPlayersCount(0);
+    setPlayersList([]);
+    fetchPlayerList({
+      page: 1,
+      filter: JSON.stringify({}),
+      limit: 20,
+      sort: JSON.stringify({}),
+      myAcademy: true,
+    })
+      .then((data) => {
+        if (data.sc && data.result) {
+          setPlayersCount(data.result.count);
+          setPlayersList(
+            data.result.data && data.result.data.length ? data.result.data : []
+          );
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  async function saveTraining() {
+   const result=  await addUpdateTraining({
+      ...trainingData,
+      date: `${trainingData.date.dd}/${trainingData.date.mm}/${trainingData.date.yyyy}`,
+    });
+    if(result){
+      history.push("/academies/training/list")
+    }
+  }
+
+  function onChangeValues(key, value) {
+    key = key.split(".");
+    let temp = trainingData;
+    for (let i = 0; i < key.length - 1; i++) {
+      temp = temp[key[i]];
+    }
+    temp[key[key.length - 1]] = value;
+    setTrainingData({ ...trainingData });
+  }
+  return (
+    <NewTrainingBody>
+      <NewTrainingContainer>
+        {props.step === 1 && (
+          <Step1
+            toggleStep={props.toggleStep}
+            trainingData={trainingData}
+            onChange={onChangeValues}
+          />
+        )}
+        {props.step === 2 && (
+          <Step2
+            toggleStep={props.toggleStep}
+            trainingData={trainingData}
+            onChange={onChangeValues}
+            playersList={playersList}
+          />
+        )}
+        {props.step === 3 && (
+          <Step3
+            toggleStep={props.toggleStep}
+            trainingData={trainingData}
+            onChange={onChangeValues}
+            saveTraining={saveTraining}
+          />
+        )}
+      </NewTrainingContainer>
+    </NewTrainingBody>
+  );
+};
 
 export default NewTraining;

@@ -30,4 +30,4 @@ class ViewTraining extends Component {
   }
 }
 
-export default ViewTraining;
+export default ViewTrainingComponent;

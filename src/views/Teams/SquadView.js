@@ -1,7 +1,7 @@
 import React from "react";
-import styled, {css} from "styled-components";
-import {Select} from "semantic-ui-react";
-import {Icon} from "semantic-ui-react";
+import styled, { css } from "styled-components";
+import { Select } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import ProgressBar from "shared/components/ProgressBar";
 
 const Row = styled.div`
@@ -215,18 +215,18 @@ const SubstituteReservePlayerSkillMoves = styled(Column)`
 `;
 
 const formationsOptions = [
-  {key: "4-1-2-3", value: "4-1-2-3", text: "4-1-2-3"},
-  {key: "4-3-2-3", value: "4-3-2-3", text: "4-3-2-3"},
-  {key: "4-6-2-3", value: "4-1-2-3", text: "4-1-2-3"},
-  {key: "4-2-2-3", value: "4-1-2-3", text: "4-1-2-3"},
-  {key: "4-7-2-3", value: "4-1-2-3", text: "4-1-2-3"},
-  {key: "4-9-2-3", value: "4-1-2-3", text: "4-1-2-3"},
+  { key: "4-1-2-3", value: "4-1-2-3", text: "4-1-2-3" },
+  { key: "4-3-2-3", value: "4-3-2-3", text: "4-3-2-3" },
+  { key: "4-6-2-3", value: "4-1-2-3", text: "4-1-2-3" },
+  { key: "4-2-2-3", value: "4-1-2-3", text: "4-1-2-3" },
+  { key: "4-7-2-3", value: "4-1-2-3", text: "4-1-2-3" },
+  { key: "4-9-2-3", value: "4-1-2-3", text: "4-1-2-3" },
 ];
 
 const FormationSelector = () => (
   <FormationContainer>
     <FormationText>Formation</FormationText>
-    <Column style={{maxWidth: 241}}>
+    <Column style={{ maxWidth: 241 }}>
       <CustomSelect
         placeholder="Select formation"
         options={formationsOptions}
@@ -253,7 +253,7 @@ const PlayerSelector = () => (
   </PlayerSelectorContainer>
 );
 
-const PlayerInfoRow = ({leftText, centerText, rightText}) => (
+const PlayerInfoRow = ({ leftText, centerText, rightText }) => (
   <tr>
     <PlayerInfoLeft>{leftText || ""}</PlayerInfoLeft>
     <PlayerInfoCenter>{centerText || ""}</PlayerInfoCenter>
@@ -261,7 +261,7 @@ const PlayerInfoRow = ({leftText, centerText, rightText}) => (
   </tr>
 );
 
-const PlayerInfoRowWithProgress = ({leftText, centerText, rightText}) => (
+const PlayerInfoRowWithProgress = ({ leftText, centerText, rightText }) => (
   <tr>
     <PlayerInfoLeft>
       <ProgressContainerRight>
@@ -285,7 +285,7 @@ const PlayerInfoComparsion = (props) => (
       PLAYER INFO COMPARISON
     </PlayerInfoComparsionHeader>
     <Row>
-      <PlayerInfoContainer cellPadding={10} style={{width: "100%"}}>
+      <PlayerInfoContainer cellPadding={10} style={{ width: "100%" }}>
         <PlayerInfoRow />
         <PlayerInfoRow leftText="33" centerText="Age" rightText="33" />
         <PlayerInfoRow leftText="155cm" centerText="Height" rightText="155cm" />
@@ -340,59 +340,57 @@ const PlayerInfoComparsion = (props) => (
   </PlayerInfoComparsionContainer>
 );
 
-const SubstituteReservePlayer = (props) => (
+const SubstituteReservePlayer = ({player}) => (
   <SubstituteReservePlayerContainer>
-    <SubstituteReservePlayerPhoto src="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4" />
-    <SubstituteReservePlayerName>Lionel Messi</SubstituteReservePlayerName>
+    <SubstituteReservePlayerPhoto src={player.img} />
+    <SubstituteReservePlayerName>{player.name}</SubstituteReservePlayerName>
     <SubstituteReservePlayerInfoContainer>
-      <SubstituteReservePlayerPosition>LW</SubstituteReservePlayerPosition>
-      <SubstituteReservePlayerSkillMoves>22</SubstituteReservePlayerSkillMoves>
+      <SubstituteReservePlayerPosition>{player.position}</SubstituteReservePlayerPosition>
+      <SubstituteReservePlayerSkillMoves>{player.playerNo}</SubstituteReservePlayerSkillMoves>
     </SubstituteReservePlayerInfoContainer>
   </SubstituteReservePlayerContainer>
 );
 
-const Substitutes = (props) => (
+const Substitutes = ({players}) => (
   <SubstituteReserveContainer>
     <SubstituteReserveHeader>Substitute</SubstituteReserveHeader>
     <SubstitutePlayers>
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
+      {players.map(player=>(<SubstituteReservePlayer player={player} />))}
     </SubstitutePlayers>
   </SubstituteReserveContainer>
 );
 
-const Reserves = (props) => (
+const Reserves = ({players}) => (
   <SubstituteReserveContainer>
     <SubstituteReserveHeader>Reserves</SubstituteReserveHeader>
     <ReservePlayers>
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
-      <SubstituteReservePlayer {...props} />
+    {players.map(player=>(<SubstituteReservePlayer player={player} />))}
     </ReservePlayers>
   </SubstituteReserveContainer>
 );
 
-const SquadView = (props) => (
+const SquadView = ({ teamDetail }) => (
   <SquadViewContainer>
     <FormationSelector />
-    <Row style={{gap: 27, paddingTop: 30}}>
-      <Column style={{flex: 1, gap: 32}}>
+    <Row style={{ gap: 27, paddingTop: 30 }}>
+      <Column style={{ flex: 1, gap: 32 }}>
         <FormationGroundPlaceHolder />
-        <Substitutes {...props} />
+        <Substitutes
+          players={teamDetail.players.filter(
+            (player) => player.teamPosition == "SUBSITUTES"
+          )}
+        />
       </Column>
-      <Column style={{flex: 1.5, gap: 32}}>
-        <PlayerSelector {...props} />
-        <PlayerInfoComparsion {...props} />
+      <Column style={{ flex: 1.5, gap: 32 }}>
+        <PlayerSelector  />
+        <PlayerInfoComparsion  />
       </Column>
     </Row>
-    <Reserves {...props} />
+    <Reserves
+      players={teamDetail.players.filter(
+        (player) => player.teamPosition == "RESERVES"
+      )}
+    />
   </SquadViewContainer>
 );
 

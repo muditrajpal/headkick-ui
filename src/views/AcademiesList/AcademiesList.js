@@ -1,26 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table, Image, Input, Dropdown } from "semantic-ui-react";
 import queryString from "query-string";
-import CountryImg from "assets/imgs/c.png";
 import history from "historyObj";
 import { fetchAcademiesList } from "apis/academy";
+import moment from "moment";
+
+const options = [
+  { key: 1, text: "Created At", value: "" },
+  { key: 2, text: "Name", value: "name" }
+];
 
 const AcademyItem = ({ data }) => (
   <Table.Row>
     <Table.Cell>{data.name}</Table.Cell>
-    <Table.Cell>2 Sept 2020</Table.Cell>
     <Table.Cell>
-      {" "}
-      <Image src={CountryImg} avator />
+      {moment(data.date, "DD/MM/YYYY").format("Do MMM YY")}
     </Table.Cell>
-    <Table.Cell>22</Table.Cell>
-    <Table.Cell>34</Table.Cell>
+    <Table.Cell>
+      <Image src={data.nationality[0].flagImg} avator className="flagImg" />
+    </Table.Cell>
+    <Table.Cell>0</Table.Cell>
+    <Table.Cell>30</Table.Cell>
     <Table.Cell>
       <Button
         circular
         color="blue"
         icon="angle right"
-        onClick={() => history.push(`/academy/select?id=${data._id}`)}
+        onClick={() => history.push(`/academies/select?id=${data._id}`)}
       />
     </Table.Cell>
   </Table.Row>
@@ -34,7 +40,11 @@ const AcademiesList = (props) => {
   const sortBy = queryStringSearch.sortBy || "";
   const [searchInput, setSearchInput] = useState(searchKey);
   const [academiesList, setAcademiesList] = useState([]);
+  const [academiesCount, setAcademiesCount] = useState(0);
+
   useEffect(() => {
+    setAcademiesList([]);
+    setAcademiesCount(0);
     const filter = {};
     const sort = {};
     if (sortBy) {
@@ -52,28 +62,41 @@ const AcademiesList = (props) => {
       avgAge: true,
     })
       .then((data) => {
-        setAcademiesList(data && data.length ? data : []);
+        if (data.sc && data.result) {
+          setAcademiesCount(data.result.count);
+          setAcademiesList(
+            data.result.data && data.result.data.length ? data.result.data : []
+          );
+        }
       })
       .catch(() => {});
-  }, [page, searchKey, sortBy]);
+  }, [search]);
   return (
     <div className="academiesListComponent">
       <div className="listItem">
         <div className="title2">
           <span className="filter">Filter</span>
-          <Dropdown text="Sort">
-            <Dropdown.Menu>
-              <Dropdown.Item text="A" />
-              <Dropdown.Item text="B" description="ctrl + o" />
-              <Dropdown.Item text="C" description="ctrl + s" />
-            </Dropdown.Menu>
-          </Dropdown>
+          <Dropdown
+            text="Sort"
+            onChange={(e,{ value }) => {
+              history.push(`?searchKey=${searchInput}&sortBy=${value}`);
+            }}
+            options={options}
+            value={sortBy}
+          ></Dropdown>
           <Input
             icon="search"
             placeholder="Search..."
             className="searchInput"
             value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+              if (e.target.value.trim().length > 2)
+                history.push(`?searchKey=${e.target.value}`);
+              else if (!e.target.value.trim().length && searchInput) {
+                history.push(`?searchKey=`);
+              }
+            }}
           />
         </div>
         <div className="table-component">
@@ -90,7 +113,7 @@ const AcademiesList = (props) => {
             </Table.Header>
             <Table.Body>
               {academiesList.map((data) => (
-                <AcademyItem key={data._id} />
+                <AcademyItem key={data._id} data={data} />
               ))}
             </Table.Body>
           </Table>

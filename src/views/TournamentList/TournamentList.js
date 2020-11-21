@@ -111,7 +111,7 @@ const TournamentList = () => {
       </div>
       {/* <GroupDetailModal /> */}
       {/* <AddTeamDetailModal /> */}
-      {/* <SendInviteModal/> */}
+      <SendInviteModal/>
 {/* <GroupCreationModal/> */}
     </div>
   );

@@ -1,11 +1,13 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import ThemeButton from "shared/components/ThemeButton";
-import {Icon} from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import history from "historyObj";
-import {Tabs} from "./index";
+import { Tabs } from "./index";
 import TableView from "./TableView";
 import SquadView from "./SquadView";
+import queryString from "query-string";
+import { fetchTeamDetail } from "apis/team";
 
 const Row = styled.div`
   display: flex;
@@ -29,7 +31,7 @@ const TeamsContainer = styled.div`
   border-radius: 10px;
   width: 98.3%;
   overflow-y: auto;
-  max-height:calc(100vh - 9rem);
+  max-height: calc(100vh - 9rem);
 `;
 
 const TextHeading = styled(Row)`
@@ -93,14 +95,14 @@ const TabContainer = styled(Column)`
   font-size: 20px;
   justify-content: center;
   color: #12216d;
-  border-bottom: ${({isSelected}) =>
+  border-bottom: ${({ isSelected }) =>
     isSelected ? "4px solid #0d1757" : "none"};
   padding: 18px;
   cursor: pointer;
 `;
 
-const TeamsHeader = (props) => (
-  <Column style={{gap: 24}}>
+const TeamsHeader = ({teamDetail}) => (
+  <Column style={{ gap: 24 }}>
     <Row>
       <ThemeButton
         customCss={{
@@ -110,11 +112,11 @@ const TeamsHeader = (props) => (
           border: "1px solid #0D1757",
         }}
         isDisabled={false}
-        onClickAction={() => history.push("/academies/players/list")}
+        onClickAction={() => history.push("/academies/teams/list")}
         children={
           <>
             <Icon name="arrow left" />
-            Go Back to List of Players
+            Go Back to List of Teams
           </>
         }
       />
@@ -122,20 +124,22 @@ const TeamsHeader = (props) => (
     <Row>
       <ClubHeaderContainer>
         <Column>
-          <ClubLogo src="https://i.pinimg.com/originals/a7/62/2e/a7622e9d64921dbe9792d5cf11fca089.png" />
+          <ClubLogo src={teamDetail.logoImg} />
         </Column>
-        <Column style={{gap: 5}}>
+        <Column style={{ gap: 5 }}>
           <TextHeading>Club</TextHeading>
-          <ClubName>FC Barcelona</ClubName>
+          <ClubName>{teamDetail.name}</ClubName>
         </Column>
       </ClubHeaderContainer>
       <CoachHeaderContainer>
-        <Column style={{gap: 5}}>
-          <TextHeading style={{justifyContent: "flex-end"}}>Coach</TextHeading>
-          <CoachName>Ronald Koeman</CoachName>
+        <Column style={{ gap: 5 }}>
+          <TextHeading style={{ justifyContent: "flex-end" }}>
+            Coach
+          </TextHeading>
+          <CoachName>{teamDetail.name}</CoachName>
         </Column>
         <Column>
-          <CoachPhoto src="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4" />
+          <CoachPhoto src={teamDetail.coach.img} />
         </Column>
       </CoachHeaderContainer>
     </Row>
@@ -159,16 +163,39 @@ const TabsSelector = (props) => (
   </TabsSelectorContainer>
 );
 
-const Teams = (props) => (
-  <TeamsContainer>
-    <TeamsHeader {...props} />
-    <TabsSelector {...props} />
-    {props.state?.selectedTab === Tabs.TABLE_VIEW ? (
-      <TableView {...props} />
-    ) : (
-      <SquadView {...props} />
-    )}
-  </TeamsContainer>
-);
+const Teams = (props) => {
+  const search = props.location.search;
+  const queryStringSearch = queryString.parse(search);
+  const teamId = queryStringSearch.id;
+  const canEdit = queryStringSearch.canEdit;
+  const [teamDetail, setTeamDetail] = useState(null);
+  useEffect(() => {
+    if (!teamId) {
+      history.push("/academies/teams/list");
+      return;
+    }
+    fetchTeamDetail({
+      id: teamId,
+    })
+      .then((data) => {
+        if (data.sc && data.result) {
+          setTeamDetail(data.result);
+        }
+      })
+      .catch(() => {});
+  }, [teamId]);
+  if (!teamDetail) return <div />;
+  return (
+    <TeamsContainer>
+      <TeamsHeader teamDetail={teamDetail} />
+      <TabsSelector {...props} />
+      {props.state?.selectedTab === Tabs.TABLE_VIEW ? (
+        <TableView  teamDetail={teamDetail} />
+      ) : (
+        <SquadView {...props} teamDetail={teamDetail} />
+      )}
+    </TeamsContainer>
+  );
+};
 
 export default Teams;

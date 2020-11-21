@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {Input} from "semantic-ui-react";
+import { Input } from "semantic-ui-react";
 import ThemeButton from "shared/components/ThemeButton";
 import history from "historyObj";
+import { trainings } from "services/trainings/mock";
 
 const Row = styled.div`
   display: flex;
@@ -61,21 +62,37 @@ const ButtonContainer = styled(Row)`
   gap: 33px;
 `;
 
-const Step1 = (props) => (
+const Step1 = ({ trainingData, onChange,toggleStep }) => (
   <>
     <Header>Step 1/3: Training Name</Header>
     <SubHeading>Details</SubHeading>
     <Divider />
     <InputContainer>
       <InputLabel>Training Name</InputLabel>
-      <InputBox placeholder="Enter training name" />
+      <InputBox
+        placeholder="Enter training name"
+        onChange={(e) => onChange("name", e.target.value)}
+        value={trainingData.name}
+      />
     </InputContainer>
     <InputContainer>
       <InputLabel>Start Date</InputLabel>
-      <Row style={{gap: 7}}>
-        <InputBox style={{width: 55}} placeholder="DD" />
-        <InputBox style={{width: 55}} placeholder="MM" />
-        <InputBox style={{width: 68}} placeholder="YYYY" />
+      <Row style={{ gap: 7 }}>
+        <InputBox
+          style={{ width: 55 }}
+          placeholder="DD"
+          onChange={(e) => onChange("date.dd", e.target.value)}
+        />
+        <InputBox
+          style={{ width: 55 }}
+          placeholder="MM"
+          onChange={(e) => onChange("date.mm", e.target.value)}
+        />
+        <InputBox
+          style={{ width: 68 }}
+          placeholder="YYYY"
+          onChange={(e) => onChange("date.yyyy", e.target.value)}
+        />
       </Row>
     </InputContainer>
     <Divider />
@@ -88,13 +105,13 @@ const Step1 = (props) => (
           border: "1px solid #0D1757",
         }}
         isDisabled={false}
-        onClickAction={() => history.push("/academies/training")}
+        onClickAction={() => history.push("/academies/training/list")}
         children="Previous"
       />
       <ThemeButton
-        customCss={{width: 121}}
+        customCss={{ width: 121 }}
         isDisabled={false}
-        onClickAction={() => props.toggleStep(2)}
+        onClickAction={() => toggleStep(2)}
         children="Next"
       />
     </ButtonContainer>

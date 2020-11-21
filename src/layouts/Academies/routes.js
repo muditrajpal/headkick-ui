@@ -42,7 +42,12 @@ export default [
         component: AcademiesPlayerDetails,
       },
       {
-        path: "/players/select/edit",
+        path: "/players/add",
+        layout: "/academies",
+        component: AcademiesPlayerEdit,
+      },
+      {
+        path: "/players/edit",
         layout: "/academies",
         component: AcademiesPlayerEdit,
       },
@@ -57,7 +62,7 @@ export default [
         component: Teams,
       },
       {
-        path: "/teams",
+        path: "/teams/list",
         layout: "/academies",
         component: TeamList,
       },
@@ -70,7 +75,7 @@ export default [
     name: "Training",
     views: [
       {
-        path: "/training",
+        path: "/training/list",
         layout: "/academies",
         component: MyTraining,
       },

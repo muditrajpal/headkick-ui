@@ -195,7 +195,7 @@ const myEventsList= [
   
 
 const MyCalendar = props => (
-    <>
+    <div className="fixtureCalendar">
      <div className="toolbar">
                 <Dropdown
                   inline
@@ -222,7 +222,7 @@ const MyCalendar = props => (
       selectable={false}
       style={{ height: "26.8rem" }}
     />
-    </>
+    </div>
 )
 
 export default MyCalendar;

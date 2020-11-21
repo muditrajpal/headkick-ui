@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ThemeButton from "shared/components/ThemeButton";
-import {Search, Icon} from "semantic-ui-react";
+import { Search, Icon } from "semantic-ui-react";
 import history from "historyObj";
 import EmptyTrainingImg from "assets/imgs/empty-training.png";
 import moment from "moment";
+import { fetchTrainingList } from "apis/training";
+import queryString from "query-string";
+import { trainings } from "services/trainings/mock";
 
 const Row = styled.div`
   display: flex;
@@ -149,13 +152,13 @@ const NoTrainingsPlaceholder = () => (
   </EmptyTrainingConatiner>
 );
 
-const PlayerPhotoStack = ({players}) => {
+const PlayerPhotoStack = ({ players }) => {
   const loopLengthExceedMax = !!(players.length > 5);
   return (
-    <Row style={{gap: 3}}>
+    <Row style={{ gap: 3 }}>
       {players?.length &&
         players.map((data, index) => {
-          return index > 4 ? null : <PlayerPhoto src={data?.photo} />;
+          return index > 4 ? null : <PlayerPhoto src={data?.img} />;
         })}
       {loopLengthExceedMax && (
         <ExceedPlayerPlaceholder>+{players.length - 5}</ExceedPlayerPlaceholder>
@@ -164,103 +167,139 @@ const PlayerPhotoStack = ({players}) => {
   );
 };
 
-const TrainingRow = (props) => (
-  <tbody>
-    {props?.trainings?.length &&
-      props.trainings.map((trainingInfo) => {
-        return (
-          <TableRow>
-            <TableColumn>{trainingInfo?.name}</TableColumn>
-            <TrainingInfoCenterAligned>
-              <Column style={{alignItems: "center"}}>
-                <Column>
-                  {trainingInfo?.date &&
-                    moment(trainingInfo.date).format("HH:MM A")}
-                </Column>
-                <DateContainer>
-                  {trainingInfo?.date &&
-                    moment(trainingInfo.date).format("DD MMM")}
-                </DateContainer>
-              </Column>
-            </TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>
-              {trainingInfo?.attack}
-            </TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>
-              {trainingInfo?.defence}
-            </TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>
-              {trainingInfo?.mental}
-            </TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>
-              {trainingInfo?.totalDrills}
-            </TrainingInfoCenterAligned>
-            <TableColumn>
-              <PlayerPhotoStack players={trainingInfo?.players} />
-            </TableColumn>
-            <TrainingInfoCenterAligned style={{color: "#E4C389"}}>
-              <Icon name="repeat" size="large" />
-            </TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned style={{color: "#1F94FF"}}>
-              <Icon name="chevron down" />
-            </TrainingInfoCenterAligned>
-          </TableRow>
-        );
-      })}
-  </tbody>
+const TrainingRow = ({ training }) => (
+  <TableRow>
+    <TableColumn>{training.name}</TableColumn>
+    <TrainingInfoCenterAligned>
+      <Column style={{ alignItems: "center" }}>
+        <Column>
+          {training.date && moment(training.date).format("HH:MM A")}
+        </Column>
+        <DateContainer>
+          {training.date && moment(training.date).format("DD MMM")}
+        </DateContainer>
+      </Column>
+    </TrainingInfoCenterAligned>
+    <TrainingInfoCenterAligned>
+      {training.drills.filter(r=>r.type=="Attack").length}
+    </TrainingInfoCenterAligned>
+    <TrainingInfoCenterAligned>
+      {training.drills.filter(r=>r.type=="Defence").length}
+    </TrainingInfoCenterAligned>
+    <TrainingInfoCenterAligned>
+      {training.drills.filter(r=>r.type=="Physical/Mental").length}
+    </TrainingInfoCenterAligned>
+    <TrainingInfoCenterAligned>
+      {training.drills.length}
+    </TrainingInfoCenterAligned>
+    <TableColumn>
+      <PlayerPhotoStack players={training.players} />
+    </TableColumn>
+    <TrainingInfoCenterAligned style={{ color: "#E4C389" }}>
+      <Icon name="repeat" size="large" />
+    </TrainingInfoCenterAligned>
+    <TrainingInfoCenterAligned style={{ color: "#1F94FF",cursor:"pointer" }} onClick={()=>history.push(`/academies/training/view-training?id=${training._id}`)}>
+      <Icon name="chevron down" />
+    </TrainingInfoCenterAligned>
+  </TableRow>
 );
 
-const TrainingList = (props) => (
-  <TrainingListContainer>
-    <TableHeader>
-      <TableColumn>NAME</TableColumn>
-      <TrainingInfoCenterAligned>DATE TIME</TrainingInfoCenterAligned>
-      <TrainingInfoCenterAligned>ATTACK</TrainingInfoCenterAligned>
-      <TrainingInfoCenterAligned>DEFENCE</TrainingInfoCenterAligned>
-      <TrainingInfoCenterAligned>MENTAL</TrainingInfoCenterAligned>
-      <TrainingInfoCenterAligned>TOTAL DRILLS</TrainingInfoCenterAligned>
-      <TableColumn>PLAYERS</TableColumn>
-      <TrainingInfoCenterAligned>REPEAT</TrainingInfoCenterAligned>
-      <DropInfoColumn></DropInfoColumn>
-    </TableHeader>
-    <TrainingRow {...props} />
-  </TrainingListContainer>
-);
+const MyTraining = (props) => {
+  const search = props.location.search;
+  const queryStringSearch = queryString.parse(search);
+  const page = queryStringSearch.page || 1;
+  const searchKey = queryStringSearch.searchKey || "";
+  const [searchInput, setSearchInput] = useState(searchKey);
+  const [trainingList, setTrainingList] = useState([]);
+  const [trainingCount, setTrainingCount] = useState(0);
 
-const MyTraining = (props) => (
-  <MyTrainingContainer>
-    <Header>
-      <HeaderTextColumn>My Training</HeaderTextColumn>
-      <HeaderSearchAddNewColumn>
-        <SearchAddNewContainer>
-          <SearchBox placeholder="Search by player name, country or academy name" />
-          <ThemeButton
-            customCss={{
-              width: 147,
-              background: "#FFFFFF",
-              color: "#0D1757",
-              border: "1px solid #0D1757",
-            }}
-            isDisabled={false}
-            onClickAction={() =>
-              history.push("/academies/training/add-new-training")
-            }
-            children={
-              <>
-                <Icon name="plus" />
-                Training
-              </>
-            }
-          />
-        </SearchAddNewContainer>
-      </HeaderSearchAddNewColumn>
-    </Header>
-    {props?.trainings?.length ? (
-      <TrainingList {...props} />
-    ) : (
-      <NoTrainingsPlaceholder />
-    )}
-  </MyTrainingContainer>
-);
+  useEffect(() => {
+    setTrainingList([]);
+    setTrainingCount(0);
+    const filter = {};
+    const sort = {};
+    if (searchKey) {
+      filter["$text"] = { $search: searchKey };
+    }
+    fetchTrainingList({
+      page,
+      limit: 20,
+      filter: JSON.stringify(filter),
+      sort: JSON.stringify({}),
+    })
+      .then((data) => {
+        if (data.sc && data.result) {
+          setTrainingCount(data.result.count);
+          setTrainingList(
+            data.result.data && data.result.data.length ? data.result.data : []
+          );
+        }
+      })
+      .catch(() => {});
+  }, [page, searchKey]);
+  return (
+    <MyTrainingContainer>
+      <Header>
+        <HeaderTextColumn>My Training</HeaderTextColumn>
+        <HeaderSearchAddNewColumn>
+          <SearchAddNewContainer>
+            <SearchBox
+              placeholder="Search by player name, country or academy name"
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+                if (e.target.value.trim().length > 2)
+                  history.push(`?searchKey=${e.target.value}`);
+                else if (!e.target.value.trim().length && searchInput) {
+                  history.push(`?searchKey=`);
+                }
+              }}
+            />
+            <ThemeButton
+              customCss={{
+                width: 147,
+                background: "#FFFFFF",
+                color: "#0D1757",
+                border: "1px solid #0D1757",
+              }}
+              isDisabled={false}
+              onClickAction={() =>
+                history.push("/academies/training/add-new-training")
+              }
+              children={
+                <>
+                  <Icon name="plus" />
+                  Training
+                </>
+              }
+            />
+          </SearchAddNewContainer>
+        </HeaderSearchAddNewColumn>
+      </Header>
+      {trainingList.length ? (
+        <TrainingListContainer>
+          <TableHeader>
+            <TableColumn>NAME</TableColumn>
+            <TrainingInfoCenterAligned>DATE TIME</TrainingInfoCenterAligned>
+            <TrainingInfoCenterAligned>ATTACK</TrainingInfoCenterAligned>
+            <TrainingInfoCenterAligned>DEFENCE</TrainingInfoCenterAligned>
+            <TrainingInfoCenterAligned>MENTAL</TrainingInfoCenterAligned>
+            <TrainingInfoCenterAligned>TOTAL DRILLS</TrainingInfoCenterAligned>
+            <TableColumn>PLAYERS</TableColumn>
+            <TrainingInfoCenterAligned>REPEAT</TrainingInfoCenterAligned>
+            <DropInfoColumn></DropInfoColumn>
+          </TableHeader>
+          <tbody>
+            {trainingList.map((training) => (
+              <TrainingRow training={training} />
+            ))}
+          </tbody>
+        </TrainingListContainer>
+      ) : (
+        <NoTrainingsPlaceholder />
+      )}
+    </MyTrainingContainer>
+  );
+};
 
 export default MyTraining;

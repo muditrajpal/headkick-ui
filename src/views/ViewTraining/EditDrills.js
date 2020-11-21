@@ -1,7 +1,7 @@
 import React from "react";
 import CustomModal from "shared/components/CustomModal";
 import styled from "styled-components";
-import {Icon, Checkbox, Input} from "semantic-ui-react";
+import { Icon, Checkbox, Input } from "semantic-ui-react";
 import ThemeButton from "shared/components/ThemeButton";
 import history from "historyObj";
 
@@ -118,74 +118,77 @@ const AddMoreButton = styled.div`
   color: #1f94ff;
 `;
 
-const CurrentDrills = (props) => (
+const CurrentDrills = ({ drills, onChange }) => (
   <DrillTypeContainer>
     <HeaderText>Current Drills</HeaderText>
     <DrillListContainer>
-      <InfoRow>
-        Attack Drill 1<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 2<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 3<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 4<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 5<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 6<Checkbox />
-      </InfoRow>
+      {drills.map((drill, i) => (
+        drill.name?
+        <InfoRow>
+          {drill.name}
+          <Checkbox
+            onChange={(e, { checked }) => {
+              drill.inactive = !checked;
+              onChange(`drills`, drills);
+            }}
+            checked={!drill.inactive}
+          />
+        </InfoRow>:""
+      ))}
     </DrillListContainer>
   </DrillTypeContainer>
 );
 
-const AddDrills = (props) => (
+const AddDrills = ({ onChange, subType, drills }) => (
   <DrillTypeContainer>
     <HeaderText>Add Drills</HeaderText>
     <AddDrillsContainer>
-      <Column>
-        <InputLabelText>Drill Name</InputLabelText>
-        <Input placeholder="Dribbling Drill 1" />
-      </Column>
-      <Column>
-        <InputLabelText>Drill Name</InputLabelText>
-        <Input placeholder="Dribbling Drill 1" />
-      </Column>
-      <Column>
-        <InputLabelText>Drill Name</InputLabelText>
-        <Input placeholder="Dribbling Drill 1" />
-      </Column>
-      <Column>
-        <InputLabelText>Drill Name</InputLabelText>
-        <Input placeholder="Dribbling Drill 1" />
-      </Column>
-      <Row style={{justifyContent: "flex-end"}}>
-        <AddMoreButton>+ Add More</AddMoreButton>
+      {drills
+        .filter((drill) => drill.subType === subType)
+        .map((drill) => (
+          <Column>
+            <InputLabelText>Drill Name</InputLabelText>
+            <Input placeholder={`${subType} Drill 1`} value={drill.name} 
+            onChange={(e)=>{
+              drill.name=e.target.value;
+              onChange("drills",[...drills]);
+            }}
+            />
+          </Column>
+        ))}
+
+      <Row style={{ justifyContent: "flex-end" }}>
+        <AddMoreButton
+          onClick={() => {
+            drills.push({
+              name: "",
+              subType,
+            });
+            onChange("drills", drills);
+          }}
+        >
+          + Add More
+        </AddMoreButton>
       </Row>
     </AddDrillsContainer>
   </DrillTypeContainer>
 );
 
-const EditDrills = (props) => (
+const EditDrills = ({ onCloseAction, trainingDetail, onChange, subType ,onUpdateTraining}) => (
   <CustomModal
     isOpen={true}
     width="65%"
     children={
       <DrillContainer>
         <CrossButtonContainer>
-          <CrossButton onClick={() => props.onCloseAction(props.modalName)}>
+          <CrossButton onClick={onCloseAction}>
             <Icon name="close" size="small" />
           </CrossButton>
         </CrossButtonContainer>
-        <Row style={{justifyContent: "space-between"}}>
-          <CurrentDrills />
+        <Row style={{ justifyContent: "space-between" }}>
+          <CurrentDrills drills={trainingDetail.drills} onChange={onChange} />
           <VerticalDivider />
-          <AddDrills />
+          <AddDrills subType={subType} onChange={onChange} drills={trainingDetail.drills}/>
         </Row>
         <HorizontalDivider />
         <ButtonContainer>
@@ -197,13 +200,18 @@ const EditDrills = (props) => (
               border: "1px solid #0D1757",
             }}
             isDisabled={false}
-            onClickAction={() => alert("Under Development")}
+            onClickAction={()=>{
+              onCloseAction();
+              onChange("drills",trainingDetail.drills.filter(r=>r.name))
+            }}
             children="Previous"
           />
           <ThemeButton
-            customCss={{width: 121}}
+            customCss={{ width: 121 }}
             isDisabled={false}
-            onClickAction={() => history.push("/academies/training")}
+            onClickAction={() => {
+              onUpdateTraining()
+            }}
             children="Next"
           />
         </ButtonContainer>

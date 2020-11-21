@@ -85,7 +85,7 @@ const TabsSelector = (props) => (
   </TabsSelectorContainer>
 );
 
-const Step3 = (props) => {
+const Step3 =  ({ trainingData, onChange,toggleStep ,saveTraining}) => {
   const [selectedDrillType, selectDrillType] = useState(DrillTypes.ATTACK);
   return (
     <>
@@ -94,10 +94,10 @@ const Step3 = (props) => {
         selectedDrillType={selectedDrillType}
         selectDrillType={selectDrillType}
       />
-      {selectedDrillType === DrillTypes.ATTACK && <Attack />}
-      {selectedDrillType === DrillTypes.DEFENCE && <Defence />}
+      {selectedDrillType === DrillTypes.ATTACK && <Attack trainingData={trainingData} onChange={onChange}/>}
+      {selectedDrillType === DrillTypes.DEFENCE && <Defence trainingData={trainingData} onChange={onChange} />}
       {selectedDrillType === DrillTypes.PHYSICAL_AND_MENTAL && (
-        <PhysicalAndMental />
+        <PhysicalAndMental  trainingData={trainingData} onChange={onChange}/>
       )}
       <Divider />
       <ButtonContainer>
@@ -109,15 +109,13 @@ const Step3 = (props) => {
             border: "1px solid #0D1757",
           }}
           isDisabled={false}
-          onClickAction={() => props.toggleStep(2)}
+          onClickAction={() => toggleStep(2)}
           children="Previous"
         />
         <ThemeButton
           customCss={{width: 145}}
           isDisabled={false}
-          onClickAction={() =>
-            history.push("/academies/training/view-training")
-          }
+          onClickAction={saveTraining}
           children="Add training"
         />
       </ButtonContainer>

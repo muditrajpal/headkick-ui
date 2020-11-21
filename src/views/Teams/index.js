@@ -28,7 +28,7 @@ class Teams extends Component {
   };
 
   render() {
-    return <TeamsComponent state={this.state} toggleTabs={this.toggleTabs} />;
+    return <TeamsComponent {...this.props} state={this.state} toggleTabs={this.toggleTabs} />;
   }
 }
 

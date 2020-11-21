@@ -1,7 +1,12 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ProgressBar from "shared/components/ProgressBar";
 import ThemeButton from "shared/components/ThemeButton";
+import queryString from "query-string";
+import { fetchTrainingDetail, addUpdateTraining } from "apis/training";
+import history from "historyObj";
+import EditDrills from "./EditDrills";
+import { Icon } from "semantic-ui-react";
 
 const Row = styled.div`
   display: flex;
@@ -25,6 +30,8 @@ const ViewTrainingContainer = styled(Column)`
   border-radius: 10px;
   width: 98.3%;
   min-height: 533px;
+  max-height: calc(100vh - 13.5rem);
+  overflow-y: auto;
 `;
 
 const HeaderText = styled(Row)`
@@ -159,7 +166,7 @@ const TabContainer = styled(Column)`
   font-size: 20px;
   justify-content: center;
   color: #12216d;
-  border-bottom: ${({isSelected}) =>
+  border-bottom: ${({ isSelected }) =>
     isSelected ? "4px solid #0d1757" : "none"};
   padding: 18px;
   cursor: pointer;
@@ -192,145 +199,236 @@ const DrillTab = styled(Column)`
 `;
 
 export const TrainingTypes = {
-  DRIBBLING: "DRIBBLING",
-  DEFENDING: "DEFENDING",
-  PASSING: "PASSING",
-  SHOOTING: "SHOOTING",
+  DRIBBLING: "Dribbling",
+  DEFENDING: "Defending",
+  PASSING: "Passing",
+  SHOOTING: "Shooting",
 };
 
-const PlayerSkill = (props) => (
+const PlayerSkill = ({skills}) => (
   <TabBoxContainer>
     <TabTitleContainer>
       <TabTitle>TRAINABLE ATTRIBUTES</TabTitle>
       <EditTabLink onClick={() => alert("Under Development")}>
         {"edit >>"}
       </EditTabLink>
-    </TabTitleContainer>
-    <SkillProgressContainer>
-      <TextLabel>Sprint Speed</TextLabel>
-      <ProgressBarContainer>
-        <ProgressBar progress={30} isReversed={false} />
-      </ProgressBarContainer>
-    </SkillProgressContainer>
-    <SkillProgressContainer>
-      <TextLabel>Strength</TextLabel>
-      <ProgressBarContainer>
-        <ProgressBar progress={60} isReversed={false} />
-      </ProgressBarContainer>
-    </SkillProgressContainer>
-    <SkillProgressContainer>
-      <TextLabel>Att. Position</TextLabel>
-      <ProgressBarContainer>
-        <ProgressBar progress={90} isReversed={false} />
-      </ProgressBarContainer>
-    </SkillProgressContainer>
-    <SkillProgressContainer>
-      <TextLabel>Ball Control</TextLabel>
-      <ProgressBarContainer>
-        <ProgressBar progress={95} isReversed={false} />
-      </ProgressBarContainer>
-    </SkillProgressContainer>
+    </TabTitleContainer>{
+      skills.map(skill=>(
+        <SkillProgressContainer>
+        <TextLabel>{skill.name}</TextLabel>
+        <ProgressBarContainer>
+          <ProgressBar progress={skill.value} isReversed={false} />
+        </ProgressBarContainer>
+      </SkillProgressContainer>
+      ))
+    }
+ 
+   
   </TabBoxContainer>
 );
 
-const TabsSelector = (props) => (
+const TabsSelector = ({ trainingSubType, setTrainingSubType }) => (
   <TabsSelectorContainer>
     <TabContainer
-      isSelected={props?.selectedTrainingType === TrainingTypes.DRIBBLING}
-      onClick={() => props.selectTrainingType(TrainingTypes.DRIBBLING)}
+      isSelected={trainingSubType === TrainingTypes.DRIBBLING}
+      onClick={() => setTrainingSubType(TrainingTypes.DRIBBLING)}
     >
       Dribbling
     </TabContainer>
     <TabContainer
-      isSelected={props?.selectedTrainingType === TrainingTypes.DEFENDING}
-      onClick={() => props.selectTrainingType(TrainingTypes.DEFENDING)}
+      isSelected={trainingSubType === TrainingTypes.DEFENDING}
+      onClick={() => setTrainingSubType(TrainingTypes.DEFENDING)}
     >
       Defending
     </TabContainer>
     <TabContainer
-      isSelected={props?.selectedTrainingType === TrainingTypes.PASSING}
-      onClick={() => props.selectTrainingType(TrainingTypes.PASSING)}
+      isSelected={trainingSubType === TrainingTypes.PASSING}
+      onClick={() => setTrainingSubType(TrainingTypes.PASSING)}
     >
       Passing
     </TabContainer>
     <TabContainer
-      isSelected={props?.selectedTrainingType === TrainingTypes.SHOOTING}
-      onClick={() => props.selectTrainingType(TrainingTypes.SHOOTING)}
+      isSelected={trainingSubType === TrainingTypes.SHOOTING}
+      onClick={() => setTrainingSubType(TrainingTypes.SHOOTING)}
     >
       Shooting
     </TabContainer>
   </TabsSelectorContainer>
 );
 
-const PlayerInfo = (props) => (
-  <PlayerInfoContainer>
-    <InfoContainer style={{gap: 27}}>
-      <PlayerBioContainer>
-        <PlayerPhoto src="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4" />
-        <Column style={{gap: 12}}>
-          <PlayerInfoText>Lionel Messi</PlayerInfoText>
-          <Row style={{gap: 18}}>
-            <Column style={{gap: 3}}>
-              <PlayerInfoHeading>Position</PlayerInfoHeading>
-              <PlayerInfoValue>RW</PlayerInfoValue>
-            </Column>
-            <Column style={{gap: 3}}>
-              <PlayerInfoHeading>Height</PlayerInfoHeading>
-              <PlayerInfoValue>185cm</PlayerInfoValue>
-            </Column>
-            <Column style={{gap: 3}}>
-              <PlayerInfoHeading>Foot</PlayerInfoHeading>
-              <PlayerInfoValue>R</PlayerInfoValue>
-            </Column>
-          </Row>
-        </Column>
-      </PlayerBioContainer>
-    </InfoContainer>
-    <PlayerSkill {...props} />
-  </PlayerInfoContainer>
-);
-
-const DrillInfoContainer = (drills) => (
-  <DrillsContainer>
-    <DrillTab>Drill Number 1</DrillTab>
-    <DrillTab>Drill Number 2</DrillTab>
-    <DrillTab>Drill Number 3</DrillTab>
-    <DrillTab>Drill Number 4</DrillTab>
-    <DrillTab>Drill Number 5</DrillTab>
-  </DrillsContainer>
-);
-
-const PlayerTrainingInfo = (props) => {
-  const [selectedTrainingType, selectTrainingType] = useState(
-    TrainingTypes.DRIBBLING
+const PlayerInfo = ({ players }) => {
+  const [index, setIndex] = useState(0);
+  if (!players[index]) return <div />;
+  return (
+    <PlayerInfoContainer style={{ position: "relative" }}>
+      {index != players.length - 1 ? (
+        <Icon
+          name="angle right"
+          size="large"
+          style={{
+            position: "absolute",
+            right: 0,
+            top: "2rem",
+            cursor: "pointer",
+          }}
+          color="teal"
+          onClick={() => setIndex((i) => i + 1)}
+        />
+      ) : (
+        ""
+      )}
+      {index != 0 ? (
+        <Icon
+          name="angle left"
+          size="large"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "2rem",
+            cursor: "pointer",
+          }}
+          color="teal"
+          onClick={() => setIndex((i) => i - 1)}
+        />
+      ) : (
+        ""
+      )}
+      <InfoContainer style={{ gap: 27 }}>
+        <PlayerBioContainer>
+          <PlayerPhoto src={players[index].img} />
+          <Column style={{ gap: 12 }}>
+            <PlayerInfoText>{players[index].name}</PlayerInfoText>
+            <Row style={{ gap: 18 }}>
+              <Column style={{ gap: 3 }}>
+                <PlayerInfoHeading>Position</PlayerInfoHeading>
+                <PlayerInfoValue>{players[index].position}</PlayerInfoValue>
+              </Column>
+              <Column style={{ gap: 3 }}>
+                <PlayerInfoHeading>Height</PlayerInfoHeading>
+                <PlayerInfoValue>{players[index].height}cm</PlayerInfoValue>
+              </Column>
+              <Column style={{ gap: 3 }}>
+                <PlayerInfoHeading>Foot</PlayerInfoHeading>
+                <PlayerInfoValue>
+                  {players[index].preferredFoot}
+                </PlayerInfoValue>
+              </Column>
+            </Row>
+          </Column>
+        </PlayerBioContainer>
+      </InfoContainer>
+      <PlayerSkill skills={players[index].skills} />
+    </PlayerInfoContainer>
   );
+};
+
+const PlayerTrainingInfo = ({
+  setShowEdit,
+  trainingDetail,
+  trainingSubType,
+  setTrainingSubType,
+}) => {
   return (
     <PlayerTrainingInfoContainer>
       <TabsSelector
-        selectedTrainingType={selectedTrainingType}
-        selectTrainingType={selectTrainingType}
+        trainingSubType={trainingSubType}
+        setTrainingSubType={setTrainingSubType}
       />
       <EditButtonContainer>
         <ThemeButton
-          customCss={{width: 148}}
+          customCss={{ width: 148 }}
           isDisabled={false}
-          onClickAction={() => props.toggleStateBoolean("isEditDrillPopUpOpen")}
+          onClickAction={() => setShowEdit((v) => !v)}
           children="Edit Drills"
         />
       </EditButtonContainer>
-      <DrillInfoContainer />
+      <DrillsContainer>
+        {trainingDetail.drills.map((drill) =>
+          !drill.subType || drill.subType === trainingSubType ? (
+            <DrillTab>{drill.name}</DrillTab>
+          ) : (
+            ""
+          )
+        )}
+      </DrillsContainer>
     </PlayerTrainingInfoContainer>
   );
 };
 
-const ViewTraining = (props) => (
-  <ViewTrainingContainer>
-    <HeaderText>View Training</HeaderText>
-    <InfoContainer>
-      <PlayerInfo {...props} />
-      <PlayerTrainingInfo {...props} />
-    </InfoContainer>
-  </ViewTrainingContainer>
-);
+const ViewTraining = (props) => {
+  const search = props.location.search;
+  const queryStringSearch = queryString.parse(search);
+  const trainingId = queryStringSearch.id;
+  const [trainingDetail, setTrainingDetail] = useState(null);
+  const [showEdit, setShowEdit] = useState(false);
+  const [trainingSubType, setTrainingSubType] = useState(
+    TrainingTypes.DRIBBLING
+  );
+  useEffect(() => {
+    if (!trainingId) {
+      history.push("/academies/training/list");
+      return;
+    }
+    fetchTrainingDetail({
+      id: trainingId,
+    })
+      .then((data) => {
+        if (data.sc && data.result) {
+          setTrainingDetail(data.result);
+        }
+      })
+      .catch(() => {});
+  }, [trainingId]);
+
+  async function onUpdateTraining() {
+    trainingDetail.drills = trainingDetail.drills.filter((r) => r.name);
+    onChangeValues("drills", trainingDetail.drills);
+
+    const result = await addUpdateTraining({
+      ...trainingDetail,
+      academy: trainingDetail.academy._id,
+      players: trainingDetail.players.map((player) => player._id),
+    });
+    if (result) {
+      setShowEdit((v) => !v);
+    }
+  }
+
+  function onChangeValues(key, value) {
+    key = key.split(".");
+    let temp = trainingDetail;
+    for (let i = 0; i < key.length - 1; i++) {
+      temp = temp[key[i]];
+    }
+    temp[key[key.length - 1]] = value;
+    setTrainingDetail({ ...trainingDetail });
+  }
+  if (!trainingDetail) return <div />;
+  return (
+    <ViewTrainingContainer>
+      <HeaderText>View Training</HeaderText>
+      <InfoContainer>
+        <PlayerInfo players={trainingDetail.players} />
+        <PlayerTrainingInfo
+          trainingSubType={trainingSubType}
+          setTrainingSubType={setTrainingSubType}
+          trainingDetail={trainingDetail}
+          setShowEdit={setShowEdit}
+        />
+      </InfoContainer>
+      {showEdit ? (
+        <EditDrills
+          onCloseAction={() => setShowEdit((v) => !v)}
+          trainingDetail={trainingDetail}
+          onChange={onChangeValues}
+          subType={trainingSubType}
+          onUpdateTraining={onUpdateTraining}
+        />
+      ) : (
+        ""
+      )}
+    </ViewTrainingContainer>
+  );
+};
 
 export default ViewTraining;

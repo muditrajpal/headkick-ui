@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CustomModal from "shared/components/CustomModal";
 import styled from "styled-components";
 import ThemeButton from "shared/components/ThemeButton";
 import ProgressSlider from "shared/components/ProgressSlider";
-import {Icon} from "semantic-ui-react";
-import moment from "moment";
+import { Icon, Image } from "semantic-ui-react";
+import queryString from "query-string";
+import { fetchPlayerDetail ,updatePlayerData } from "apis/player";
+import { uploadImage } from "apis/upload";
+import _groupBy from "lodash/groupBy";
+import history from "historyObj";
 
 const Row = styled.div`
   display: flex;
@@ -23,7 +27,7 @@ const DetailsContainer = styled(Column)`
   padding: 28px;
 `;
 
-const DeatilTabs = styled.div`
+const DetailTabs = styled.div`
   display: flex;
   flex-direction: row;
   gap: 30px;
@@ -152,11 +156,11 @@ const SocialIconContainer = styled(Column)`
 
 const getSocialIcon = (socialPlatform) => {
   switch (socialPlatform) {
-    case "FACEBOOK":
+    case "facebook":
       return "facebook f";
-    case "TWITTER":
+    case "twitter":
       return "twitter";
-    case "INSTAGRAM":
+    case "instagram":
       return "instagram";
     default:
       return "";
@@ -189,20 +193,38 @@ const ProgressSliderContainer = styled(Column)`
   padding: 0 20px;
 `;
 
-const UploadPhoto = (props) => (
+const UploadPhoto = ({ img,setPlayerImageFile, imageFileInputRef ,setPlayerImage, playerImage}) => {
+  const handleImageChange = e => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let files = e.target.files[0];
+    reader.onloadend = () => {
+      setPlayerImageFile(files);
+      setPlayerImage(reader.result);
+    };
+    reader.readAsDataURL(files);
+  };
+  return (
   <UploadPhotoContainer>
     <UploadPhotoGrid>
-      <Icon name="plus" size="huge" />
+      {img||playerImage ? <Image avator src={playerImage||img||""} /> : <Icon name="plus" size="huge" />}
     </UploadPhotoGrid>
     <ThemeButton
-      customCss={{width: "148px"}}
+      customCss={{ width: "148px" }}
       isDisabled={false}
-      onClickAction={() => alert("Under Development")}
+      onClickAction={() => imageFileInputRef.current.click()}
       children="Upload Photo"
+    />
+    <input
+      type="file"
+      ref={imageFileInputRef}
+      onChange={handleImageChange}
+      hidden
+      accept="image/x-png,image/jpeg"
     />
   </UploadPhotoContainer>
 );
-
+  }
 const TabContainer = (props) => (
   <TabBoxContainer>
     <TabTitleContainer>
@@ -215,23 +237,24 @@ const TabContainer = (props) => (
   </TabBoxContainer>
 );
 
-const PlayerInfo = (props) => (
+const PlayerInfo = ({ playerDetail, onChange }) => (
   <PlayerInfoContainer>
     <TabContainer
-      tabTitle={props?.playerDetails?.bio?.fullName || ""}
+      tabTitle={playerDetail.name}
       editAction={() => alert("Under Development")}
       children={
         <table
           cellPadding={6}
           cellSpacing={5}
-          style={{marginTop: -16, paddingBottom: 20}}
+          style={{ marginTop: -16, paddingBottom: 20 }}
         >
           <tr>
             <td>
               <PlayerInfoTextLabel>Height</PlayerInfoTextLabel>
               <InputBox
-                style={{maxWidth: 100}}
-                value={props?.playerDetails?.bio?.height || ""}
+                style={{ maxWidth: 100 }}
+                value={playerDetail.height}
+                onChange={(e) => onChange("height", e.target.value)}
                 placeholder="0 cm"
               />
             </td>
@@ -239,8 +262,9 @@ const PlayerInfo = (props) => (
             <td>
               <PlayerInfoTextLabel>Weight</PlayerInfoTextLabel>
               <InputBox
-                style={{maxWidth: 100}}
-                value={props?.playerDetails?.bio?.weight || ""}
+                style={{ maxWidth: 100 }}
+                value={playerDetail.weight}
+                onChange={(e) => onChange("weight", e.target.value)}
                 placeholder="0 kg"
               />
             </td>
@@ -249,14 +273,9 @@ const PlayerInfo = (props) => (
               <PlayerInfoTextLabel>Date of Birth</PlayerInfoTextLabel>
               <TextValue>
                 <InputBox
-                  style={{maxWidth: 100}}
-                  value={
-                    (props?.playerDetails?.bio?.dateOfBirth &&
-                      moment(props.playerDetails.bio.dateOfBirth).format(
-                        "DD/MM/YYYY"
-                      )) ||
-                    ""
-                  }
+                  style={{ maxWidth: 100 }}
+                  value={playerDetail.dob}
+                  onChange={(e) => onChange("dob", e.target.value)}
                   placeholder="DD/MM/YYYY"
                 />
               </TextValue>
@@ -267,8 +286,9 @@ const PlayerInfo = (props) => (
             <td>
               <PlayerInfoTextLabel>Position</PlayerInfoTextLabel>
               <InputBox
-                style={{maxWidth: 100}}
-                value={props?.playerDetails?.bio?.position || ""}
+                style={{ maxWidth: 100 }}
+                value={playerDetail.position}
+                onChange={(e) => onChange("position", e.target.value)}
                 placeholder="RW"
               />
             </td>
@@ -276,8 +296,9 @@ const PlayerInfo = (props) => (
             <td>
               <PlayerInfoTextLabel>Work Rate</PlayerInfoTextLabel>
               <InputBox
-                style={{maxWidth: 100}}
-                value={props?.playerDetails?.bio?.workRate || ""}
+                style={{ maxWidth: 100 }}
+                value={playerDetail.workRate}
+                onChange={(e) => onChange("workRate", e.target.value)}
                 placeholder="0"
               />
             </td>
@@ -285,8 +306,9 @@ const PlayerInfo = (props) => (
             <td>
               <PlayerInfoTextLabel>Preferred foot</PlayerInfoTextLabel>
               <InputBox
-                style={{maxWidth: 100}}
-                value={props?.playerDetails?.bio?.preferredFoot || ""}
+                style={{ maxWidth: 100 }}
+                value={playerDetail.preferredFoot}
+                onChange={(e) => onChange("preferredFoot", e.target.value)}
                 placeholder="Right"
               />
             </td>
@@ -297,23 +319,26 @@ const PlayerInfo = (props) => (
   </PlayerInfoContainer>
 );
 
-const Trophies = (props) => (
+const Trophies = ({ trophies, onChange }) => (
   <TrophiesContainer>
     <TabContainer
       tabTitle={"Trophies"}
       addAction={() => alert("Under Development")}
       editAction={() => alert("Under Development")}
       children={
-        <table cellPadding={2} style={{margin: "0 auto", paddingBottom: 20}}>
-          {props?.playerDetails?.trophies?.length &&
-            props.playerDetails.trophies.map((trophyInfo) => {
+        <table cellPadding={2} style={{ margin: "0 auto", paddingBottom: 20 }}>
+          {trophies.length &&
+            trophies.map((trophyInfo, i) => {
               return (
                 <tr>
                   <td>
                     <InputBox
-                      style={{textAlign: "right"}}
-                      value={trophyInfo?.leagueName || ""}
+                      style={{ textAlign: "right" }}
+                      value={trophyInfo.title}
                       placeholder="La Liga"
+                      onChange={(e) =>
+                        onChange(`trophies.${i}.title`, e.target.value)
+                      }
                     />
                   </td>
                   <td>
@@ -323,15 +348,21 @@ const Trophies = (props) => (
                   </td>
                   <td>
                     <InputBox
-                      style={{fontSize: 18, width: 40, maxHeight: 32}}
-                      value={trophyInfo?.number || ""}
+                      style={{ fontSize: 18, width: 40, maxHeight: 32 }}
+                      value={trophyInfo.count}
                       placeholder="0"
+                      onChange={(e) =>
+                        onChange(`trophies.${i}.count`, e.target.value)
+                      }
                     />
                   </td>
                   <td>
                     <InputBox
-                      value={trophyInfo?.type || ""}
+                      value={trophyInfo.type}
                       placeholder="Trophies/Titles"
+                      onChange={(e) =>
+                        onChange(`trophies.${i}.type`, e.target.value)
+                      }
                     />
                   </td>
                 </tr>
@@ -343,34 +374,33 @@ const Trophies = (props) => (
   </TrophiesContainer>
 );
 
-const ConnectWithPlayer = (props) => (
+const ConnectWithPlayer = ({ social, onChange }) => (
   <ConnectWithPlayerContainer>
     <TabContainer
       tabTitle={"Connect with player"}
       addAction={() => alert("Under Development")}
       editAction={() => alert("Under Development")}
       children={
-        <Column style={{margin: "auto 0", paddingBottom: 20}}>
-          {props?.playerDetails?.socialAccounts?.length &&
-            props.playerDetails.socialAccounts.map((socialData) => {
+        <Column style={{ margin: "auto 0", paddingBottom: 20 }}>
+          {Object.keys(social).length &&
+            Object.keys(social).map((id) => {
+              const socialData = social[id];
               return (
-                <Row style={{alignItems: "center"}}>
+                <Row style={{ alignItems: "center" }}>
                   <SocialIconContainer>
-                    <Icon
-                      name={getSocialIcon(socialData?.account || "")}
-                      size="large"
-                    />
+                    <Icon name={getSocialIcon(id)} size="large" />
                   </SocialIconContainer>
 
                   <InputBox
-                    style={{height: 32}}
-                    value={socialData?.link || ""}
+                    style={{ height: 32 }}
+                    value={socialData || ""}
                     placeholder="Link"
+                    onChange={(e) => onChange(`social.${id}`, e.target.value)}
                   />
 
                   <DeleteButton
-                    onClick={() => alert("Under Development")}
-                    style={{marginLeft: 12}}
+                    style={{ marginLeft: 12 }}
+                    onClick={(e) => onChange(`social.${id}`, "")}
                   >
                     -
                   </DeleteButton>
@@ -383,31 +413,36 @@ const ConnectWithPlayer = (props) => (
   </ConnectWithPlayerContainer>
 );
 
-const Skills = (props) => (
+const Skills = ({ skills, onChange }) => (
   <SkillContainer>
     <TabContainer
-      tabTitle={props?.categoryName || ""}
+      tabTitle={skills[0].type}
       editAction={() => alert("Under Development")}
       children={
-        <Column style={{paddingBottom: 20, gap: 15}}>
-          {props?.subCategories?.length &&
-            props.subCategories.map((skill) => {
-              return (
-                <SkillProgressContainer>
-                  <TextLabel>{skill?.skillName || ""}</TextLabel>
-                  <ProgressSliderContainer>
-                    <ProgressSlider
-                      min={0}
-                      max={100}
-                      value={skill?.progress || 0}
-                    />
-                  </ProgressSliderContainer>
-                  <TextLabel style={{fontWeight: "bold"}}>
-                    {skill?.progress || 0}
-                  </TextLabel>
-                </SkillProgressContainer>
-              );
-            })}
+        <Column style={{ paddingBottom: 20, gap: 15 }}>
+          {skills.map((skill, i) => {
+            return (
+              <SkillProgressContainer>
+                <TextLabel>{skill.name || ""}</TextLabel>
+                <ProgressSliderContainer>
+                  <ProgressSlider
+                    min={0}
+                    max={100}
+                    value={skill.value || 0}
+                    onChange={(e) =>
+                      onChange(
+                        `skills.${skill.type}.${i}.value`,
+                        e.target.value
+                      )
+                    }
+                  />
+                </ProgressSliderContainer>
+                <TextLabel style={{ fontWeight: "bold" }}>
+                  {skill.value || 0}
+                </TextLabel>
+              </SkillProgressContainer>
+            );
+          })}
         </Column>
       }
     />
@@ -415,24 +450,86 @@ const Skills = (props) => (
 );
 
 const AcademiesPlayerEdit = (props) => {
+  const search = props.location.search;
+  const queryStringSearch = queryString.parse(search);
+  const playerId = queryStringSearch.id;
+  const canEdit = queryStringSearch.canEdit;
+  const [playerDetail, setPlayerDetail] = useState(null);
+  const [playerImage, setPlayerImage] = useState("");
+  const [playerImageFile, setPlayerImageFile] = useState("");
+
+  
+  const imageFileInputRef = useRef();
+  useEffect(() => {
+    if (!playerId) {
+      history.push("/academies/player/list");
+      return;
+    }
+    fetchPlayerDetail({
+      id: playerId,
+    })
+      .then((data) => {
+        if (data.sc && data.result) {
+          if (data.result.skills) {
+            data.result.skills = _groupBy(data.result.skills, "type");
+            console.log(data.result.skills);
+          }
+          setPlayerDetail(data.result);
+        }
+      })
+      .catch(() => {});
+  }, [playerId]);
+  function onChangeValues(key, value) {
+    key = key.split(".");
+    let temp = playerDetail;
+    for (let i = 0; i < key.length - 1; i++) {
+      temp = temp[key[i]];
+    }
+    temp[key[key.length - 1]] = value;
+    setPlayerDetail({ ...playerDetail });
+  }
+  async function onSaveAll() {
+    const playerDetailObj = {...playerDetail};
+    const skills = Object.keys(playerDetailObj.skills)
+      .map((id) => playerDetailObj.skills[id])
+      .flat();
+      playerDetailObj.skills = skills;
+      playerDetailObj.academy=playerDetailObj.academy._id;
+      playerDetailObj.nationality=playerDetailObj.nationality._id
+    if(playerImageFile){
+      playerDetailObj.img = await uploadImage(playerImageFile);
+    }
+    const status = await updatePlayerData(playerDetailObj);
+    if(status)
+    history.push(
+      `/academies/players/select?id=${playerDetail._id}`
+    )
+  }
+  if (!playerDetail) return <div />;
   return (
     <CustomModal
       isOpen={true}
       children={
         <DetailsContainer>
-          <Row style={{paddingBottom: 15, justifyContent: "flex-end", gap: 6}}>
+          <Row
+            style={{ paddingBottom: 15, justifyContent: "flex-end", gap: 6 }}
+          >
             <Column>
               <ThemeButton
                 isDisabled={false}
-                customCss={{background: "#A8A8A8"}}
-                onClickAction={() => props.onCloseAction(props.modalName || "")}
+                customCss={{ background: "#A8A8A8" }}
+                onClickAction={() =>
+                  history.push(
+                    `/academies/players/select?id=${playerDetail._id}`
+                  )
+                }
                 children="Cancel"
               />
             </Column>
             <Column>
               <ThemeButton
                 isDisabled={false}
-                onClickAction={() => alert("Under Development")}
+                onClickAction={() => onSaveAll()}
                 children="Save All"
               />
             </Column>
@@ -444,18 +541,38 @@ const AcademiesPlayerEdit = (props) => {
               paddingBottom: 20,
             }}
           >
-            <DeatilTabs>
-              <UploadPhoto {...props} />
-              <PlayerInfo {...props} />
-              <Trophies {...props} />
-              <ConnectWithPlayer {...props} />
-            </DeatilTabs>
-            <DeatilTabs>
-              {props?.playerDetails?.skills?.length &&
-                props.playerDetails.skills.map((skill) => {
-                  return <Skills {...skill} />;
+            <DetailTabs>
+              <UploadPhoto
+                img={playerDetail.img}
+                imageFileInputRef={imageFileInputRef}
+                setPlayerImage={setPlayerImage}
+                playerImage={playerImage}
+                setPlayerImageFile={setPlayerImageFile}
+              />
+              <PlayerInfo
+                playerDetail={playerDetail}
+                onChange={onChangeValues}
+              />
+              <Trophies
+                trophies={playerDetail.trophies}
+                onChange={onChangeValues}
+              />
+              <ConnectWithPlayer
+                social={playerDetail.social}
+                onChange={onChangeValues}
+              />
+            </DetailTabs>
+            <DetailTabs>
+              {Object.keys(playerDetail.skills).length &&
+                Object.keys(playerDetail.skills).map((id) => {
+                  return (
+                    <Skills
+                      skills={playerDetail.skills[id]}
+                      onChange={onChangeValues}
+                    />
+                  );
                 })}
-            </DeatilTabs>
+            </DetailTabs>
           </Column>
         </DetailsContainer>
       }

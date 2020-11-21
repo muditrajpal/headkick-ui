@@ -38,6 +38,7 @@ const ProgressSlider = (props) => (
     max={props.max}
     value={props.value}
     style={props.customCss}
+    onChange={props.onChange}
   />
 );
 

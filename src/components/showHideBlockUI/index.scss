@@ -7,4 +7,7 @@
     .active {
         background-color: rgba(0,0,0,0.4) !important;
     }
+    .ui.dimmer{
+        z-index: 10000000;
+    }
 }

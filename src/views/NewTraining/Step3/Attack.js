@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {Input, Search, Checkbox} from "semantic-ui-react";
+import { Checkbox } from "semantic-ui-react";
 
 const Row = styled.div`
   display: flex;
@@ -38,47 +38,58 @@ const InfoRow = styled(Row)`
   color: #333333;
 `;
 
-const Attack = (props) => (
+const Attack = ({ trainingData, onChange }) => (
   <Container>
     <AttackListContainer>
-      <InfoRow>
-        Attack Drill 1<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 2<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 3<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 4<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 5<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 6<Checkbox />
-      </InfoRow>
+      {[1, 2, 3, 4, 5, 6].map((r) => (
+        <InfoRow>
+          Attack Drill {r}
+          <Checkbox
+            onChange={(e, { checked }) => {
+              if (checked) {
+                trainingData.drills.push({
+                  name: `Attack Drill ${r}`,
+                  type: "Attack",
+                });
+              } else {
+                trainingData.drills = trainingData.drills.filter(
+                  (rr) => rr.name !== `Attack Drill ${r}`
+                );
+              }
+              console.log(trainingData.drills)
+              onChange("drills", trainingData.drills);
+            }}
+            checked={trainingData.drills.some(
+              (v) => v.name === `Attack Drill ${r}`
+            )}
+          />
+        </InfoRow>
+      ))}
     </AttackListContainer>
     <AttackListContainer>
-      <InfoRow>
-        Attack Drill 7<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 8<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 9<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 10<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 11<Checkbox />
-      </InfoRow>
-      <InfoRow>
-        Attack Drill 12<Checkbox />
-      </InfoRow>
+      {[7, 8, 9, 10, 11, 12].map((r) => (
+        <InfoRow>
+          Attack Drill {r}
+          <Checkbox
+            onChange={(e, { checked }) => {
+              if (checked) {
+                trainingData.drills.push({
+                  name: `Attack Drill ${r}`,
+                  type: "Attack",
+                });
+              } else {
+                trainingData.drills = trainingData.drills.filter(
+                  (rr) => rr.name !== `Attack Drill ${r}`
+                );
+              }
+              onChange("drills", trainingData.drills);
+            }}
+            checked={trainingData.drills.some(
+              (v) => v.name === `Attack Drill ${r}`
+            )}
+          />
+        </InfoRow>
+      ))}
     </AttackListContainer>
   </Container>
 );
