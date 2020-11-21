@@ -10,11 +10,14 @@ import Sidebar from "components/Sidebar";
 import PageNotFound from "views/PageNotFound";
 import history from "historyObj";
 
+import Navbar from './components/Navbar';
+
 ReactDOM.render(
   <Router history={history}>
     <Route path="/" component={Sidebar} />
     <div className="mainContainer">
       <div className="contentContainer">
+        <Navbar />
         <Switch>
         <Route path="/tournament/guest" component={TournamentGuest} />
           <Route path="/tournament" component={TournamentManager} />
