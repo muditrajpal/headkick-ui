@@ -25,13 +25,13 @@ const RenderOnGoingMatches = ({ dataongoingmatches, leagueOptions }) => {
             </Label>
           </div>
         </Grid.Column>
-        <Grid.Column centered textAlign="center">
+        <Grid.Column centered="true" textAlign="center">
           <div className="leagueName">
             <Icon color="yellow" name="trophy"></Icon>
             <p> {matchOne && matchOne.leagueName}</p>
           </div>
         </Grid.Column>
-        <Grid.Column centered textAlign="center">
+        <Grid.Column centered="true" textAlign="center">
           <Select placeholder="Select League" options={leagueOptions} />
         </Grid.Column>
       </Grid>
@@ -44,7 +44,7 @@ const RenderOnGoingMatches = ({ dataongoingmatches, leagueOptions }) => {
         columns={3}
         className="matchScoreBoard"
       >
-        <Grid.Column centered textAlign="center">
+        <Grid.Column centered="true" textAlign="center">
           <div className="teamOne">
             <div className="imageContainer">
               <img src={matchOne && matchOne.teamOneLogo} alt="" />
@@ -52,7 +52,7 @@ const RenderOnGoingMatches = ({ dataongoingmatches, leagueOptions }) => {
             <p className="teamName">{matchOne && matchOne.teamOne}</p>
           </div>
         </Grid.Column>
-        <Grid.Column centered textAlign="center">
+        <Grid.Column centered="true" textAlign="center">
           <div>
             <p className="matchTime">{matchOne && matchOne.matchTime}</p>
             <div className="matchScore">
@@ -71,7 +71,7 @@ const RenderOnGoingMatches = ({ dataongoingmatches, leagueOptions }) => {
             </Link>
           </div>
         </Grid.Column>
-        <Grid.Column centered textAlign="center">
+        <Grid.Column centered="true" textAlign="center">
           <div className="teamTwo">
             <div className="imageContainer">
               <img src={matchOne && matchOne.teamTwoLogo} alt="" />
