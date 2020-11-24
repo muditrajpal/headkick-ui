@@ -1,6 +1,7 @@
 import AllCourses from "views/AllCourses";
 import MyCourses from "views/MyCourses";
 import NewCourse from "views/NewCourse";
+import Tutorial from "views/Tutorial";
 
 export default [
   {
@@ -21,6 +22,11 @@ export default [
         path: "/new-course",
         layout: "/online-coaching",
         component: NewCourse,
+      },
+      {
+        path: "/edit-tutorial",
+        layout: "/online-coaching",
+        component: Tutorial,
       },
     ],
   },

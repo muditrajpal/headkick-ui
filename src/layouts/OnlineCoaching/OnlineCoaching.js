@@ -7,22 +7,35 @@ import {getActiveRoute, getRoutes} from "utils/layout";
 
 const Container = styled.div`
   float: left;
-  margin: auto;
+  margin: auto 30px;
   padding: 31px 28px;
   border-radius: 0.5rem;
   background: #ffffff;
   box-shadow: 0px 0px 20px #edeffc;
   border-radius: 10px;
-  width: 98.3%;
+  width: 96%;
   overflow-y: auto;
-  max-height: calc(100vh - 9rem);
+  max-height: calc(100vh - 80px);
 `;
+
+const Tabs = {
+  MY_COURSES: "/my-courses",
+  ALL_COURSES: "/all-courses",
+};
 
 const OnlineCoaching = (props) => {
   const activeRoute = getActiveRoute(routes);
   return (
     <Container>
-      <OnlineCoachingNav selectedTab={activeRoute?.length && activeRoute[0]?.path} />
+      {!activeRoute?.length ||
+      !activeRoute[0]?.path ||
+      activeRoute[0]?.path !== Tabs.MY_COURSES ||
+      activeRoute[0]?.path !== Tabs.ALL_COURSES ? null : (
+        <OnlineCoachingNav
+          selectedTab={activeRoute?.length && activeRoute[0]?.path}
+        />
+      )}
+
       <Switch>
         {getRoutes(routes)}
         <Redirect from="/online-coaching" to="/online-coaching/my-courses" />

@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import {Input, Select} from "semantic-ui-react";
 import ThemeButton from "shared/components/ThemeButton";
-import history from "historyObj";
 
 const Row = styled.div`
   display: flex;

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {Input, Dropdown, Icon} from "semantic-ui-react";
 import ThemeButton from "shared/components/ThemeButton";
-// import history from "historyObj";
+import history from "historyObj";
 
 const Row = styled.div`
   display: flex;
@@ -216,7 +216,7 @@ const Step2 = (props) => (
       <ThemeButton
         customCss={{width: 145}}
         isDisabled={false}
-        onClickAction={() => alert("Under Development")}
+        onClickAction={() => history.push("/online-coaching/edit-tutorial")}
         children="Preview"
       />
     </ButtonContainer>
