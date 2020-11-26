@@ -11,26 +11,24 @@ import {
 
 function NewLoginModal({loginModalVisibility, setLoginModalVisibility}) {
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail ] = useState('')
-  const [password, setPassword ] = useState('')
-
-  const handleFormSubmit = (e, data) => {
-    e.preventDefault();
+  const [userDetails, setUserDetails] = useState({ email: "", password: "" })
+  const { email, password } = userDetails;
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
     // payload for login API // better to use external libs like formik or https://react-hook-form.com/ for validation and form submit handling
     const payload = {
       email,
       password
     }
-
+    console.log('send this at login', userDetails)
   }
 
-  const handleEmailInputChange = e => {
-    setEmail(e.target.value)
+  const handleChange = event => {
+    const {name, value} = event.target;
+    setUserDetails({ ...userDetails, [name]: value });
+    console.log('userDetails', userDetails)
   }
 
-  const handlePasswordInputChange = e => {
-    setPassword(e.target.value)
-  }
 
   return (
     <Modal
@@ -51,12 +49,13 @@ function NewLoginModal({loginModalVisibility, setLoginModalVisibility}) {
         <Form onSubmit={handleFormSubmit}>
           <Form.Field>
             <label className="loginModalEmailLabel">E-mail</label>
-            <input onChange={(e) => handleEmailInputChange(e)} value={email} placeholder="joe@schmoe.com" type="email" />
+            <input name="email" onChange={handleChange} value={email} placeholder="joe@schmoe.com" type="email" />
           </Form.Field>
           <Form.Field>
             <label className="loginModalPasswordLabel">Password</label>
             <input
-              onChange={(e) => handlePasswordInputChange(e)} value={password}
+              name="password"
+              onChange={handleChange} value={password}
               placeholder="Enter 8 characters or more"
               type={showPassword ? 'text' : 'password'}
               style={{ position: 'relative' }}

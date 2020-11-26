@@ -1,0 +1,154 @@
+.signUpFormModal {
+  padding: 10px 20px;
+  width: 400px !important;
+  position: relative;
+}
+
+.signUpFormModalHeader {
+  padding: .5rem !important;
+}
+
+.signUpFormModalHeaderTitle {
+  font-size: 1.71rem;
+  color: #333 !important;
+}
+
+.signUpFormModalHeaderSubtitle {
+  margin: 1rem 0 !important;
+  font-size: 1.143rem;
+  color: #4D4D4D !important;
+  font-weight: 400 !important;
+  font-family: Roboto !important;
+}
+
+.signUpFormModalContent {
+  padding: 1.5rem 0 !important;
+}
+
+.signUpFormModalEmailLabel, .signUpFormModalPasswordLabel {
+  font-weight: 400 !important;
+}
+
+.signUpFormModalPasswordVisibilityIcon {
+  position: absolute;
+  margin-top: 10px !important;
+  margin-left: -30px !important;
+  color: #888;
+  cursor: pointer;
+}
+
+.signUpFormModalForgotPasswordCheckbox {
+  display: flex;
+  justify-content: space-between;
+
+  & span {
+    color: #1F94FF;
+    font-weight: 500;
+  }
+}
+
+.signUpFormModalLoginButton {
+  margin: 2rem 0 !important;
+  background-color: #0D1757 !important;
+  color: #fff !important;
+}
+
+.signUpFormModalOauth {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.signUpFormModalOauthItems {
+  border: 1px solid #bbb !important;
+  color: #0d1757 !important;
+}
+
+.signUpFormModalOauthItems i {
+  color: #000 !important;
+  width: 45px;
+}
+
+.signUpFormModalCloseBtn  {
+  background:#D9D9D9 !important;
+  padding: 8px 0px 8px 8px !important;
+  position: absolute;
+  top: 1rem;
+  right: 20px;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+.signUpFormModalCloseBtn .close {
+  text-align: center !important;
+}
+
+
+.signUpFormModalSignupText {
+  font-size: 12px;
+  display: block;
+  text-align: center;
+  margin-bottom: 13px;
+}
+
+.signUpFormModalSignupLink {
+  color: #2bdede;
+  font-weight: 700;
+}
+
+.background-none {
+  background: transparent !important;
+}
+
+.text-grey {
+  color: #888 !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.signUpFormModalButtonDividerContainer {
+  background-color: inherit;
+}
+
+.signUpFormModalContentName {
+  display: flex;
+}
+
+.signUpFormModalButtonDivider {
+  font-size: smaller !important;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-bold {
+  font-weight: 700;
+  color: #f7f7f7;
+}
+
+.signUpFormModalName {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signUpFormModalTncCheckbox {
+  display: flex;
+}
+
+.signUpFormModalTncLabel {
+  font-weight: 400 !important;
+  margin-left: .5rem !important;
+  font-size: .85rem !important;
+}
+
+.signUpFormModalTncLabel span {
+  color: #1e94ff;
+  font-weight: 500 !important;
+}
+
+.signUpFormModalFirstName, .signUpFormModalLastName {
+  width: 48%;
+}
