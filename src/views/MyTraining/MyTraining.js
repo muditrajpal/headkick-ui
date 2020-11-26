@@ -181,15 +181,6 @@ const TrainingRow = ({ training }) => (
       </Column>
     </TrainingInfoCenterAligned>
     <TrainingInfoCenterAligned>
-      {training.drills.filter(r=>r.type=="Attack").length}
-    </TrainingInfoCenterAligned>
-    <TrainingInfoCenterAligned>
-      {training.drills.filter(r=>r.type=="Defence").length}
-    </TrainingInfoCenterAligned>
-    <TrainingInfoCenterAligned>
-      {training.drills.filter(r=>r.type=="Physical/Mental").length}
-    </TrainingInfoCenterAligned>
-    <TrainingInfoCenterAligned>
       {training.drills.length}
     </TrainingInfoCenterAligned>
     <TableColumn>
@@ -281,9 +272,6 @@ const MyTraining = (props) => {
           <TableHeader>
             <TableColumn>NAME</TableColumn>
             <TrainingInfoCenterAligned>DATE TIME</TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>ATTACK</TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>DEFENCE</TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>MENTAL</TrainingInfoCenterAligned>
             <TrainingInfoCenterAligned>TOTAL DRILLS</TrainingInfoCenterAligned>
             <TableColumn>PLAYERS</TableColumn>
             <TrainingInfoCenterAligned>REPEAT</TrainingInfoCenterAligned>
