@@ -47,6 +47,11 @@ const CourseTitleContainer = styled(Column)`
   box-sizing: border-box;
   box-shadow: 0px 0px 20px #edeffc;
   border-radius: 16px;
+  cursor: pointer;
+  opacity: 0.9;
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 const CoursePhoto = styled.img`
@@ -107,7 +112,9 @@ const CourseTile = ({
   subscribers,
   price,
 }) => (
-  <CourseTitleContainer>
+  <CourseTitleContainer
+    onClick={() => history.push("/online-coaching/view-course")}
+  >
     <CoursePhoto src={coursePhoto || ""} />
     <CourseDetailsContainer>
       <CourseRow>

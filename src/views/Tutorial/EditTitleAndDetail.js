@@ -113,7 +113,7 @@ const EditTitleAndDetail = (props) => (
           <ThemeButton
             customCss={{width: 96}}
             isDisabled={false}
-            onClickAction={() => history.push("/online-coaching")}
+            onClick={() => props.onCloseAction(props.modalName)}
             children="Save"
           />
         </ButtonContainer>

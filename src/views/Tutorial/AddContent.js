@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {Icon, Input, Checkbox} from "semantic-ui-react";
 import CustomModal from "shared/components/CustomModal";
 import ThemeButton from "shared/components/ThemeButton";
-import history from "historyObj";
 
 const Row = styled.div`
   display: flex;
@@ -190,7 +189,7 @@ const AddContent = (props) => {
             <ThemeButton
               customCss={{width: 96}}
               isDisabled={false}
-              onClickAction={() => history.push("/online-coaching")}
+              onClickAction={() => props.onCloseAction(props.modalName)}
               children="Save"
             />
           </ButtonContainer>

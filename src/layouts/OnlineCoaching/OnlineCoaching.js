@@ -28,13 +28,12 @@ const OnlineCoaching = (props) => {
   return (
     <Container>
       {!activeRoute?.length ||
-      !activeRoute[0]?.path ||
-      activeRoute[0]?.path !== Tabs.MY_COURSES ||
-      activeRoute[0]?.path !== Tabs.ALL_COURSES ? null : (
+      activeRoute[0]?.path === Tabs.MY_COURSES ||
+      activeRoute[0]?.path === Tabs.ALL_COURSES ? (
         <OnlineCoachingNav
           selectedTab={activeRoute?.length && activeRoute[0]?.path}
         />
-      )}
+      ) : null}
 
       <Switch>
         {getRoutes(routes)}

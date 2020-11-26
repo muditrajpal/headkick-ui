@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {Search, Checkbox, Icon} from "semantic-ui-react";
 import ThemeButton from "shared/components/ThemeButton";
+import history from "historyObj";
 
 const Row = styled.div`
   display: flex;
@@ -192,7 +193,12 @@ const UploadedContent = (props) => (
 
     <HorizontalDivider />
     <ButtonContainer>
-      <ThemeButton customCss={{width: 96}} isDisabled={false} children="Save" />
+      <ThemeButton
+        customCss={{width: 96}}
+        isDisabled={false}
+        onClickAction={() => history.push("/online-coaching")}
+        children="Save"
+      />
     </ButtonContainer>
   </ContentContainer>
 );
