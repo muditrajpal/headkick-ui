@@ -21,6 +21,21 @@
   margin: 20px 0 20px 20px;
 }
 
+.navbarUnauthButtons{
+  display: inline-block;
+}
+
+.navbarAuthButtons {
+  display:inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#navbarLogout {
+  color: #0d1657 !important;
+  box-shadow: none;
+  font-weight: 500;
+}
 
 .ui.selection.active.dropdown .menu {
   border: 1px solid rgba(34,36,38,.15) !important;

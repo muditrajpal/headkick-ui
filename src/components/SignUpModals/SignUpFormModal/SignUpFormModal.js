@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 import React, { useState } from 'react';
 import {
   Button,
@@ -10,7 +10,10 @@ import {
   Icon,
 } from 'semantic-ui-react';
 
+import GeneralModal from './../../../sharedComponent/GenericModal/GenericModal'
 import './SignUpFormModal.scss';
+
+const ROOT_URL = 'http://localhost:8080/api';
 
 function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibility, profileType, setProfileType}) {
   const userDetailsInitialValues = {
@@ -21,24 +24,57 @@ function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibilit
   }
   const [showPassword, setShowPassword] = useState(false);
   const [userDetails, setUserDetails] = useState(userDetailsInitialValues);
+  const [signUpSuccess, setSignUpSuccess ] = useState(false);
+  const [signUpFailure, setSignUpFailure ] = useState(false);
 
   const {firstName, lastName, email, password, } = userDetails;
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    // payload for login API // better to use external libs like formik or https://react-hook-form.com/ for validation and form submit handling
-    console.log('sending user info', {...userDetails, profileType})
+  const handleFormSubmit = async (e) => {
+    try {
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      };
 
-    Axios.post('/account/signup', {...userDetails, profileType} ).then((res) => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err);
-    })
-    // reset the form
-    setUserDetails(userDetailsInitialValues)
-    // close modal and reset user type
-    setSignUpFormModalVisibility(false)
-    setProfileType("")
+      e.preventDefault();
+      // payload for login API // better to use external libs like formik or https://react-hook-form.com/ for validation and form submit handling
+      const signupPayload = {...userDetails, profileType};
+      let response = await axios.post(`${ROOT_URL}/auth/signup`, JSON.stringify(signupPayload), requestOptions)
+      // reset the form
+      console.log('response', response)
+      console.log('response.status', response.status)
+      if(response.status === 200) {
+        console.log('sign up success!!!!')
+        setSignUpSuccess(true)
+        console.log('signUpSuccess', signUpSuccess)
+      } else {
+        console.log('signup failure')
+        setSignUpFailure(true)
+      }
+      setUserDetails(userDetailsInitialValues)
+      // close modal and reset user type
+      setSignUpFormModalVisibility(false)
+      setProfileType("")
+
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const successModalContect = {
+    "mainMessage": "Account successfully created!",
+    "SubMessage": "Personalise your account and enjoy the tournaments.",
+    "buttonName": "Create team",
+    "linkName": "Sign in now",
+    "linkSource": "https://localhost:3000/" 
+  }
+
+  const failureModalContect = {
+    "mainMessage": "Something went wrong!",
+    "SubMessage": "Please try and sign up again or contact us",
+    "buttonName": "Sign up",
+    "linkName": "Sign in now",
+    "linkSource": "https://localhost:3000/" 
   }
 
 
@@ -54,7 +90,8 @@ function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibilit
   }
 
   return (
-    <Modal
+    <>
+        <Modal
       onClose={signUpFormModalClose}
       onOpen={() => setSignUpFormModalVisibility(true)}
       open={signUpFormModalVisibility}
@@ -131,6 +168,10 @@ function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibilit
         <span>Already have an account?</span> <span className="signUpFormModalSignupLink text-underline">Sign in now!</span>
       </div>
     </Modal>
+      {signUpSuccess && <GeneralModal modalContent={successModalContect} /> }
+      {signUpFailure && <GeneralModal modalContent={failureModalContect}/> }
+    </>
+
   )
 }
 
