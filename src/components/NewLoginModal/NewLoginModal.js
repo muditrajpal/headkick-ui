@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import {
   Button,
   Header,
@@ -9,24 +10,39 @@ import {
   Icon,
 } from 'semantic-ui-react';
 
+import { loginUser, useAuthState, useAuthDispatch  } from './../../contexts/auth.context';
+import history from "historyObj";
+import showHideBlockUI from './../showHideBlockUI'
+
 function NewLoginModal({loginModalVisibility, setLoginModalVisibility}) {
   const [showPassword, setShowPassword] = useState(false);
   const [userDetails, setUserDetails] = useState({ email: "", password: "" })
   const { email, password } = userDetails;
-  const handleFormSubmit = (event) => {
+  const dispatch = useAuthDispatch();
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     // payload for login API // better to use external libs like formik or https://react-hook-form.com/ for validation and form submit handling
     const payload = {
       email,
       password
     }
-    console.log('send this at login', userDetails)
+    try {
+      showHideBlockUI()
+      // loginUser action makes the request and handles all the neccessary state changes
+      let user = await loginUser(dispatch, payload) 
+      if (!user) return
+      //navigate to tournament on success
+      history.push('/tournament');
+      setUserDetails({ email: "", password: "" }) // reset form
+      setLoginModalVisibility(false)
+    } catch (err) {
+      console.log('err', err)
+    }
   }
 
   const handleChange = event => {
     const {name, value} = event.target;
     setUserDetails({ ...userDetails, [name]: value });
-    console.log('userDetails', userDetails)
   }
 
 

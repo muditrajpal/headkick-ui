@@ -10,8 +10,11 @@ import Sidebar from "components/Sidebar";
 import PageNotFound from "views/PageNotFound";
 import history from "historyObj";
 
+import Navbar from './components/Navbar';
+import { AuthProvider } from './contexts/auth.context'
 
 ReactDOM.render(
+  <AuthProvider>
   <Router history={history}>
     <Route path="/" component={Sidebar} />
     <div className="mainContainer">
@@ -25,6 +28,7 @@ ReactDOM.render(
         </Switch>
       </div>
     </div>
-  </Router>,
+  </Router>
+  </AuthProvider>,
   document.getElementById("root")
 );
