@@ -179,7 +179,7 @@ const AcademiesPlayersList = (props) => {
             </Button>
           </span>
         </div>
-        {myAcademySelected == 2 ? (
+
           <div className="filterOptions">
             <span>Filter By: </span>
             <Select
@@ -190,7 +190,7 @@ const AcademiesPlayersList = (props) => {
                 value: academy._id,
                 text: academy.name,
               }))]}
-              onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${filterAge}&filterAcademy=${value}&filterCountry=${filterCountry}`)}
+              onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${filterAge}&filterAcademy=${value}&filterCountry=${filterCountry}&myAcademy=${myAcademySelected==1?true:""}`)}
             />
             <Select placeholder="Nationality" 
             value={filterCountry}
@@ -199,20 +199,18 @@ const AcademiesPlayersList = (props) => {
               value: country._id,
               text: country.name,
             }))]}
-            onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${filterAge}&filterAcademy=${filterAcademy}&filterCountry=${value}`)}
+            onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${filterAge}&filterAcademy=${filterAcademy}&filterCountry=${value}&myAcademy=${myAcademySelected==1?true:""}`)}
             />
             <Select placeholder="Age" 
             value={filterAge}
-              onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${value}&filterAcademy=${filterAcademy}&filterCountry=${filterCountry}`)}
+              onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${value}&filterAcademy=${filterAcademy}&filterCountry=${filterCountry}&myAcademy=${myAcademySelected==1?true:""}`)}
             options={ageFilterArray} />
             <Select placeholder="Positions" 
             value={filterPosition}
-            onChange={(e,{value})=>history.push(`?filterPosition=${value}&filterAge=${filterAge}&filterAcademy=${filterAcademy}&filterCountry=${filterCountry}`)}
+            onChange={(e,{value})=>history.push(`?filterPosition=${value}&filterAge=${filterAge}&filterAcademy=${filterAcademy}&filterCountry=${filterCountry}&myAcademy=${myAcademySelected==1?true:""}`)}
             options={optionPosition} />
           </div>
-        ) : (
-          ""
-        )}
+
         <PlayerListContainer>
           <Table padded singleLine>
             <Table.Header>

@@ -118,11 +118,11 @@ const AddMoreButton = styled.div`
   color: #1f94ff;
 `;
 
-const CurrentDrills = ({ drills, onChange }) => (
+const CurrentDrills = ({ drills, onChange,type }) => (
   <DrillTypeContainer>
     <HeaderText>Current Drills</HeaderText>
     <DrillListContainer>
-      {drills.map((drill, i) => (
+      {drills.filter((drill) => drill.type === type).map((drill, i) => (
         drill.name?
         <InfoRow>
           {drill.name}
@@ -139,16 +139,16 @@ const CurrentDrills = ({ drills, onChange }) => (
   </DrillTypeContainer>
 );
 
-const AddDrills = ({ onChange, subType, drills }) => (
+const AddDrills = ({ onChange, type, drills }) => (
   <DrillTypeContainer>
     <HeaderText>Add Drills</HeaderText>
     <AddDrillsContainer>
       {drills
-        .filter((drill) => drill.subType === subType)
+        .filter((drill) => drill.type === type)
         .map((drill) => (
           <Column>
             <InputLabelText>Drill Name</InputLabelText>
-            <Input placeholder={`${subType} Drill 1`} value={drill.name} 
+            <Input placeholder={`${type} Drill 1`} value={drill.name} 
             onChange={(e)=>{
               drill.name=e.target.value;
               onChange("drills",[...drills]);
@@ -162,7 +162,7 @@ const AddDrills = ({ onChange, subType, drills }) => (
           onClick={() => {
             drills.push({
               name: "",
-              subType,
+              type,
             });
             onChange("drills", drills);
           }}
@@ -174,7 +174,7 @@ const AddDrills = ({ onChange, subType, drills }) => (
   </DrillTypeContainer>
 );
 
-const EditDrills = ({ onCloseAction, trainingDetail, onChange, subType ,onUpdateTraining}) => (
+const EditDrills = ({ onCloseAction, trainingDetail, onChange, type ,onUpdateTraining}) => (
   <CustomModal
     isOpen={true}
     width="65%"
@@ -186,9 +186,9 @@ const EditDrills = ({ onCloseAction, trainingDetail, onChange, subType ,onUpdate
           </CrossButton>
         </CrossButtonContainer>
         <Row style={{ justifyContent: "space-between" }}>
-          <CurrentDrills drills={trainingDetail.drills} onChange={onChange} />
+          <CurrentDrills drills={trainingDetail.drills} type={type} onChange={onChange} />
           <VerticalDivider />
-          <AddDrills subType={subType} onChange={onChange} drills={trainingDetail.drills}/>
+          <AddDrills type={type} onChange={onChange} drills={trainingDetail.drills}/>
         </Row>
         <HorizontalDivider />
         <ButtonContainer>

@@ -153,7 +153,7 @@ const ProgressBarContainer = styled(Column)`
 `;
 
 const TabsSelectorContainer = styled(Row)`
-  gap: 80px;
+  gap: 25px;
   border-bottom: 1px solid #e8ebfc;
   margin-top: 10px;
   padding: 0 20px;
@@ -163,12 +163,12 @@ const TabsSelectorContainer = styled(Row)`
 const TabContainer = styled(Column)`
   font-family: Roboto;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 14px;
   justify-content: center;
   color: #12216d;
   border-bottom: ${({ isSelected }) =>
     isSelected ? "4px solid #0d1757" : "none"};
-  padding: 18px;
+  padding: 10px;
   cursor: pointer;
   height: 50px;
 `;
@@ -203,6 +203,7 @@ export const TrainingTypes = {
   DEFENDING: "Defending",
   PASSING: "Passing",
   SHOOTING: "Shooting",
+  PHYSICAL_MENTAL: "Physical/Mental",
 };
 
 const PlayerSkill = ({skills}) => (
@@ -252,6 +253,12 @@ const TabsSelector = ({ trainingSubType, setTrainingSubType }) => (
       onClick={() => setTrainingSubType(TrainingTypes.SHOOTING)}
     >
       Shooting
+    </TabContainer>
+    <TabContainer
+      isSelected={trainingSubType === TrainingTypes.PHYSICAL_MENTAL}
+      onClick={() => setTrainingSubType(TrainingTypes.PHYSICAL_MENTAL)}
+    >
+      Physical/Mental
     </TabContainer>
   </TabsSelectorContainer>
 );
@@ -344,7 +351,7 @@ const PlayerTrainingInfo = ({
       </EditButtonContainer>
       <DrillsContainer>
         {trainingDetail.drills.map((drill) =>
-          !drill.subType || drill.subType === trainingSubType ? (
+         drill.type === trainingSubType ? (
             <DrillTab>{drill.name}</DrillTab>
           ) : (
             ""
@@ -386,10 +393,14 @@ const ViewTraining = (props) => {
 
     const result = await addUpdateTraining({
       ...trainingDetail,
+      drills:trainingDetail.drills.filter(drill=>!drill.inactive),
       academy: trainingDetail.academy._id,
       players: trainingDetail.players.map((player) => player._id),
     });
     if (result) {
+      setTrainingDetail({
+        ...trainingDetail,
+        drills:trainingDetail.drills.filter(drill=>!drill.inactive)})
       setShowEdit((v) => !v);
     }
   }
@@ -418,10 +429,14 @@ const ViewTraining = (props) => {
       </InfoContainer>
       {showEdit ? (
         <EditDrills
-          onCloseAction={() => setShowEdit((v) => !v)}
+          onCloseAction={() => {
+            trainingDetail.drills = trainingDetail.drills.filter((r) => r.name);
+            onChangeValues("drills", trainingDetail.drills);
+            setShowEdit((v) => !v);
+          }}
           trainingDetail={trainingDetail}
           onChange={onChangeValues}
-          subType={trainingSubType}
+          type={trainingSubType}
           onUpdateTraining={onUpdateTraining}
         />
       ) : (

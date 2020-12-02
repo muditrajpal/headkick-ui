@@ -173,10 +173,10 @@ const TrainingRow = ({ training }) => (
     <TrainingInfoCenterAligned>
       <Column style={{ alignItems: "center" }}>
         <Column>
-          {training.date && moment(training.date).format("HH:MM A")}
+          {training.time&&moment(training.time, 'HH:mm a').format("HH:mm A")}
         </Column>
         <DateContainer>
-          {training.date && moment(training.date).format("DD MMM")}
+          {training.date && moment(training.date.split("/").reverse().join("-")).format("DD MMM")}
         </DateContainer>
       </Column>
     </TrainingInfoCenterAligned>
