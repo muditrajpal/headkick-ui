@@ -7,6 +7,7 @@ import TournamentManager from "layouts/TournamentManager";
 import TournamentGuest from "layouts/TournamentGuest";
 import Academies from "layouts/Academies";
 import OnlineCoaching from "layouts/OnlineCoaching";
+import InformationAndNews from "layouts/InformationAndNews";
 import Sidebar from "components/Sidebar";
 import PageNotFound from "views/PageNotFound";
 import history from "historyObj";
@@ -21,6 +22,7 @@ ReactDOM.render(
           <Route path="/tournament" component={TournamentManager} />
           <Route path="/academies" component={Academies} />
           <Route path="/online-coaching" component={OnlineCoaching} />
+          <Route path="/information-and-news" component={InformationAndNews} />
           <Route path="/page-not-found" component={PageNotFound} />
           <Redirect from="/" to="/page-not-found" />
         </Switch>

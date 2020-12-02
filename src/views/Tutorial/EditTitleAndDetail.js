@@ -3,7 +3,6 @@ import styled from "styled-components";
 import {Icon, Input} from "semantic-ui-react";
 import CustomModal from "shared/components/CustomModal";
 import ThemeButton from "shared/components/ThemeButton";
-import history from "historyObj";
 
 const Row = styled.div`
   display: flex;
