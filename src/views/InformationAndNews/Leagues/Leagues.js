@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {Select, Dropdown, Icon} from "semantic-ui-react";
-import PaginationBar from "shared/components/PaginationBar";
+import {Dropdown, Icon} from "semantic-ui-react";
+import history from "historyObj";
 
 const Row = styled.div`
   display: flex;
@@ -63,6 +63,10 @@ const TableRow = styled.tr`
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
+  cursor: pointer;
+  :hover {
+    background: #e9ecfb !important;
+  }
 `;
 
 const TableColumn = styled.td`
@@ -118,7 +122,11 @@ const LeagueList = (props) => (
   <LeaguesListContainer>
     <LeagueListHeader />
     <tbody>
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />
@@ -140,8 +148,11 @@ const LeagueList = (props) => (
           </SocialIconContainer>
         </TableColumnCenterAligned>
       </TableRow>
-
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />
@@ -163,8 +174,11 @@ const LeagueList = (props) => (
           </SocialIconContainer>
         </TableColumnCenterAligned>
       </TableRow>
-
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />
@@ -186,8 +200,11 @@ const LeagueList = (props) => (
           </SocialIconContainer>
         </TableColumnCenterAligned>
       </TableRow>
-
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />
@@ -209,8 +226,11 @@ const LeagueList = (props) => (
           </SocialIconContainer>
         </TableColumnCenterAligned>
       </TableRow>
-
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />
@@ -232,8 +252,11 @@ const LeagueList = (props) => (
           </SocialIconContainer>
         </TableColumnCenterAligned>
       </TableRow>
-
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />
@@ -255,8 +278,11 @@ const LeagueList = (props) => (
           </SocialIconContainer>
         </TableColumnCenterAligned>
       </TableRow>
-
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />
@@ -278,77 +304,11 @@ const LeagueList = (props) => (
           </SocialIconContainer>
         </TableColumnCenterAligned>
       </TableRow>
-
-      <TableRow>
-        <TableColumn>
-          <LeagueNameContainer>
-            <LeagueSymbol src="https://picsum.photos/200" />
-            LaLiga
-          </LeagueNameContainer>
-        </TableColumn>
-        <TableColumnCenterAligned>
-          <CountryFlag src="https://picsum.photos/200" />
-        </TableColumnCenterAligned>
-        <TableColumnCenterAligned>34</TableColumnCenterAligned>
-        <TableColumnCenterAligned>534</TableColumnCenterAligned>
-        <TableColumnCenterAligned>24</TableColumnCenterAligned>
-        <TableColumnCenterAligned>80</TableColumnCenterAligned>
-        <TableColumnCenterAligned>
-          <SocialIconContainer>
-            <Icon name="facebook f" />
-            <Icon name="twitter" />
-            <Icon name="instagram" />
-          </SocialIconContainer>
-        </TableColumnCenterAligned>
-      </TableRow>
-
-      <TableRow>
-        <TableColumn>
-          <LeagueNameContainer>
-            <LeagueSymbol src="https://picsum.photos/200" />
-            LaLiga
-          </LeagueNameContainer>
-        </TableColumn>
-        <TableColumnCenterAligned>
-          <CountryFlag src="https://picsum.photos/200" />
-        </TableColumnCenterAligned>
-        <TableColumnCenterAligned>34</TableColumnCenterAligned>
-        <TableColumnCenterAligned>534</TableColumnCenterAligned>
-        <TableColumnCenterAligned>24</TableColumnCenterAligned>
-        <TableColumnCenterAligned>80</TableColumnCenterAligned>
-        <TableColumnCenterAligned>
-          <SocialIconContainer>
-            <Icon name="facebook f" />
-            <Icon name="twitter" />
-            <Icon name="instagram" />
-          </SocialIconContainer>
-        </TableColumnCenterAligned>
-      </TableRow>
-
-      <TableRow>
-        <TableColumn>
-          <LeagueNameContainer>
-            <LeagueSymbol src="https://picsum.photos/200" />
-            LaLiga
-          </LeagueNameContainer>
-        </TableColumn>
-        <TableColumnCenterAligned>
-          <CountryFlag src="https://picsum.photos/200" />
-        </TableColumnCenterAligned>
-        <TableColumnCenterAligned>34</TableColumnCenterAligned>
-        <TableColumnCenterAligned>534</TableColumnCenterAligned>
-        <TableColumnCenterAligned>24</TableColumnCenterAligned>
-        <TableColumnCenterAligned>80</TableColumnCenterAligned>
-        <TableColumnCenterAligned>
-          <SocialIconContainer>
-            <Icon name="facebook f" />
-            <Icon name="twitter" />
-            <Icon name="instagram" />
-          </SocialIconContainer>
-        </TableColumnCenterAligned>
-      </TableRow>
-
-      <TableRow>
+      <TableRow
+        onClick={() =>
+          history.push("/information-and-news/leagues/details?id=123")
+        }
+      >
         <TableColumn>
           <LeagueNameContainer>
             <LeagueSymbol src="https://picsum.photos/200" />

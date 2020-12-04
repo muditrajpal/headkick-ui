@@ -104,6 +104,7 @@ const VideoPlayer = styled.video`
   height: 400px;
   border-radius: 16px 16px 0 0;
   outline: none;
+  background: #000000;
 `;
 
 const MainHighlightTextContainer = styled(Column)`

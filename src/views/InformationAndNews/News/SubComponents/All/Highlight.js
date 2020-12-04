@@ -47,7 +47,7 @@ const VideoPlayer = styled.video`
   height: 432px;
   border-radius: 10px;
   outline: none;
-  background: rgba(0, 0, 0, 0.4);
+  background: #000000;
 `;
 
 const HighlightTextContainer = styled(Column)`

@@ -1,5 +1,7 @@
 import News from "views/InformationAndNews/News";
 import Leagues from "views/InformationAndNews/Leagues";
+import LeagueDetails from "views/InformationAndNews/Leagues/LeagueDetails";
+
 
 export default [
   {
@@ -14,13 +16,18 @@ export default [
     ],
   },
   {
-    collapse: true,
     name: "Leagues",
+    collapse: true,
     views: [
       {
         path: "/leagues",
         layout: "/information-and-news",
         component: Leagues,
+      },
+      {
+        path: "/leagues/details",
+        layout: "/information-and-news",
+        component: LeagueDetails,
       },
     ],
   },
