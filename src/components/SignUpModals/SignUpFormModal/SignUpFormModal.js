@@ -41,14 +41,9 @@ function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibilit
       const signupPayload = {...userDetails, profileType};
       let response = await axios.post(`${ROOT_URL}/auth/signup`, JSON.stringify(signupPayload), requestOptions)
       // reset the form
-      console.log('response', response)
-      console.log('response.status', response.status)
       if(response.status === 200) {
-        console.log('sign up success!!!!')
         setSignUpSuccess(true)
-        console.log('signUpSuccess', signUpSuccess)
       } else {
-        console.log('signup failure')
         setSignUpFailure(true)
       }
       setUserDetails(userDetailsInitialValues)

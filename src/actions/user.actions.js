@@ -2,14 +2,14 @@ import localForage from 'localforage';
 import axios from 'axios';
 
 const ROOT_URL = 'http://localhost:8080/api';
+
+const requestOptions = {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  // body: JSON.stringify(loginPayload),
+};
  
 export async function loginUser(dispatch, loginPayload) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    // body: JSON.stringify(loginPayload),
-  };
- 
   try {
     dispatch({ type: 'REQUEST_LOGIN' });
     let response = axios.post(`${ROOT_URL}/auth/signin`, JSON.stringify(loginPayload), requestOptions)
@@ -36,10 +36,17 @@ export async function reauthUser(dispatch) {
   }
 }
  
-export async function logout(dispatch) {
-  localForage.removeItem('currentUser').then(function() {
-    dispatch({ type: "LOGOUT"})
-  }).catch(function(err) {
-      console.log(err);
-  });
+export async function logoutUser(dispatch, logoutPayload) {
+  dispatch({ type: 'REQUEST_LOGOUT' });
+  let response = axios.post(`${ROOT_URL}/auth/signout`, JSON.stringify(logoutPayload), requestOptions)
+  let responseData = await response;
+  const {status} = responseData.data.result
+
+  if (status === 200) {
+    dispatch({ type: 'LOGOUT_SUCCESS' });
+    localForage.removeItem('currentUser')
+    return {status}
+  } else {
+    dispatch({ type: 'LOGOUT_ERROR', error: "Unable to logout user at server!" });
+  }
 }

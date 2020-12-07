@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { loginUser, logout} from './../actions/user.actions'
+import { loginUser, logoutUser} from './../actions/user.actions'
 
 import {AuthReducer, initialState} from './../reducers/auth.reducer'
 
@@ -37,5 +37,5 @@ function useAuthDispatch() {
 
 
 export {
-    AuthProvider, useAuthState, useAuthDispatch, loginUser, logout
+    AuthProvider, useAuthState, useAuthDispatch, loginUser, logoutUser
 }

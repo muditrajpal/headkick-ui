@@ -30,12 +30,19 @@ export const AuthReducer = (initialState, action) => {
         loading: false,
       }
     case "LOGOUT":
+      return initialState;
+    case "REQUEST_LOGOUT":
       return {
         ...initialState,
-        user: "",
-        token: ""
+        loading: true
       };
- 
+    case "LOGOUT_SUCCESS":
+      return {
+        ...initialState,
+        userDetails: "",
+        token: "",
+        loading: true
+      };
     case "LOGIN_ERROR":
       return {
         ...initialState,
