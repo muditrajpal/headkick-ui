@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Segment, Button, Dropdown, Search } from 'semantic-ui-react';
+import localForage from 'localforage';
+import history from "historyObj";
 
 import NewLoginModal from './../NewLoginModal';
 import {SignUpProfileModal, SignUpFormModal} from '../SignUpModals';
 import { useAuthState, useAuthDispatch } from './../../contexts/auth.context' 
-import { reauthUser } from 'actions/user.actions';
+import { reauthUser, logoutUser } from 'actions/user.actions';
 
 import { ReactComponent as ProfileIcon } from './../../assets/svgs/profileIcon.svg'
 import { ReactComponent as CartIcon } from './../../assets/svgs/cartIcon.svg'
@@ -45,8 +47,13 @@ const Navbar = (props) => {
     setSignUpProfileModalVisibility(true)
   }
 
-  const handleLogoutClick = () => {
-    
+  const handleLogoutClick = async () => {
+    const {token, email } = await localForage.getItem("currentUser");
+    const payload = {token, email};
+    const { status} = await logoutUser(dispatch, payload);
+    if(status === 200) {
+      history.push("/tournament/overview");
+    }
   }
 
   useEffect(() => {
