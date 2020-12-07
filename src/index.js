@@ -19,7 +19,6 @@ ReactDOM.render(
     <Route path="/" component={Sidebar} />
     <div className="mainContainer">
       <div className="contentContainer">
-        <Navbar />
         <Switch>
         <Route path="/tournament/guest" component={TournamentGuest} />
           <Route path="/tournament" component={TournamentManager} />

@@ -76,23 +76,11 @@ const Step1 = ({ trainingData, onChange,toggleStep }) => (
       />
     </InputContainer>
     <InputContainer>
-      <InputLabel>Start Date</InputLabel>
+      <InputLabel>Date/Time</InputLabel>
       <Row style={{ gap: 7 }}>
-        <InputBox
-          style={{ width: 55 }}
-          placeholder="DD"
-          onChange={(e) => onChange("date.dd", e.target.value)}
-        />
-        <InputBox
-          style={{ width: 55 }}
-          placeholder="MM"
-          onChange={(e) => onChange("date.mm", e.target.value)}
-        />
-        <InputBox
-          style={{ width: 68 }}
-          placeholder="YYYY"
-          onChange={(e) => onChange("date.yyyy", e.target.value)}
-        />
+      <InputBox value={trainingData.date} placeholder='Date' type="date"
+      onChange={(e) => onChange("date", e.target.value)}/>
+      <InputBox value={trainingData.time} placeholder='Time' type="time"  onChange={(e) => onChange("time", e.target.value)}/>
       </Row>
     </InputContainer>
     <Divider />

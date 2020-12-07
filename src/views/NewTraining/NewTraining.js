@@ -6,6 +6,10 @@ import Step3 from "./Step3/Step3";
 import { fetchPlayerList } from "apis/player";
 import { addUpdateTraining } from "apis/training";
 import history from "historyObj"
+import showHideNotification from "components/showHideNotification";
+import { trainings } from "services/trainings/mock";
+
+const day = 60*60*24*1000;
 
 const NewTrainingBody = styled.div`
   display: flex;
@@ -28,13 +32,13 @@ const NewTrainingContainer = styled.div`
   width: 75%;
   padding: 30px;
   max-height: calc(100vh - 11rem);
-  overflow-y: auto;
 `;
 
 const NewTraining = (props) => {
   const [trainingData, setTrainingData] = useState({
     name: "",
-    date: { dd: "", mm: "", yyyy: "" },
+    date: "",
+    time: "",
     players: [],
     drills: [],
   });
@@ -63,16 +67,19 @@ const NewTraining = (props) => {
   }, []);
 
   async function saveTraining() {
-   const result=  await addUpdateTraining({
-      ...trainingData,
-      date: `${trainingData.date.dd}/${trainingData.date.mm}/${trainingData.date.yyyy}`,
-    });
+   const result=  await addUpdateTraining({...trainingData,date:trainingData.date.split("-").reverse().join("/")});
     if(result){
       history.push("/academies/training/list")
     }
   }
 
   function onChangeValues(key, value) {
+    if(key=="date"){
+      if(value<new Date(new Date().getTime()+day).toLocaleDateString().split("/").reverse().join("-")){
+        showHideNotification("Date should be of future", "danger");
+return;
+      }
+    }
     key = key.split(".");
     let temp = trainingData;
     for (let i = 0; i < key.length - 1; i++) {
@@ -80,6 +87,7 @@ const NewTraining = (props) => {
     }
     temp[key[key.length - 1]] = value;
     setTrainingData({ ...trainingData });
+    console.log(key, value)
   }
   return (
     <NewTrainingBody>

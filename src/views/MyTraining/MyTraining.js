@@ -173,21 +173,12 @@ const TrainingRow = ({ training }) => (
     <TrainingInfoCenterAligned>
       <Column style={{ alignItems: "center" }}>
         <Column>
-          {training.date && moment(training.date).format("HH:MM A")}
+          {training.time&&moment(training.time, 'HH:mm a').format("HH:mm A")}
         </Column>
         <DateContainer>
-          {training.date && moment(training.date).format("DD MMM")}
+          {training.date && moment(training.date.split("/").reverse().join("-")).format("DD MMM")}
         </DateContainer>
       </Column>
-    </TrainingInfoCenterAligned>
-    <TrainingInfoCenterAligned>
-      {training.drills.filter(r=>r.type=="Attack").length}
-    </TrainingInfoCenterAligned>
-    <TrainingInfoCenterAligned>
-      {training.drills.filter(r=>r.type=="Defence").length}
-    </TrainingInfoCenterAligned>
-    <TrainingInfoCenterAligned>
-      {training.drills.filter(r=>r.type=="Physical/Mental").length}
     </TrainingInfoCenterAligned>
     <TrainingInfoCenterAligned>
       {training.drills.length}
@@ -281,9 +272,6 @@ const MyTraining = (props) => {
           <TableHeader>
             <TableColumn>NAME</TableColumn>
             <TrainingInfoCenterAligned>DATE TIME</TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>ATTACK</TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>DEFENCE</TrainingInfoCenterAligned>
-            <TrainingInfoCenterAligned>MENTAL</TrainingInfoCenterAligned>
             <TrainingInfoCenterAligned>TOTAL DRILLS</TrainingInfoCenterAligned>
             <TableColumn>PLAYERS</TableColumn>
             <TrainingInfoCenterAligned>REPEAT</TrainingInfoCenterAligned>
