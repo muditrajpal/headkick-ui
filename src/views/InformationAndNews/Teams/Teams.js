@@ -1,10 +1,9 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import {Icon} from "semantic-ui-react";
-import history from "historyObj";
 import ThemeButton from "shared/components/ThemeButton";
 import CustomModal from "shared/components/CustomModal";
-import BlogDetailsComponent from "../../Blogs/BlogDetails/BlogDetails";
+import BlogDetailsComponent from "../Blogs/BlogDetails/BlogDetails";
 
 const Row = styled.div`
   display: flex;
@@ -28,27 +27,22 @@ const Container = styled(Column)`
   overflow-y: auto;
 `;
 
-const LeagueDetailsContainer = styled(Column)`
+const TeamsDetailsContainer = styled(Column)`
   padding: 31px 28px;
   box-shadow: 0px 0px 20px #edeffc;
   border-radius: 10px;
   width: 98.3%;
 `;
 
-const LeagueNameContainer = styled(Row)`
+const TeamsNameContainer = styled(Row)`
   align-items: center;
-  gap: 20px;
-  padding: 0 0 10px 88px;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 28px;
-  color: #12216d;
+  gap: 22px;
+  padding-bottom: 31px;
 `;
 
-const LeagueLogo = styled.img`
-  height: 96px;
-  width: 96px;
+const TeamsLogo = styled.img`
+  height: 141px;
+  width: 141px;
   border-radius: 50%;
 `;
 
@@ -58,7 +52,7 @@ const HorizontalDivider = styled(Row)`
   margin: 32px 0;
 `;
 
-const LeagueDetailGrid = styled.div`
+const TeamsDetailGrid = styled.div`
   display: grid;
   grid-gap: 35px 23px;
   grid-template-areas:
@@ -260,21 +254,6 @@ const DescriptionTextContainer = styled(Column)`
   }
 `;
 
-const TopGoalScorerContainer = styled(Column)`
-  flex: 1;
-  grid-area: topGoalScorer;
-`;
-
-const TopGoalKeeperContainer = styled(Column)`
-  flex: 1;
-  grid-area: topGoalKeeper;
-`;
-
-const TopMidFielderContainer = styled(Column)`
-  flex: 1;
-  grid-area: topMidFielder;
-`;
-
 const BlogsListContainer = styled(Column)`
   width: 98.3%;
 `;
@@ -370,6 +349,90 @@ const BlogDetailsmModalContainer = styled(Column)`
   margin: 30px;
   max-height: calc(100vh - 120px);
   overflow-y: auto;
+`;
+
+const TabBoxContainer = styled(Column)`
+  height: 100%;
+  border: 1px solid #e9ecfb;
+  border-radius: 4px;
+  background-color: white;
+  flex: 1;
+`;
+
+const TabTitleContainer = styled(Row)`
+  width: 100%;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  background: #e9ecfb;
+  border: 1px solid #e9ecfb;
+  padding: 17px 22px;
+`;
+
+const TabTitle = styled(Column)`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  color: #12216d;
+`;
+
+const TeamNameText = styled(TabTitle)`
+  font-size: 24px;
+  line-height: 28px;
+`;
+
+const SeeMoreLink = styled(Column)`
+  align-items: flex-end;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  color: #1f94ff;
+  cursor: pointer;
+`;
+
+const TextValue = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  color: #12216d;
+`;
+
+const TextLabel = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  color: #707070;
+`;
+
+const TeamInfoTextLabel = styled(TextLabel)`
+  padding-bottom: 5px;
+`;
+
+const TeamSocialAccountsContainer = styled(Row)`
+  color: #1a2e99;
+  gap: 8px;
+`;
+
+const TrophiesTextLabel = styled(TextLabel)`
+  text-align: right;
+  padding: 5px;
+`;
+
+const TrophiesNumber = styled.span`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const TrophyIconContainer = styled.span`
+  color: #e4c389;
 `;
 
 const TopPlayer = (props) => (
@@ -602,138 +665,6 @@ const Description = (props) => (
   </DescriptionContainer>
 );
 
-const TopGoalScorer = (props) => (
-  <TopGoalScorerContainer>
-    <Table>
-      <thead>
-        <TablePositionColumn></TablePositionColumn>
-        <TableColumn>Top Goal Scorer</TableColumn>
-        <TableColumnCenterAligned>Goals</TableColumnCenterAligned>
-      </thead>
-      <tbody>
-        <tr>
-          <TablePositionColumn position={1}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={2}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={3}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={4}>4</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={5}>5</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={6}>6</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-      </tbody>
-    </Table>
-  </TopGoalScorerContainer>
-);
-
-const TopGoalKeeper = (props) => (
-  <TopGoalKeeperContainer>
-    <Table>
-      <thead>
-        <TablePositionColumn></TablePositionColumn>
-        <TableColumn>Top Goal Keeper</TableColumn>
-        <TableColumnCenterAligned>Clean Sheets</TableColumnCenterAligned>
-      </thead>
-      <tbody>
-        <tr>
-          <TablePositionColumn position={1}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={2}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={3}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={4}>4</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={5}>5</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={6}>6</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-      </tbody>
-    </Table>
-  </TopGoalKeeperContainer>
-);
-
-const TopMidFielder = (props) => (
-  <TopMidFielderContainer>
-    <Table>
-      <thead>
-        <TablePositionColumn></TablePositionColumn>
-        <TableColumn>Top Mid Fielder</TableColumn>
-        <TableColumnCenterAligned>Assist</TableColumnCenterAligned>
-      </thead>
-      <tbody>
-        <tr>
-          <TablePositionColumn position={1}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={2}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={3}></TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={4}>4</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={5}>5</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-        <tr>
-          <TablePositionColumn position={6}>6</TablePositionColumn>
-          <TableColumn>Griezmann</TableColumn>
-          <TableColumnCenterAligned>20</TableColumnCenterAligned>
-        </tr>
-      </tbody>
-    </Table>
-  </TopMidFielderContainer>
-);
-
 const BlogsList = (props) => (
   <BlogsListContainer>
     <BlogHeadingContainer>
@@ -822,32 +753,112 @@ const BlogsList = (props) => (
   </BlogsListContainer>
 );
 
-const LeagueComponent = (props) => (
+const AboutTeam = (props) => (
+  <TabBoxContainer>
+    <TabTitleContainer>
+      <TeamNameText>FC Barcelona</TeamNameText>
+      <TeamSocialAccountsContainer>
+        <Icon name="facebook f" />
+        <Icon name="twitter" />
+        <Icon name="instagram" />
+      </TeamSocialAccountsContainer>
+    </TabTitleContainer>
+    <table cellPadding={11} cellSpacing={10}>
+      <tr>
+        <td>
+          <TeamInfoTextLabel>Squad size</TeamInfoTextLabel>
+          <TextValue>40</TextValue>
+        </td>
+        <td>
+          <TeamInfoTextLabel>National Players</TeamInfoTextLabel>
+          <TextValue>24</TextValue>
+        </td>
+        <td>
+          <TeamInfoTextLabel>Squad size</TeamInfoTextLabel>
+          <TextValue>40</TextValue>
+        </td>
+        <td>
+          <TeamInfoTextLabel>Foreigners Players</TeamInfoTextLabel>
+          <TextValue>24</TextValue>
+        </td>
+      </tr>
+    </table>
+  </TabBoxContainer>
+);
+
+const LeaguePlayed = (props) => (
+  <TabBoxContainer>
+    <TabTitleContainer>
+      <TabTitle>La Liga</TabTitle>
+    </TabTitleContainer>
+    <table cellPadding={11} cellSpacing={10}>
+      <tr>
+        <td>
+          <TeamInfoTextLabel>In league since</TeamInfoTextLabel>
+          <TextValue>24 years</TextValue>
+        </td>
+        <td>
+          <TeamInfoTextLabel>Table position</TeamInfoTextLabel>
+          <TextValue>3</TextValue>
+        </td>
+      </tr>
+    </table>
+  </TabBoxContainer>
+);
+
+const TeamTrophies = (props) => (
+  <TabBoxContainer>
+    <TabTitleContainer>
+      <TabTitle>Trophies</TabTitle>
+      <SeeMoreLink>{"See More>>"}</SeeMoreLink>
+    </TabTitleContainer>
+    <table cellPadding={2} style={{margin: "auto", height: 81}}>
+      <tr>
+        <td>
+          <TrophiesTextLabel>La Liga</TrophiesTextLabel>
+        </td>
+        <td>
+          <TrophyIconContainer>
+            <Icon name="trophy" size="big" />
+          </TrophyIconContainer>
+        </td>
+        <td>
+          <TextLabel>
+            <span>
+              <TrophiesNumber>2</TrophiesNumber> Tiltes
+            </span>
+          </TextLabel>
+        </td>
+      </tr>
+    </table>
+  </TabBoxContainer>
+);
+
+const TeamsComponent = (props) => (
   <Container>
-    <LeagueDetailsContainer>
-      <LeagueNameContainer>
-        <LeagueLogo src="https://picsum.photos/200" /> La Liga
-      </LeagueNameContainer>
-      <HorizontalDivider />
-      <LeagueDetailGrid>
+    <TeamsDetailsContainer>
+      <TeamsNameContainer>
+        <TeamsLogo src="https://picsum.photos/200" />
+        <AboutTeam {...props} />
+        <TeamTrophies {...props} />
+        <LeaguePlayed {...props} />
+      </TeamsNameContainer>
+      <TeamsDetailGrid>
         <TopPlayer {...props} />
         <Standing {...props} />
         <Matches {...props} />
         <Description {...props} />
-        <TopGoalScorer {...props} />
-        <TopGoalKeeper {...props} />
-        <TopMidFielder {...props} />
-      </LeagueDetailGrid>
-    </LeagueDetailsContainer>
+      </TeamsDetailGrid>
+    </TeamsDetailsContainer>
     <BlogsList {...props} />
   </Container>
 );
 
-const LeagueDetails = (props) => {
+const Teams = (props) => {
   const [blogDetailsModal, toggleblogDetailsModal] = useState(false);
   return (
     <>
-      <LeagueComponent
+      <TeamsComponent
         {...props}
         toggleblogDetailsModal={toggleblogDetailsModal}
       />
@@ -866,4 +877,4 @@ const LeagueDetails = (props) => {
   );
 };
 
-export default LeagueDetails;
+export default Teams;

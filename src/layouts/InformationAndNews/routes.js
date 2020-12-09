@@ -1,7 +1,10 @@
 import News from "views/InformationAndNews/News";
 import Leagues from "views/InformationAndNews/Leagues";
 import LeagueDetails from "views/InformationAndNews/Leagues/LeagueDetails";
-
+import Teams from "views/InformationAndNews/Teams";
+import Blogs from "views/InformationAndNews/Blogs";
+import BlogDetails from "views/InformationAndNews/Blogs/BlogDetails"
+import FeaturedBlogDetails from "views/InformationAndNews/Blogs/FeaturedBlogDetails"
 
 export default [
   {
@@ -38,18 +41,28 @@ export default [
       {
         path: "/teams",
         layout: "/information-and-news",
-        component: null,
+        component: Teams,
       },
     ],
   },
   {
-    collapse: true,
     name: "Blogs",
+    collapse: true,
     views: [
       {
         path: "/blogs",
         layout: "/information-and-news",
-        component: null,
+        component: Blogs,
+      },
+      {
+        path: "/blogs/details",
+        layout: "/information-and-news",
+        component: BlogDetails,
+      },
+      {
+        path: "/blogs/featured/details",
+        layout: "/information-and-news",
+        component: FeaturedBlogDetails,
       },
     ],
   },
