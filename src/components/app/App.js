@@ -14,8 +14,8 @@ import {
   Sidebar, MenuItem
 } from 'semantic-ui-react'
 import {GridExampleVerticallyDivided} from '../grid-view'
-import {header} from '../Header'
-import LoginMoal from '../loginModal'
+import {header} from '../header'
+import LoginModal from '../loginModal'
 
 const initialState = {
   loading: false,
@@ -131,7 +131,7 @@ const App = () => {
         </List>
       </Container>
     </Segment>
-    {/* {LoginMoal()} */}
+    <LoginModal />
   </div>
   
 )}
