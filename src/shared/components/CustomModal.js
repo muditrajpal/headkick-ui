@@ -6,6 +6,7 @@ const ModalContainer = styled(Modal)`
   :first-child {
     width: ${({width}) => width};
     border-radius: 10px;
+    border: none !important;
   }
 `;
 
