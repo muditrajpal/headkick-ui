@@ -105,6 +105,7 @@ const PriceText = styled(Column)`
 `;
 
 const CourseTile = ({
+  id,
   coursePhoto,
   courseTitle,
   starRating,
@@ -113,7 +114,7 @@ const CourseTile = ({
   price,
 }) => (
   <CourseTitleContainer
-    onClick={() => history.push("/online-coaching/view-course")}
+    onClick={() => history.push(`/online-coaching/view-course?id=${id}`)}
   >
     <CoursePhoto src={coursePhoto || ""} />
     <CourseDetailsContainer>
@@ -139,62 +140,23 @@ const CourseTile = ({
 
 const Courses = (props) => (
   <CoursesList>
-    <CourseTile
-      coursePhoto="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-      courseTitle="How to Defend 101"
-      starRating={3}
-      createdBy="Lionel Messi"
-      subscribers={33}
-      price="$ 400"
-    />
-    <CourseTile
-      coursePhoto="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-      courseTitle="How to Defend 101"
-      starRating={3}
-      createdBy="Lionel Messi"
-      subscribers={33}
-      price="$ 400"
-    />
-    <CourseTile
-      coursePhoto="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-      courseTitle="How to Defend 101"
-      starRating={3}
-      createdBy="Lionel Messi"
-      subscribers={33}
-      price="$ 400"
-    />
-    <CourseTile
-      coursePhoto="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-      courseTitle="How to Defend 101"
-      starRating={3}
-      createdBy="Lionel Messi"
-      subscribers={33}
-      price="$ 400"
-    />
-    <CourseTile
-      coursePhoto="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-      courseTitle="How to Defend 101"
-      starRating={3}
-      createdBy="Lionel Messi"
-      subscribers={33}
-      price="$ 400"
-    />
-    <CourseTile
-      coursePhoto="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-      courseTitle="How to Defend 101"
-      starRating={3}
-      createdBy="Lionel Messi"
-      subscribers={33}
-      price="$ 400"
-    />
-    <CourseTile
-      coursePhoto="https://avatars0.githubusercontent.com/u/5489402?s=400&u=cf6b13f7597b44435a7ac5b1b8201ff4d06abeab&v=4"
-      courseTitle="How to Defend 101"
-      starRating={3}
-      createdBy="Lionel Messi"
-      subscribers={33}
-      price="$ 400"
-    />
+    {props?.coursesList?.length
+      ? props.coursesList.map((data) => {
+          return (
+            <CourseTile
+              id={data?._id || ""}
+              coursePhoto={data?.logo || ""}
+              courseTitle={data?.title || ""}
+              starRating={data?.ratings || 0}
+              createdBy={
+                (data?.coach?.length && data.coach[0]?.profile?.name) || ""
+              }
+              subscribers={data?.subscribers || 0}
+              price={`$ ${data?.price || 0}`}
+            />
+          );
+        })
+      : null}
   </CoursesList>
 );
 

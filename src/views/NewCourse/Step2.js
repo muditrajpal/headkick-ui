@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {Input, Dropdown, Icon} from "semantic-ui-react";
 import ThemeButton from "shared/components/ThemeButton";
 import history from "historyObj";
+import ReactQuill from "react-quill";
 
 const Row = styled.div`
   display: flex;
@@ -90,19 +91,26 @@ const DragContainer = styled(Row)`
   font-size: 14px;
   line-height: 16px;
   color: #1f94ff;
+  div {
+    cursor: pointer;
+  }
   i {
     color: #c4c4c4;
+    cursor: grab;
   }
 `;
 
-const TextAreaBox = styled.textarea`
+const TextAreaBox = styled(ReactQuill)`
   resize: none;
   height: 94px;
   width: 100%;
-  border: 1px solid #e6e6e6;
+  .ql-toolbar.ql-snow {
+    border-radius: 4px 4px 0 0;
+  }
+  .ql-container.ql-snow {
+    border-radius: 0 0 4px 4px;
+  }
   border-radius: 6px;
-  padding: 10px;
-  outline: none;
 `;
 
 const ContentTypeOptions = [
@@ -124,12 +132,19 @@ const AddContentBar = (props) => (
         children={
           <>
             + Add Content
-            <Dropdown floating options={ContentTypeOptions} trigger={<></>} />
+            <Dropdown
+              floating
+              options={ContentTypeOptions}
+              trigger={<></>}
+              onChange={(e, data) =>
+                props.handleContentChange(props.index, "type", data?.value)
+              }
+            />
           </>
         }
       />
       <DragContainer>
-        <Column onClick={() => alert("Under Development")}>
+        <Column onClick={() => props.removeContent(props.index)}>
           - Remove Content
         </Column>
         <Icon
@@ -144,7 +159,16 @@ const AddContentBar = (props) => (
 
 const VideoContent = (props) => (
   <>
-    <AddContentBar />
+    <AddContentBar {...props} />
+    <InputContainer>
+      <InputLabel>Title</InputLabel>
+      <InputBox
+        value={props.data?.title}
+        onChange={(event) =>
+          props.handleContentChange(props.index, "title", event.target.value)
+        }
+      />
+    </InputContainer>
     <InputContainer>
       <InputLabel>Upload Logo</InputLabel>
       <UploadLogoContainer>
@@ -167,60 +191,113 @@ const VideoContent = (props) => (
 
 const TextContent = (props) => (
   <>
-    <AddContentBar />
+    <AddContentBar {...props} />
+    <InputContainer>
+      <InputLabel>Title</InputLabel>
+      <InputBox
+        value={props.data?.title}
+        onChange={(event) =>
+          props.handleContentChange(props.index, "title", event.target.value)
+        }
+      />
+    </InputContainer>
     <InputContainer>
       <InputLabel>Write your text</InputLabel>
-      <TextAreaBox placeholder="Type here..." />
+      <TextAreaBox
+        value={props.data?.description}
+        onChange={(event) =>
+          props.handleContentChange(props.index, "description", event)
+        }
+      />
     </InputContainer>
   </>
 );
 
-const Step2 = (props) => (
-  <>
-    <Header>Step 2/2: Add Course Content</Header>
-    <Divider />
+const Step2 = (props) => {
+  const {
+    state: {content},
+    addContent,
+    removeContent,
+    handleContentChange,
+    toggleStep,
+  } = props;
+  return (
+    <>
+      <Header>Step 2/2: Add Course Content</Header>
+      <Divider />
 
-    <VideoContent {...props} />
-    <Divider />
-    <TextContent {...props} />
+      {content?.length
+        ? content.map((data, index) => {
+            const contentTypeProps = {
+              data,
+              index,
+              handleContentChange,
+              removeContent,
+            };
+            switch (data?.type) {
+              case "Video":
+                return (
+                  <>
+                    <VideoContent {...contentTypeProps} />
+                    <Divider />
+                  </>
+                );
+              case "Text":
+                return (
+                  <>
+                    <TextContent {...contentTypeProps} />
+                    <Divider />
+                  </>
+                );
+              default:
+                return null;
+            }
+          })
+        : null}
 
-    <Divider />
-    <ThemeButton
-      customCss={{
-        width: 145,
-        background: "#FFFFFF",
-        color: "#0D1757",
-        border: "1px solid #0D1757",
-      }}
-      isDisabled={false}
-      children={
-        <>
-          + Add Content
-          <Dropdown floating options={ContentTypeOptions} trigger={<></>} />
-        </>
-      }
-    />
-    <Divider />
-    <ButtonContainer>
       <ThemeButton
         customCss={{
           width: 145,
+          padding: 12,
           background: "#FFFFFF",
           color: "#0D1757",
           border: "1px solid #0D1757",
         }}
         isDisabled={false}
-        onClickAction={() => props.toggleStep(1)}
-        children="Previous"
+        children={
+          <>
+            + Add Content
+            <Dropdown
+              floating
+              options={ContentTypeOptions}
+              trigger={<></>}
+              onChange={(e, data) => addContent(data?.value)}
+            />
+          </>
+        }
       />
-      <ThemeButton
-        customCss={{width: 145}}
-        isDisabled={false}
-        onClickAction={() => history.push("/online-coaching/edit-tutorial")}
-        children="Preview"
-      />
-    </ButtonContainer>
-  </>
-);
+      <Divider />
+      <ButtonContainer>
+        <ThemeButton
+          customCss={{
+            width: 145,
+            background: "#FFFFFF",
+            color: "#0D1757",
+            border: "1px solid #0D1757",
+          }}
+          isDisabled={false}
+          onClickAction={() => props.toggleStep(1)}
+          children="Previous"
+        />
+        <ThemeButton
+          customCss={{width: 145}}
+          isDisabled={false}
+          onClickAction={() => history.push("/online-coaching/edit-tutorial")}
+          children="Preview"
+        />
+      </ButtonContainer>
+    </>
+  );
+};
 
 export default Step2;
