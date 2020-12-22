@@ -154,25 +154,22 @@ const CoachRatingExperienceIconContainer = styled(Column)`
 
 const AboutCourseThumbnailPrice = (props) => (
   <CourseThumbnailContainer>
-    <ThumbnailPhoto src="https://homepages.cae.wisc.edu/~ece533/images/tulips.png" />
-    <PriceContainer>$ 445 /-</PriceContainer>
+    <ThumbnailPhoto src={props.coursesDetails?.logo || ""} />
+    <PriceContainer>$ {props.coursesDetails?.price} /-</PriceContainer>
   </CourseThumbnailContainer>
 );
 
 const AboutCourseText = (props) => (
   <AboutTextContainer>
-    <HeadingText>How to Defend 101</HeadingText>
-    <DescriptionText>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </DescriptionText>
+    <HeadingText>{props.coursesDetails?.title || ""}</HeadingText>
+    <DescriptionText>{props.coursesDetails?.description}</DescriptionText>
     <RatingContainer>
-      <Rating icon="star" defaultRating={3} maxRating={4} disabled />
+      <Rating
+        icon="star"
+        defaultRating={props.coursesDetails?.ratings}
+        maxRating={4}
+        disabled
+      />
       (40)
     </RatingContainer>
     <CreatorNameText>By John Doe</CreatorNameText>
@@ -213,7 +210,7 @@ const AboutCoach = (props) => (
             <CoachRatingExperienceIconContainer>
               <Icon name="diamond" />
             </CoachRatingExperienceIconContainer>
-            450 Subscribers
+            {props.coursesDetails?.subscribers} Subscribers
           </Row>
           <Row>
             <CoachRatingExperienceIconContainer>

@@ -14,6 +14,7 @@ import history from "historyObj";
 
 import Navbar from './components/Navbar';
 import { AuthProvider } from './contexts/auth.context'
+import "react-quill/dist/quill.snow.css";
 
 ReactDOM.render(
   <AuthProvider>

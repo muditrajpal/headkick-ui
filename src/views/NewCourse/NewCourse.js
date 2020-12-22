@@ -9,6 +9,8 @@ const Container = styled.div`
   flex-direction: column;
   flex: 1;
   padding: 30px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
 `;
 
 const NewCourse = (props) => (
