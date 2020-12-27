@@ -136,7 +136,7 @@ const TeamsHeader = ({teamDetail}) => (
           <TextHeading style={{ justifyContent: "flex-end" }}>
             Coach
           </TextHeading>
-          <CoachName>{teamDetail.name}</CoachName>
+          <CoachName>{`${teamDetail.coach.firstName} ${teamDetail.coach.lastName}`}</CoachName>
         </Column>
         <Column>
           <CoachPhoto src={teamDetail.coach.img} />

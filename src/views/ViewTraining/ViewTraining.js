@@ -394,7 +394,6 @@ const ViewTraining = (props) => {
     const result = await addUpdateTraining({
       ...trainingDetail,
       drills:trainingDetail.drills.filter(drill=>!drill.inactive),
-      academy: trainingDetail.academy._id,
       players: trainingDetail.players.map((player) => player._id),
     });
     if (result) {

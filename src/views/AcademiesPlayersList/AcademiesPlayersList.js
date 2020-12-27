@@ -7,6 +7,7 @@ import { fetchPlayerList } from "apis/player";
 import { fetchAcademiesNameList } from "apis/academy";
 import {fetchCountriesList} from "apis/public"
 import moment from "moment";
+import { useAuthState } from "contexts/auth.context";
 
 let ageFilterArray = Array.from({ length: 37 }, (_, i) => i + 12).map(
   (r) => ({
@@ -41,7 +42,7 @@ const PlayerListContainer = styled.div`
   border-radius: 10px;
 `;
 
-const PlayerItem = ({ data }) => (
+const PlayerItem = ({ data ,edit}) => (
   <Table.Row>
     <Table.Cell>
       <PlayerProfileContainer>
@@ -60,14 +61,14 @@ const PlayerItem = ({ data }) => (
     <Table.Cell>{data.position}</Table.Cell>
     <Table.Cell>{data.goals}</Table.Cell>
     <Table.Cell>
-      <Button
+      {edit?<Button
         circular
         color="blue"
         icon="pencil alternate"
         onClick={() =>
           history.push(`/academies/players/select?id=${data._id}&canEdit=true`)
         }
-      />
+      />:""}
     </Table.Cell>
   </Table.Row>
 );
@@ -81,9 +82,9 @@ const AcademiesPlayersList = (props) => {
   const filterAge = queryStringSearch.filterAge || "";
   const filterPosition = queryStringSearch.filterPosition || "";
   const filterCountry = queryStringSearch.filterCountry || "";
-
+  const {userDetails} = useAuthState();
   
-  const myAcademySelected = queryStringSearch.myAcademy ? 1 : 2;
+  const myAcademySelected = queryStringSearch.myAcademy &&userDetails? 1 : 2;
   const [playersList, setPlayersList] = useState([]);
   const [playersCount, setPlayersCount] = useState(0);
   const [academiesList, setAcademiesList] = useState([]);
@@ -129,13 +130,19 @@ const AcademiesPlayersList = (props) => {
     if (filterCountry) {
       filter.nationality = filterCountry;
     }
+    if( myAcademySelected == 1){
+      if(userDetails.profileType=="player"&&userDetails.player){
+        filter.academy = userDetails.player.academy;
+      } else if(userDetails.profileType=="coach"||userDetails.profileType=="owner"){
+        filter.academy = {$in:userDetails.academies};
+      }
+    }
     
     fetchPlayerList({
       page,
       filter: JSON.stringify(filter),
       limit: 20,
-      sort: JSON.stringify(sort),
-      myAcademy: myAcademySelected == 1,
+      sort: JSON.stringify(sort)
     })
       .then((data) => {
         if (data.sc && data.result) {
@@ -152,12 +159,12 @@ const AcademiesPlayersList = (props) => {
     <div className="academiesPlayersList">
       <div className="listItem">
         <div className="title">
-          <span
+         {userDetails && <span
             className={myAcademySelected === 1 ? "" : "disabled"}
             onClick={() => history.push("?myAcademy=true")}
           >
             My Academy Players
-          </span>
+          </span>}
           <span
             className={myAcademySelected === 2 ? "" : "disabled"}
             onClick={() => history.push("?")}
@@ -227,7 +234,7 @@ const AcademiesPlayersList = (props) => {
             </Table.Header>
             <Table.Body>
               {playersList.map((data) => (
-                <PlayerItem data={data} key={data._id} />
+                <PlayerItem data={data} key={data._id} edit={userDetails&&userDetails.profileType=="coach"&&userDetails.academies.includes(data.academy)} />
               ))}
             </Table.Body>
           </Table>

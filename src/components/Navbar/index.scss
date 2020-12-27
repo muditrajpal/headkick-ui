@@ -18,7 +18,7 @@
 .navbarLanguageSelection {
   display: inline-block !important;
   width: fit-content !important;
-  margin: 20px 0 20px 20px;
+  margin: 15px 0 15px 20px;
 }
 
 .navbarUnauthButtons{
@@ -29,6 +29,9 @@
   display:inline-flex;
   align-items: center;
   justify-content: space-between;
+  svg{
+    margin:0.5rem
+  }
 }
 
 #navbarLogout {
@@ -50,7 +53,7 @@
 #navbarSignIn {
   border: 1px solid #0d1657 !important;
   color: #0d1657 !important;
-  margin: 20px;
+  margin: 15px 20px;
 }
 
 #navbarSignUp {

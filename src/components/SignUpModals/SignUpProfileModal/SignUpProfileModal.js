@@ -10,7 +10,7 @@ import {
 
 import './SignUpProfileModal.scss';
 
-const SignUpProfileModal = ({signUpProfileModalVisibility, setSignUpProfileModalVisibility, setProfileType}) => {
+const SignUpProfileModal = ({handleSignUpClose,signUpProfileModalVisibility, setSignUpProfileModalVisibility, setProfileType,handleSignInClick}) => {
 
   const handleProfileSelection = (type) => {
     setSignUpProfileModalVisibility(false);
@@ -19,7 +19,7 @@ const SignUpProfileModal = ({signUpProfileModalVisibility, setSignUpProfileModal
 
   const signUpProfileModalClose = () => {
     setProfileType("")
-    setSignUpProfileModalVisibility(false)
+    handleSignUpClose()
   }
 
   return (
@@ -40,12 +40,15 @@ const SignUpProfileModal = ({signUpProfileModalVisibility, setSignUpProfileModal
       <Modal.Content className="SignUpProfileModalContent">
       <Segment  className="SignUpProfileModalContainer" vertical>
     
-          <Grid className="SignUpProfileModal__choice">
-            <Grid.Column id="SignUpProfileModal__optionOne" width={8} onClick={() => handleProfileSelection('coach')}>
+          <Grid className="SignUpProfileModal__choice"  stackable columns={3}>
+            <Grid.Column id="SignUpProfileModal__optionOne" onClick={() => handleProfileSelection('coach')}>
               <h2 className="SignUpProfileModal__optionOne__title">Coach</h2>
             </Grid.Column>
-            <Grid.Column id="SignUpProfileModal__optionTwo" width={8} onClick={() => handleProfileSelection('player')}>
+            <Grid.Column id="SignUpProfileModal__optionTwo" onClick={() => handleProfileSelection('player')}>
               <h2 className="SignUpProfileModal__optionOne__title">Player</h2>
+            </Grid.Column>
+            <Grid.Column id="SignUpProfileModal__optionThree" onClick={() => handleProfileSelection('academy_owner')}>
+              <h2 className="SignUpProfileModal__optionOne__title">Owner</h2>
             </Grid.Column>
           </Grid>
         </Segment>
@@ -55,7 +58,7 @@ const SignUpProfileModal = ({signUpProfileModalVisibility, setSignUpProfileModal
         <Icon name="close" />
       </Button>
       <div className="SignUpProfileModalSignupText">
-        <span>Already have an account?</span> <span className="SignUpProfileModalSignupLink text-underline">Sign in now</span>
+        <span>Already have an account?</span> <span className="SignUpProfileModalSignupLink text-underline"  onClick={()=>handleSignInClick()}>Sign in now</span>
       </div>
     </Modal>
   )

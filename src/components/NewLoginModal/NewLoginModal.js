@@ -14,7 +14,7 @@ import { loginUser, useAuthState, useAuthDispatch  } from './../../contexts/auth
 import history from "historyObj";
 import showHideBlockUI from './../showHideBlockUI'
 
-function NewLoginModal({loginModalVisibility, setLoginModalVisibility}) {
+function NewLoginModal({loginModalVisibility, setLoginModalVisibility,handleSignUpClick,handleSignInClose}) {
   const [showPassword, setShowPassword] = useState(false);
   const [userDetails, setUserDetails] = useState({ email: "", password: "" })
   const { email, password } = userDetails;
@@ -32,7 +32,7 @@ function NewLoginModal({loginModalVisibility, setLoginModalVisibility}) {
       let user = await loginUser(dispatch, payload) 
       if (!user) return
       //navigate to tournament on success
-      history.push('/tournament');
+      history.go(0)
       setUserDetails({ email: "", password: "" }) // reset form
       setLoginModalVisibility(false)
     } catch (err) {
@@ -48,7 +48,7 @@ function NewLoginModal({loginModalVisibility, setLoginModalVisibility}) {
 
   return (
     <Modal
-      onClose={() => setLoginModalVisibility(false)}
+      onClose={() => handleSignInClose(false)}
       onOpen={() => setLoginModalVisibility(true)}
       open={loginModalVisibility}
       className="loginModal"
@@ -108,11 +108,11 @@ function NewLoginModal({loginModalVisibility, setLoginModalVisibility}) {
           </Button>
         </div>
       </Modal.Content>
-      <Button className="loginModalCloseBtn" onClick={() => setLoginModalVisibility(false)}>
+      <Button className="loginModalCloseBtn" onClick={() => handleSignInClose()}>
         <Icon name="close" />
       </Button>
       <div className="loginModalSignupText">
-        <span>Don't have an account yet?</span> <span className="loginModalSignupLink text-underline">Sign up now</span>
+        <span>Don't have an account yet?</span> <span className="loginModalSignupLink text-underline" onClick={()=>handleSignUpClick()}>Sign up now</span>
       </div>
     </Modal>
   )

@@ -7,7 +7,7 @@ import { fetchPlayerList } from "apis/player";
 import { addUpdateTraining } from "apis/training";
 import history from "historyObj"
 import showHideNotification from "components/showHideNotification";
-import { trainings } from "services/trainings/mock";
+import { useAuthState } from "contexts/auth.context";
 
 const day = 60*60*24*1000;
 
@@ -44,16 +44,20 @@ const NewTraining = (props) => {
   });
   const [playersList, setPlayersList] = useState([]);
   const [playersCount, setPlayersCount] = useState(0);
+  const {userDetails} = useAuthState();
 
   useEffect(() => {
     setPlayersCount(0);
     setPlayersList([]);
+    const filter = {};
+    if(userDetails.profileType=="coach"||userDetails.profileType=="owner"){
+      filter.academy = {$in:userDetails.academies};
+    }
     fetchPlayerList({
       page: 1,
-      filter: JSON.stringify({}),
+      filter: JSON.stringify(filter),
       limit: 20,
-      sort: JSON.stringify({}),
-      myAcademy: true,
+      sort: JSON.stringify({})
     })
       .then((data) => {
         if (data.sc && data.result) {

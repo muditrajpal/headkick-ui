@@ -10,7 +10,8 @@ import TeamList from "views/TeamList"
 import MyCalendar from "views/MyCalendar";
 import AcademiesPlayerEdit from "views/AcademiesPlayerEdit";
 
-export default [
+export default (profileType)=>{
+  return [
   {
     name: "Overview",
     collapse: true,
@@ -41,17 +42,17 @@ export default [
         layout: "/academies",
         component: AcademiesPlayerDetails,
       },
-      {
+      profileType=="coach"?{
         path: "/players/add",
         layout: "/academies",
         component: AcademiesPlayerEdit,
-      },
-      {
+      }:null,
+      profileType=="coach"?{
         path: "/players/edit",
         layout: "/academies",
         component: AcademiesPlayerEdit,
-      },
-    ],
+      }:null,
+    ].filter(v=>v),
   },
   {
     collapse: true,
@@ -69,7 +70,7 @@ export default [
     ],
     name: "Teams",
   },
-  {
+  profileType=="coach"?{
     path: "/training",
     collapse: true,
     name: "Training",
@@ -90,8 +91,8 @@ export default [
         component: ViewTraining,
       },
     ],
-  },
-  {
+  }:null,
+  profileType=="player"||profileType=="coach"?{
     collapse: true,
     name: "My Calendar",
     views: [
@@ -101,5 +102,6 @@ export default [
         component: MyCalendar,
       },
     ],
-  },
-];
+  }:"",
+].filter(v=>v)
+};

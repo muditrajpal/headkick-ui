@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as axiosUtils from "utils/axiosUtils"
 import React, { useState } from 'react';
 import {
   Button,
@@ -12,10 +13,10 @@ import {
 
 import GeneralModal from './../../../sharedComponent/GenericModal/GenericModal'
 import './SignUpFormModal.scss';
+import { API_URLS } from "constants/api";
 
-const ROOT_URL = 'http://localhost:8080/api';
 
-function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibility, profileType, setProfileType}) {
+function SignUpFormModal({signUpFormModalVisibility, handleSignUpClose,setSignUpFormModalVisibility, profileType, setProfileType,handleSignInClick}) {
   const userDetailsInitialValues = {
     firstName: '',
     lastName: '',
@@ -31,15 +32,10 @@ function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibilit
 
   const handleFormSubmit = async (e) => {
     try {
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      };
-
       e.preventDefault();
       // payload for login API // better to use external libs like formik or https://react-hook-form.com/ for validation and form submit handling
       const signupPayload = {...userDetails, profileType};
-      let response = await axios.post(`${ROOT_URL}/auth/signup`, JSON.stringify(signupPayload), requestOptions)
+      let response = await axios.post(API_URLS.SIGN_UP, signupPayload)
       // reset the form
       console.log('response', response)
       console.log('response.status', response.status)
@@ -80,7 +76,7 @@ function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibilit
 
   const signUpFormModalClose = () => {
     setProfileType("")
-    setSignUpFormModalVisibility(false)
+    handleSignUpClose()
   }
   
   const handleChange = event => {
@@ -165,7 +161,7 @@ function SignUpFormModal({signUpFormModalVisibility, setSignUpFormModalVisibilit
         <Icon name="close" />
       </Button>
       <div className="signUpFormModalSignupText">
-        <span>Already have an account?</span> <span className="signUpFormModalSignupLink text-underline">Sign in now!</span>
+        <span>Already have an account?</span> <span className="signUpFormModalSignupLink text-underline"  onClick={()=>handleSignInClick()}>Sign in now!</span>
       </div>
     </Modal>
       {signUpSuccess && <GeneralModal modalContent={successModalContect} /> }

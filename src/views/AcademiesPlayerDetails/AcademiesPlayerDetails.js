@@ -6,6 +6,7 @@ import ThemeButton from "shared/components/ThemeButton";
 import queryString from "query-string";
 import { fetchPlayerDetail } from "apis/player";
 import _groupBy from "lodash/groupBy";
+import { useAuthState } from "contexts/auth.context";
 
 const Row = styled.div`
   display: flex;
@@ -385,8 +386,10 @@ const AcademiesPlayerDetails = (props) => {
   const search = props.location.search;
   const queryStringSearch = queryString.parse(search);
   const playerId = queryStringSearch.id;
-  const canEdit = queryStringSearch.canEdit;
   const [playerDetail, setPlayerDetail] = useState(null);
+  const [canEdit,setCanEdit] = useState(false);
+  const {userDetails} = useAuthState();
+
   useEffect(() => {
     if (!playerId) {
       history.push("/academies/player/list");
@@ -401,6 +404,8 @@ const AcademiesPlayerDetails = (props) => {
             data.result.skills= _groupBy(data.result.skills,"type");
             console.log(data.result.skills)
           }
+          setCanEdit(userDetails&&userDetails.profileType=="coach"&&userDetails.academies.includes(data.result.academy));
+
           setPlayerDetail(data.result);
         }
       })
@@ -422,11 +427,11 @@ if(!playerDetail) return <div/>
           </Button>
         </Column>
         <Column style={{ alignItems: "flex-end", flex: 1 }}>
-          <ThemeButton
+          {!canEdit?<ThemeButton
             isDisabled={false}
             onClickAction={() =>history.push(`/academies/players/edit?id=${playerDetail._id}`)}
             children="Edit All"
-          />
+          />:""}
         </Column>
       </Row>
       <Column style={{ overflowY: "auto", maxHeight: "calc(100vh - 260px)" }}>

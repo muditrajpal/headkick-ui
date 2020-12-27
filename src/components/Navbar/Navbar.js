@@ -4,7 +4,7 @@ import { Segment, Button, Dropdown, Search } from 'semantic-ui-react';
 import NewLoginModal from './../NewLoginModal';
 import {SignUpProfileModal, SignUpFormModal} from '../SignUpModals';
 import { useAuthState, useAuthDispatch } from './../../contexts/auth.context' 
-import { reauthUser } from 'actions/user.actions';
+import { logout as logoutUser } from 'actions/user.actions';
 
 import { ReactComponent as ProfileIcon } from './../../assets/svgs/profileIcon.svg'
 import { ReactComponent as CartIcon } from './../../assets/svgs/cartIcon.svg'
@@ -26,7 +26,8 @@ const Navbar = (props) => {
   const [profileType, setProfileType ] = useState('')
   const dispatch = useAuthDispatch();
 
-  const {userDetails} = useAuthState() 
+  const {userDetails} = useAuthState();
+
 
   const handleSearchInput =  (e) => {
     setSearchTerm(e.target.value)
@@ -37,16 +38,28 @@ const Navbar = (props) => {
   }
 
   const handleSignInClick = () => {
-    setLoginModalVisibility(!loginModalVisibility)
+    setLoginModalVisibility(true)
+    setSignUpProfileModalVisibility(false);
+    setSignUpFormModalVisibility(false)
   }
 
   const handleSignUpClick = () => {
-    setSignUpProfileModalVisibility(!loginModalVisibility)
+    setLoginModalVisibility(false);
     setSignUpProfileModalVisibility(true)
   }
 
+  const handleSignInClose = ()=>{
+    setLoginModalVisibility(false)
+    // setSignUpProfileModalVisibility(true);
+    // setSignUpFormModalVisibility(false)
+  }
+
+  const handleSignUpClose = ()=>{
+    setSignUpProfileModalVisibility(false);
+    setSignUpFormModalVisibility(false)
+  }
   const handleLogoutClick = () => {
-    
+    logoutUser(dispatch)
   }
 
   useEffect(() => {
@@ -57,7 +70,7 @@ const Navbar = (props) => {
   }, [profileType])
 
   useEffect(() => {
-    reauthUser(dispatch)
+  //  reauthUser(dispatch)
   }, [dispatch])
 
   return (
@@ -76,9 +89,9 @@ const Navbar = (props) => {
           </div>)
           }
         </div>
-        <NewLoginModal loginModalVisibility={loginModalVisibility} setLoginModalVisibility={setLoginModalVisibility} />
-        <SignUpProfileModal signUpProfileModalVisibility={signUpProfileModalVisibility} setSignUpProfileModalVisibility={setSignUpProfileModalVisibility} setProfileType={setProfileType}  />
-        <SignUpFormModal signUpFormModalVisibility={signUpFormModalVisibility} setSignUpFormModalVisibility={setSignUpFormModalVisibility} profileType={profileType} setProfileType={setProfileType}  />
+        <NewLoginModal loginModalVisibility={loginModalVisibility} handleSignUpClick={handleSignUpClick} signUpProfileModalVisibility={signUpProfileModalVisibility}  setLoginModalVisibility={setLoginModalVisibility } handleSignInClose={handleSignInClose}/>
+        <SignUpProfileModal signUpProfileModalVisibility={signUpProfileModalVisibility} setSignUpProfileModalVisibility={setSignUpProfileModalVisibility} setProfileType={setProfileType}  handleSignInClick={handleSignInClick} handleSignUpClose={handleSignUpClose}/>
+        <SignUpFormModal signUpFormModalVisibility={signUpFormModalVisibility} setSignUpFormModalVisibility={setSignUpFormModalVisibility} profileType={profileType} setProfileType={setProfileType} handleSignInClick={handleSignInClick} handleSignUpClose={handleSignUpClose}/>
       </Segment>
   );
 };

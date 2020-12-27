@@ -15,4 +15,7 @@ export const API_URLS = {
   FETCH_TEAM_DETAILS:BASE_URL + "api/team",
   FETCH_ACADEMY_DETAILS: BASE_URL + "api/academy",
   FETCH_COUNTRY_LIST:BASE_URL + "api/public/countries",
+  SIGN_UP:BASE_URL + "auth/signup",
+  SIGN_IN:BASE_URL + "auth/signin",
+  FETCH_USER:BASE_URL + "auth/user",
 };

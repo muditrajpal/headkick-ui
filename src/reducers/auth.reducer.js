@@ -1,49 +1,44 @@
-import React from "react";
- 
-export const initialState = {
+import { produce } from "immer";
+
+export const initialState=  {
   userDetails: "",
   token: "",
   loading: false,
   errorMessage: null,
-  profileType: null
-};
- 
-export const AuthReducer = (initialState, action) => {
-  switch (action.type) {
-    case "REQUEST_LOGIN":
-      return {
-        ...initialState,
-        loading: true
-      };
-    case "LOGIN_SUCCESS":
-      return {
-        ...initialState,
-        userDetails: action.payload,
-        token: action.payload.token,
-        loading: false,
-      };
-    case "REAUTH_USER":
-      return {
-        ...initialState,
-        userDetails: action.payload,
-        token: action.payload.token,
-        loading: false,
-      }
-    case "LOGOUT":
-      return {
-        ...initialState,
-        user: "",
-        token: ""
-      };
- 
-    case "LOGIN_ERROR":
-      return {
-        ...initialState,
-        loading: false,
-        errorMessage: action.error
-      };
- 
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`);
-  }
-};
+  profileType: null,
+  userFetched:false
+}
+
+export const AuthReducer = produce(
+  (state, action) => {
+    console.log(action)
+    switch (action.type) {
+      case "USER_FETCHED":
+        state.userFetched=true;
+        state.userDetails=action.payload;
+        break;
+      case "REQUEST_LOGIN":
+        state.loading = true;
+        break;
+      case "LOGIN_SUCCESS":
+      case "REAUTH_USER":
+        state.userDetails = action.payload;
+        state.token = action.payload;
+        state.loading = false;
+        state.userFetched=true;
+        break;
+
+      case "LOGOUT":
+        state.token = "";
+        state.userDetails = null;
+        break;
+
+      case "LOGIN_ERROR":
+        state.loading = false;
+        state.errorMessage = action.error;
+        state.userFetched=true;
+        break;
+    }
+  },
+ initialState
+);

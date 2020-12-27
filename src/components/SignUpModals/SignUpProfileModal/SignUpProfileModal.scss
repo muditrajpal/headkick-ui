@@ -1,7 +1,8 @@
 .SignUpProfileModal {
   padding: 10px 20px;
-  width: 484px !important;
-  height: auto !important;
+  max-width: 90% !important;
+  width: auto !important;
+    height: auto !important;
   position: relative;
 }
 
@@ -99,6 +100,7 @@
 .SignUpProfileModalSignupLink {
   color: #2bdede;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .background-none {
@@ -150,11 +152,11 @@
   cursor: pointer;
 }
 
-#SignUpProfileModal__optionTwo:hover, #SignUpProfileModal__optionOne:hover {
+#SignUpProfileModal__optionTwo:hover, #SignUpProfileModal__optionOne:hover,#SignUpProfileModal__optionThree:hover {
   filter: opacity(1);
 }
 
-#SignUpProfileModal__optionTwo {
+#SignUpProfileModal__optionTwo,#SignUpProfileModal__optionThree {
   width: 15rem !important;
   height: 20.1rem !important;
   background-image: url('./../../../assets/svgs/playerSignUp.png') !important;
@@ -166,7 +168,10 @@
   text-align: right;
   cursor: pointer;
 }
+#SignUpProfileModal__optionThree{
+  background-image: url('./../../../assets/imgs/owner.png') !important;
 
+}
 .SignUpProfileModal__optionOne__title {
   position: absolute;
   bottom: 0rem;

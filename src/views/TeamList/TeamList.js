@@ -8,6 +8,7 @@ import bluePolyImg from "assets/imgs/bluePoly.png";
 import darkBluePolyImg from "assets/imgs/darkBluePoly.png";
 import queryString from "query-string";
 import { fetchTeamList } from "apis/team";
+import { useAuthState } from "contexts/auth.context";
 
 const TeamItem = ({team}) => (
   <Table.Row onClick={()=>history.push(`/academies/teams/select?id=${team._id}`)}>
@@ -31,10 +32,12 @@ const TeamItem = ({team}) => (
 );
 
 const TeamList = (props) => {
+  const {userDetails} = useAuthState();
+
   const search = props.location.search;
   const queryStringSearch = queryString.parse(search);
   const page = queryStringSearch.page || 1;
-  const myTeam = queryStringSearch.myTeam ? 1 : 2;
+  const myTeam = queryStringSearch.myTeam&&userDetails ? 1 : 2;
   const searchKey = queryStringSearch.searchKey || "";
   const [searchInput, setSearchInput] = useState(searchKey);
   const [teamList, setTeamList] = useState([]);
@@ -46,12 +49,18 @@ const TeamList = (props) => {
     if (searchKey) {
       filter["$text"] = { $search: searchKey };
     }
+    if( myTeam == 1){
+      if(userDetails.profileType=="player"&&userDetails.player){
+        filter._id = userDetails.player.team;
+      } else if(userDetails.profileType=="coach"||userDetails.profileType=="owner"){
+        filter._id = {$in:userDetails.teams};
+      }
+    }
     fetchTeamList({
       page,
       filter: JSON.stringify(filter),
       limit: 20,
       sort: JSON.stringify({}),
-      myTeam: myTeam == 1,
       avgAge:true
     })
       .then((data) => {
@@ -70,12 +79,13 @@ const TeamList = (props) => {
       <div className="listItem">
         <div className="leftContent">
           <div className="title">
+            {userDetails?
             <span
               className={myTeam === 1 ? "" : "disabled"}
               onClick={() => history.push("?myTeam=true")}
             >
               My Teams
-            </span>
+            </span>:""}
             <span
               className={myTeam === 2 ? "" : "disabled"}
               onClick={() => history.push("?")}
