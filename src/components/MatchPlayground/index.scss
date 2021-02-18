@@ -1,0 +1,56 @@
+.matchPlaygroundCom{
+    img{
+        width: 100%;
+    }
+    .players{
+        position: absolute;
+        left:0;
+        top:0;
+        width: 100%;
+        height: 100%;
+        .scoreTop{
+            color:white;
+            top:1rem;
+            left:1rem;
+            position: absolute;
+
+        }
+        .scoreBottom{
+            color:white;
+            bottom:1rem;
+            right:1rem;
+            position: absolute;
+
+        }
+        .player{
+            text-align: center;
+    position: absolute;
+    color:white;
+    cursor: pointer;
+
+    .num{
+        span{
+            border: 1px solid white;
+            border-radius: 50%;
+            padding: 0.08rem 0.38rem;
+            background: #162783;
+            font-size: 0.8rem;
+
+        }
+       
+    }
+    .name{
+        font-size: 0.7rem;
+    }
+    &.bottom{
+        .num{
+            span{
+                background:rgba(234, 209, 164, 1);
+                border-color: black;
+                color:black;
+            }
+        }
+    }
+        }
+    }
+}

@@ -1,0 +1,64 @@
+.ui.segment.navbar {
+  border-radius: 0 !important;
+}
+.navbarContent {
+  margin-left: auto;
+  width: fit-content;
+}
+
+.navbarSearch {
+  display: inline !important;
+}
+
+.navbarSearch .input input {
+  border-radius: 40px !important;
+  width: 279px !important;
+}
+
+.navbarLanguageSelection {
+  display: inline-block !important;
+  width: fit-content !important;
+  margin: 15px 0 15px 20px;
+}
+
+.navbarUnauthButtons{
+  display: inline-block;
+}
+
+.navbarAuthButtons {
+  display:inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  svg{
+    margin:0.5rem
+  }
+}
+
+#navbarLogout {
+  color: #0d1657 !important;
+  box-shadow: none;
+  font-weight: 500;
+}
+
+.ui.selection.active.dropdown .menu {
+  border: 1px solid rgba(34,36,38,.15) !important;
+}
+
+.ui.selection.dropdown {
+  border: 1px solid rgba(34,36,38,.15) !important;
+  border-radius: 0px !important;
+}
+
+
+#navbarSignIn {
+  border: 1px solid #0d1657 !important;
+  color: #0d1657 !important;
+  margin: 15px 20px;
+}
+
+#navbarSignUp {
+  border: 1px solid #0d1657 !important;
+  background-color: #0d1657 !important;
+  color: #fff !important;
+  margin-right: 20px;
+}

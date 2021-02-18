@@ -1,0 +1,62 @@
+.substituteView{
+    margin: 1rem 0!important;
+    .titleText{
+        font-size: 1.2rem;
+        font-weight: 600;
+        color:#0D1757;
+        text-align: left;
+        width: 100%;
+        margin-top: 1.5rem;
+        background: #E9ECFB;
+        padding: 0.5rem 1rem;
+    } 
+    .titleTop{
+        border-bottom: 1px solid rgba(230, 230, 230, 1);
+        padding-bottom: 0.5rem;
+        img{
+            height: 1.4rem;
+            display:inline-block;
+        }
+        span{
+            vertical-align: top;
+            display: inline-block;
+            margin-left: 0.7rem;
+            line-height: -0.6rem;
+            font-weight: 500;
+            font-size: 1rem;
+            color: #0D1757;
+        }
+    }
+    .bordered{
+        border: 1px solid rgba(233, 236, 251, 1);
+        border-top:unset;
+        &:last-child{
+            border-left: unset;
+        }
+    }
+    .bottomBox{
+        margin-top: 1rem;
+        .column{
+            padding: 2rem 2rem !important;
+            text-align: center;
+            img{
+                width: 50%;
+            }
+            .name{
+                color: rgba(18, 33, 109, 1);
+                font-weight: 500;
+                font-size: 1.1rem;
+            
+            }
+            .text{
+                color: rgba(112, 112, 112, 1);
+                font-weight: 500;
+                font-size: 1.1rem;
+                span{
+                    font-size: 1.3rem;
+                    margin: 0 0.2rem;
+                }
+            }
+        }
+    }
+}

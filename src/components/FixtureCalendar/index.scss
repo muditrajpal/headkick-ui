@@ -1,0 +1,41 @@
+.fixtureCalendar{
+.rbc-calendar{
+    border-radius: 2px;
+    .rbc-event{
+        background-color: unset!important;
+        .rbc-event-content{
+            text-align: center;
+        img{
+            max-width: 50%;
+            max-height: 50%;
+        }
+    }
+    }
+    .rbc-month-view{
+        border-radius: 2px;
+    }
+        .rbc-header{
+    padding: 0.4rem;
+font-weight: 500;
+}
+.rbc-date-cell{
+    text-align: left!important;
+    padding: 0.3rem;
+}
+.rbc-off-range-bg{
+    background: white!important;
+}
+}
+.toolbar{
+    margin-bottom: 1rem;
+.calendarMonth{
+    font-weight: 600;
+    i{
+        color:rgba(31, 148, 255, 1);
+    }
+}
+.calendarYear{
+    float:  right;
+}
+}
+}

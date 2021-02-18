@@ -1,0 +1,186 @@
+.SignUpProfileModal {
+  padding: 10px 20px;
+  max-width: 90% !important;
+  width: auto !important;
+    height: auto !important;
+  position: relative;
+}
+
+.SignUpProfileModalHeader {
+  padding: .5rem !important;
+}
+
+.SignUpProfileModalHeaderTitle {
+  font-size: 1.71rem;
+  color: #333 !important;
+}
+
+.SignUpProfileModalHeaderSubtitle {
+  margin: 1rem 0 !important;
+  font-size: 1.143rem;
+  color: #4D4D4D !important;
+  font-weight: 400 !important;
+  font-family: Roboto !important;
+}
+
+.SignUpProfileModalContainer {
+  width: 90% !important;
+}
+
+.SignUpProfileModalContent {
+  padding: 1.5rem 0 !important;
+}
+
+.SignUpProfileModalEmailLabel, .SignUpProfileModalPasswordLabel {
+  font-weight: 400 !important;
+}
+
+.SignUpProfileModalPasswordVisibilityIcon {
+  position: absolute;
+  margin-top: 10px !important;
+  margin-left: -30px !important;
+  color: #888;
+  cursor: pointer;
+}
+
+.SignUpProfileModalForgotPasswordCheckbox {
+  display: flex;
+  justify-content: space-between;
+
+  & span {
+    color: #1F94FF;
+    font-weight: 500;
+  }
+}
+
+.SignUpProfileModalLoginButton {
+  margin: 2rem 0 !important;
+  background-color: #0D1757 !important;
+  color: #fff !important;
+}
+
+.SignUpProfileModalOauth {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.SignUpProfileModalOauthItems {
+  border: 1px solid #bbb !important;
+  color: #0d1757 !important;
+}
+
+.SignUpProfileModalOauthItems i {
+  color: #000 !important;
+  width: 45px;
+}
+
+.SignUpProfileModalCloseBtn  {
+  background:#D9D9D9 !important;
+  padding: 8px 0px 8px 8px !important;
+  position: absolute;
+  top: 1rem;
+  right: 20px;
+  text-align: center !important;
+  margin: 0 !important;
+}
+
+.SignUpProfileModalCloseBtn .close {
+  text-align: center !important;
+}
+
+
+.SignUpProfileModalSignupText {
+  font-size: 12px;
+  display: block;
+  text-align: center;
+  margin: 1rem 0 !important;
+}
+
+.SignUpProfileModalSignupLink {
+  color: #2bdede;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.background-none {
+  background: transparent !important;
+}
+
+.text-grey {
+  color: #888 !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
+.SignUpProfileModalLoginButtonDivider {
+  font-size: smaller !important;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-bold {
+  font-weight: 700;
+  color: #f7f7f7;
+}
+
+.SignUpProfileModalContainer {
+  width: 100% !important;
+}
+
+.SignUpProfileModal__choice {
+  width: 100%;
+  margin: 0 auto !important ;
+  display: flex;
+  justify-content: space-between !important;
+}
+
+#SignUpProfileModal__optionOne {
+  width: 15rem !important;
+  height: 20rem !important;
+  background-image: url('./../../../assets/svgs/coachSignUp.png') !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 3px !important;
+  box-shadow: 0 0 10px rgb(201, 201, 201) !important;
+  filter: opacity(.5);
+  text-align: right;
+  cursor: pointer;
+}
+
+#SignUpProfileModal__optionTwo:hover, #SignUpProfileModal__optionOne:hover,#SignUpProfileModal__optionThree:hover {
+  filter: opacity(1);
+}
+
+#SignUpProfileModal__optionTwo,#SignUpProfileModal__optionThree {
+  width: 15rem !important;
+  height: 20.1rem !important;
+  background-image: url('./../../../assets/svgs/playerSignUp.png') !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: auto !important;
+  filter: opacity(.5);
+  box-shadow: 0 0 10px rgb(201, 201, 201) !important;
+  text-align: right;
+  cursor: pointer;
+}
+#SignUpProfileModal__optionThree{
+  background-image: url('./../../../assets/imgs/owner.png') !important;
+
+}
+.SignUpProfileModal__optionOne__title {
+  position: absolute;
+  bottom: 0rem;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  margin-top: auto !important;
+}
+
+.SignUpProfileModal__checkbox {
+  // position: absolute;
+  // right: -6rem;
+}

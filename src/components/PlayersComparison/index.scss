@@ -1,0 +1,111 @@
+.playersComparisonComponent{
+    .grid{
+        margin: unset!important;
+    }
+ .topRow{
+    .column{
+        text-align: center;
+    }
+     .columnItem{
+div{
+   color: #0D1757;
+   color: #0D1757;
+   font-weight: 600;
+   margin-top: 1rem;
+}
+img{
+    width: 100%;
+    cursor: pointer;
+}
+     }
+     .centerItem{
+     img{
+         width: 50%;
+         cursor: pointer;
+     }
+     .text{
+        position: absolute;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color:rgba(1, 2, 9, 1);
+        &.c-1{
+                top: 9%;
+    left: 23%;
+        }
+        &.c-2{
+            top: 40%;
+            left: 11%;
+    }
+    &.c-3{
+        top: 69%;
+        left: 24%;
+    }
+    &.c-4{
+        top: 9%;
+right: 12%;
+}
+&.c-5{
+    top: 40%;
+    right: 10%;
+}
+&.c-6{
+    top: 69%;
+    right: 17%;
+}
+     }
+    }
+ }
+ .titleText{
+     font-size: 1.2rem;
+     font-weight: 600;
+     color:#0D1757;
+     text-align: center;
+     width: 100%;
+     margin-top: 1.5rem;
+     background: #E9ECFB;
+     padding: 0.5rem 0;
+ } 
+ .bottomRow{
+     .column{
+         padding: 0.5rem 1rem!important;
+         background: rgba(246, 247, 254, 1);
+         color:#0D1757;
+         font-size: 0.9rem;
+         font-weight: 600;
+        .progress{
+            margin-bottom: unset;
+            width: calc(100% - 2rem);
+            display: inline-block;
+            .bar{
+                height: 1.5rem;
+            }
+         
+        }
+        span{
+            display: inline-block;
+            vertical-align: text-bottom;
+            line-height: 1.8rem;
+            margin-left: 0.2rem;
+            &.right{
+                margin-left: 0;
+                margin-right: 0.2rem;
+            }
+        }
+            &:nth-child(3n+1){
+                text-align: right;
+            }
+            &:nth-child(3n+2){
+                text-align: center;
+            }
+            &:nth-child(3n+0){
+                text-align: left;
+            }
+        }
+     &:nth-child(2n+0){
+        .column{
+            background: rgba(246, 247, 254, 0.5);
+
+        }
+     }
+ }
+}

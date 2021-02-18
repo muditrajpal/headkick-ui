@@ -1,0 +1,116 @@
+.academiesListComponent {
+        top: 4.5rem;
+        position: absolute;
+        float: left;
+        width: 100%;
+        overflow-y: auto;
+        bottom: 0;
+        left: 0;
+        .listItem{
+          padding: 1.5rem;
+          border-radius: 0.5rem;
+          background: #FFFFFF;
+          box-shadow: 0px 0px 20px #EDEFFC;
+          border-radius: 10px;
+          padding-top: 2rem;
+          margin-left: 1.5rem;
+          margin-right: 1.5rem;
+          margin-bottom: 2rem;
+          &:last-child{
+              margin-top: 1.5rem;
+          }
+        }
+        .title {
+          border-bottom: 1px solid #e8ebfc;
+          padding-bottom: 0.5rem;
+          font-size: 1.4rem;
+          font-weight: bolder;
+          padding-bottom: 0.9rem;
+          margin-bottom: 1.5rem;
+          span {
+            padding: 0 1rem;
+            border-bottom: 3px solid #0d1757;
+            width: auto;
+            padding-bottom: 0.6rem;
+            &.disabled{
+              border-bottom: unset;
+              margin: 0 1rem;
+              color:rgba(102, 102, 102, 1);
+              font-weight: 400;
+            }
+          }
+        }
+        .title2{
+          font-size: 1.1rem;
+        font-weight: 500;
+        padding: 1rem 0; 
+        .searchInput{
+          float: right;
+          margin-top: -0.7rem!important;
+          input{
+            border-radius: 3rem!important;
+            padding: 0.5rem 1rem;
+          }
+        }
+        span.filter{
+            margin-right: 1.5rem;
+        }
+        }
+        .table-component{
+            max-height: calc(100vh - 13.5rem);
+            overflow-y: auto;
+        }
+        table {
+          border-color: #e9ecfb !important;
+
+          thead {
+            background: #e9ecfb;
+            th {
+              background: unset !important;
+              font-weight: bolder !important;
+              text-align: center !important;
+              border: unset !important;
+              font-size: 1rem !important;
+              padding: 0.7rem 1em;
+              &:first-child {
+                text-align: left !important;
+              }
+            }
+          }
+          tbody {
+            tr {
+              td {
+                font-size: 1rem !important;
+                text-align: center !important;
+                font-weight: 500 !important;
+                padding: 0.7rem 1em !important;
+                &:first-child {
+                  text-align: left !important;
+                }
+                img {
+                  height: 75%;
+                }
+                .flagImg{
+                  display: unset;
+                }
+                .sub {
+                  color: rgba(0, 0, 0, 0.4) !important;
+                }
+                i {
+                  color: #1a2e99;
+                  font-size: 1.5rem;
+                  margin: 0 0.5rem;
+                }
+                button {
+                  i {
+                    color: white;
+                    font-size: inherit;
+                    margin: unset;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      
