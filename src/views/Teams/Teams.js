@@ -20,6 +20,7 @@ const Column = styled.div`
 `;
 
 const TeamsContainer = styled.div`
+bottom:0;
   top: 6rem;
   position: absolute;
   float: left;

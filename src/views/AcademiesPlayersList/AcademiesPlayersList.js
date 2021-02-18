@@ -6,7 +6,6 @@ import queryString from "query-string";
 import { fetchPlayerList } from "apis/player";
 import { fetchAcademiesNameList } from "apis/academy";
 import {fetchCountriesList} from "apis/public"
-import moment from "moment";
 import { useAuthState } from "contexts/auth.context";
 
 let ageFilterArray = Array.from({ length: 37 }, (_, i) => i + 12).map(
@@ -52,7 +51,7 @@ const PlayerItem = ({ data ,edit}) => (
     </Table.Cell>
     <Table.Cell>{data.academy[0].name}</Table.Cell>
     <Table.Cell>
-      {moment().diff(moment(data.dob, "DD/MM/YYYY"), "years", false)}
+      {data.age}
     </Table.Cell>
     <Table.Cell>
       <img src={data.nationality[0].flagImg} />
@@ -89,7 +88,7 @@ const AcademiesPlayersList = (props) => {
   const [playersCount, setPlayersCount] = useState(0);
   const [academiesList, setAcademiesList] = useState([]);
   const [countriesList, setCountriesList] = useState([]);
-
+const [filterOpen,setFilterOpen] = useState(false);
   useEffect(() => {
     fetchAcademiesNameList({})
       .then((data) => {
@@ -126,6 +125,7 @@ const AcademiesPlayersList = (props) => {
       filter.academy = filterAcademy;
     }
     if (filterAge) {
+      filter.dob = filterAge;
     }
     if (filterCountry) {
       filter.nationality = filterCountry;
@@ -171,22 +171,31 @@ const AcademiesPlayersList = (props) => {
           >
             All Players
           </span>
+  
           <span className="rightContent">
-            <span className="filter">Filter</span>
+            <span className={`filter ${!filterOpen?"t-bold":""}`} onClick={()=>setFilterOpen(v=>{
+              if(v){
+                history.push("?");
+              }
+              return !v;
+              })}>Filter</span>
             <Dropdown
               text="Sort"
               onChange={(e, { value }) => {
                 history.push(`?sortBy=${value}`);
               }}
+              direction="left"
               options={sortOptions}
               value={sortBy}
             ></Dropdown>
+            {userDetails&&userDetails.profileType!="player"&&
             <Button className="submit purpleBttn" onClick={() => {}} positive>
               Add Players
             </Button>
+}
           </span>
         </div>
-
+        {filterOpen&&
           <div className="filterOptions">
             <span>Filter By: </span>
             <Select
@@ -209,14 +218,14 @@ const AcademiesPlayersList = (props) => {
             onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${filterAge}&filterAcademy=${filterAcademy}&filterCountry=${value}&myAcademy=${myAcademySelected==1?true:""}`)}
             />
             <Select placeholder="Age" 
-            value={filterAge}
+            value={Number(filterAge)}
               onChange={(e,{value})=>history.push(`?filterPosition=${filterPosition}&filterAge=${value}&filterAcademy=${filterAcademy}&filterCountry=${filterCountry}&myAcademy=${myAcademySelected==1?true:""}`)}
             options={ageFilterArray} />
             <Select placeholder="Positions" 
             value={filterPosition}
             onChange={(e,{value})=>history.push(`?filterPosition=${value}&filterAge=${filterAge}&filterAcademy=${filterAcademy}&filterCountry=${filterCountry}&myAcademy=${myAcademySelected==1?true:""}`)}
             options={optionPosition} />
-          </div>
+          </div>}
 
         <PlayerListContainer>
           <Table padded singleLine>
@@ -234,7 +243,7 @@ const AcademiesPlayersList = (props) => {
             </Table.Header>
             <Table.Body>
               {playersList.map((data) => (
-                <PlayerItem data={data} key={data._id} edit={userDetails&&userDetails.profileType=="coach"&&userDetails.academies.includes(data.academy)} />
+                <PlayerItem data={data} key={data._id} edit={userDetails&&userDetails.profileType=="coach"&&userDetails.academies.some(v=>data.academy.filter(r=>r._id==v).length)} />
               ))}
             </Table.Body>
           </Table>

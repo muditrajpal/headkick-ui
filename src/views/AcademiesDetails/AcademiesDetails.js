@@ -9,6 +9,7 @@ import _groupBy from "lodash/groupBy";
 import mapImg from "assets/imgs/mapImg.png";
 import FixtureCalendar from "components/FixtureCalendar";
 import BlogSection from "components/BlogSection/BlogSection";
+import moment from "moment";
 import { blogData,overviewVideoInfo } from "./dummyData";
 const Row = styled.div`
   display: flex;
@@ -221,35 +222,18 @@ const AcademyInfo = ({ academyDetail }) => (
         <table cellPadding={11} cellSpacing={10}>
           <tr>
             <td>
-              <PlayerInfoTextLabel>Height</PlayerInfoTextLabel>
-              <TextValue>{academyDetail.height || ""}</TextValue>
+              <PlayerInfoTextLabel>No. of players</PlayerInfoTextLabel>
+              <TextValue>{academyDetail.players.length}</TextValue>
             </td>
 
             <td>
-              <PlayerInfoTextLabel>Weight</PlayerInfoTextLabel>
-              <TextValue>{academyDetail.weight || ""}</TextValue>
+              <PlayerInfoTextLabel>No. of coaches</PlayerInfoTextLabel>
+              <TextValue>{academyDetail.coach?.length}</TextValue>
             </td>
 
             <td>
-              <PlayerInfoTextLabel>Date of Birth</PlayerInfoTextLabel>
-              <TextValue>{academyDetail.date}</TextValue>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <PlayerInfoTextLabel>Position</PlayerInfoTextLabel>
-              <TextValue>{academyDetail.position || ""}</TextValue>
-            </td>
-
-            <td>
-              <PlayerInfoTextLabel>Work Rate</PlayerInfoTextLabel>
-              <TextValue>{academyDetail.workRate || ""}</TextValue>
-            </td>
-
-            <td>
-              <PlayerInfoTextLabel>Preferred foot</PlayerInfoTextLabel>
-              <TextValue>{academyDetail.preferredFoot || ""}</TextValue>
+              <PlayerInfoTextLabel>Date Established</PlayerInfoTextLabel>
+              <TextValue> {moment(academyDetail.date, "DD/MM/YYYY").format("Do MMM YY")}</TextValue>
             </td>
           </tr>
         </table>
@@ -350,6 +334,8 @@ const AcademiesDetails = (props) => {
     }
     fetchAcademyDetail({
       id: academyId,
+      coaches:true,
+      players:true
     })
       .then((data) => {
         if (data.sc && data.result) {

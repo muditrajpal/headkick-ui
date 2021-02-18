@@ -20,7 +20,7 @@ const AcademyItem = ({ data }) => (
       <Image src={data.nationality[0].flagImg} avator className="flagImg" />
     </Table.Cell>
     <Table.Cell>0</Table.Cell>
-    <Table.Cell>30</Table.Cell>
+    <Table.Cell>{data.avgPlayerAge&&data.avgPlayerAge[0]?data.avgPlayerAge[0].avgAge:""}</Table.Cell>
     <Table.Cell>
       <Button
         circular
@@ -51,7 +51,9 @@ const AcademiesList = (props) => {
       sort[sortBy] = 1;
     }
     if (searchKey) {
-      filter["$text"] = { $search: searchKey };
+      filter.name={
+        "$regex":`${searchKey}.*`
+      }
     }
     fetchAcademiesList({
       page,
@@ -104,7 +106,7 @@ const AcademiesList = (props) => {
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell singleLine>NAME</Table.HeaderCell>
-                <Table.HeaderCell>DATE CREATED</Table.HeaderCell>
+                <Table.HeaderCell>DATE ESTABLISHED</Table.HeaderCell>
                 <Table.HeaderCell>NATIONALITY</Table.HeaderCell>
                 <Table.HeaderCell>MATCHES</Table.HeaderCell>
                 <Table.HeaderCell>AVERAGE AGE</Table.HeaderCell>

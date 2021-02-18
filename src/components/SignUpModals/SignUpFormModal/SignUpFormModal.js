@@ -59,7 +59,7 @@ function SignUpFormModal({signUpFormModalVisibility, handleSignUpClose,setSignUp
 
   const successModalContect = {
     "mainMessage": "Account successfully created!",
-    "SubMessage": "Personalise your account and enjoy the tournaments.",
+    "subMessage": "Personalise your account.",
     "buttonName": "Create team",
     "linkName": "Sign in now",
     "linkSource": "https://localhost:3000/" 
@@ -67,7 +67,7 @@ function SignUpFormModal({signUpFormModalVisibility, handleSignUpClose,setSignUp
 
   const failureModalContect = {
     "mainMessage": "Something went wrong!",
-    "SubMessage": "Please try and sign up again or contact us",
+    "subMessage": "Please try and sign up again or contact us",
     "buttonName": "Sign up",
     "linkName": "Sign in now",
     "linkSource": "https://localhost:3000/" 
@@ -87,6 +87,7 @@ function SignUpFormModal({signUpFormModalVisibility, handleSignUpClose,setSignUp
 
   return (
     <>
+   
         <Modal
       onClose={signUpFormModalClose}
       onOpen={() => setSignUpFormModalVisibility(true)}
@@ -164,8 +165,14 @@ function SignUpFormModal({signUpFormModalVisibility, handleSignUpClose,setSignUp
         <span>Already have an account?</span> <span className="signUpFormModalSignupLink text-underline"  onClick={()=>handleSignInClick()}>Sign in now!</span>
       </div>
     </Modal>
-      {signUpSuccess && <GeneralModal modalContent={successModalContect} /> }
-      {signUpFailure && <GeneralModal modalContent={failureModalContect}/> }
+      {signUpSuccess && (<GeneralModal modalContent={successModalContect} onClick={()=>{
+        setSignUpSuccess(false);
+        handleSignInClick()
+}} /> )}
+      {signUpFailure && <GeneralModal modalContent={failureModalContect} onClick={()=>{
+                setSignUpFailure(false);
+        handleSignInClick()
+}} /> }
     </>
 
   )

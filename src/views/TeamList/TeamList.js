@@ -17,7 +17,7 @@ const TeamItem = ({team}) => (
       <span className="teamName">{team.name}</span>
     </Table.Cell>
     <Table.Cell>{team.players.length}</Table.Cell>
-    <Table.Cell>30</Table.Cell>
+    <Table.Cell>{team.avgPlayerAge&&team.avgPlayerAge[0]?team.avgPlayerAge[0].avgAge:""}</Table.Cell>
     <Table.Cell>
       {team.players.map((player,i) => (
         i<8?<Image src={player.img} avatar className="playersImg" />:""
@@ -47,7 +47,9 @@ const TeamList = (props) => {
     setTeamList([]);
     const filter = {};
     if (searchKey) {
-      filter["$text"] = { $search: searchKey };
+      filter.name={
+        "$regex":`${searchKey}.*`
+      }
     }
     if( myTeam == 1){
       if(userDetails.profileType=="player"&&userDetails.player){

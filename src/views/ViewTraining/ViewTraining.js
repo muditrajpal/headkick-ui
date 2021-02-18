@@ -29,8 +29,7 @@ const ViewTrainingContainer = styled(Column)`
   box-shadow: 0px 0px 20px #edeffc;
   border-radius: 10px;
   width: 98.3%;
-  min-height: 533px;
-  max-height: calc(100vh - 13.5rem);
+  bottom: 1rem;
   overflow-y: auto;
 `;
 
@@ -148,7 +147,7 @@ const TextLabel = styled(Column)`
 `;
 
 const ProgressBarContainer = styled(Column)`
-  width: 75%;
+  width: 60%;
   align-items: flex-end;
 `;
 

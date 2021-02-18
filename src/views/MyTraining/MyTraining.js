@@ -7,7 +7,6 @@ import EmptyTrainingImg from "assets/imgs/empty-training.png";
 import moment from "moment";
 import { fetchTrainingList } from "apis/training";
 import queryString from "query-string";
-import { trainings } from "services/trainings/mock";
 
 const Row = styled.div`
   display: flex;
@@ -29,6 +28,8 @@ const MyTrainingContainer = styled(Column)`
   box-shadow: 0px 0px 20px #edeffc;
   border-radius: 10px;
   width: 98.3%;
+  bottom: 1rem;
+  overflow-y: auto;
 `;
 
 const Header = styled(Row)`
@@ -279,7 +280,7 @@ const MyTraining = (props) => {
           </TableHeader>
           <tbody>
             {trainingList.map((training) => (
-              <TrainingRow training={training} />
+              <TrainingRow training={training} key={training._id}/>
             ))}
           </tbody>
         </TrainingListContainer>
