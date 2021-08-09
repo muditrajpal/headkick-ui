@@ -3,9 +3,19 @@ import { Table, Form, Divider } from "semantic-ui-react";
 import teamLogo from "assets/imgs/w.png";
 
 const options = [
-  { key: "m", text: "India", value: "India" },
-  { key: "f", text: "Nepal", value: "Nepal" },
-  { key: "o", text: "Bhutan", value: "Bhutan" },
+  { key: "m", text: "ABC", value: "India" },
+  { key: "f", text: "ABC", value: "Nepal" },
+  { key: "o", text: "ABC", value: "Bhutan" },
+];
+const options2 = [
+  { key: "m", text: "02/02/2022", value: "India" },
+  { key: "f", text: "03/02/2022", value: "Nepal" },
+  { key: "o", text: "04/02/2022", value: "Bhutan" },
+];
+const options3 = [
+  { key: "m", text: "12:30 P.M.", value: "India" },
+  { key: "f", text: "1:30 P.M.", value: "Nepal" },
+  { key: "o", text: "2:30 P.M.", value: "Bhutan" },
 ];
 const ListItem = ({ title }) => (
   <>
@@ -33,29 +43,10 @@ const ListItem = ({ title }) => (
             <span className="sub">Wanderers F.C.</span>
           </Table.Cell>
           <Table.Cell>
-            <Form.Select options={options} placeholder="dd/mm/yy" />
+            <Form.Select options={options2} placeholder="dd/mm/yy" />
           </Table.Cell>
           <Table.Cell>
-            <Form.Select options={options} placeholder="" />
-          </Table.Cell>
-          <Table.Cell>
-            <Form.Select options={options} placeholder="" />
-          </Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Match 1</Table.Cell>
-          <Table.Cell>
-            <span className="sub">Kingborough Lions United FC</span>
-            <img src={teamLogo} />
-            <span className="vs">VS</span>
-            <img src={teamLogo} />
-            <span className="sub">Wanderers F.C.</span>
-          </Table.Cell>
-          <Table.Cell>
-            <Form.Select options={options} placeholder="dd/mm/yy" />
-          </Table.Cell>
-          <Table.Cell>
-            <Form.Select options={options} placeholder="" />
+            <Form.Select options={options3} placeholder="" />
           </Table.Cell>
           <Table.Cell>
             <Form.Select options={options} placeholder="" />
@@ -71,10 +62,29 @@ const ListItem = ({ title }) => (
             <span className="sub">Wanderers F.C.</span>
           </Table.Cell>
           <Table.Cell>
-            <Form.Select options={options} placeholder="dd/mm/yy" />
+            <Form.Select options={options2} placeholder="dd/mm/yy" />
+          </Table.Cell>
+          <Table.Cell>
+            <Form.Select options={options3} placeholder="" />
           </Table.Cell>
           <Table.Cell>
             <Form.Select options={options} placeholder="" />
+          </Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>Match 1</Table.Cell>
+          <Table.Cell>
+            <span className="sub">Kingborough Lions United FC</span>
+            <img src={teamLogo} />
+            <span className="vs">VS</span>
+            <img src={teamLogo} />
+            <span className="sub">Wanderers F.C.</span>
+          </Table.Cell>
+          <Table.Cell>
+            <Form.Select options={options2} placeholder="dd/mm/yy" />
+          </Table.Cell>
+          <Table.Cell>
+            <Form.Select options={options3} placeholder="" />
           </Table.Cell>
           <Table.Cell>
             <Form.Select options={options} placeholder="" />
@@ -90,16 +100,16 @@ const ListItem = ({ title }) => (
             <span className="sub">Kingborough Lions United FC</span>
           </Table.Cell>
           <Table.Cell>
-            <Form.Select options={options} placeholder="dd/mm/yy" />
+            <Form.Select options={options2} placeholder="dd/mm/yy" />
           </Table.Cell>
           <Table.Cell>
-            <Form.Select options={options} placeholder="" />
+            <Form.Select options={options3} placeholder="" />
           </Table.Cell>
           <Table.Cell>
             <Form.Select options={options} placeholder="" />
           </Table.Cell>
         </Table.Row>
-            </Table.Body>
+      </Table.Body>
     </Table>
   </>
 );

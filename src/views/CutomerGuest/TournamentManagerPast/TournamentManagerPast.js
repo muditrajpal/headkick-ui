@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   Button,
   Table,
@@ -105,22 +105,51 @@ const List3 = () => (
     </Table>
   </div>
 );
+function isSelected(path) {
+  return window.location.pathname.indexOf(path) > -1;
+}
 
 const TournamentManagerPast = () => {
+  const [update, setUpdate] = useState(0);
+
   return (
     <div className="tournamentManagerPastCustomer">
       <div className="listItem">
-        <div className="title">
-          <span>Ongoing Tournaments</span>
-          <span className="disabled">Upcoming matches</span>
-          <span className="disabled">Past matches</span>
+      <div className="title">
+          <span
+            className={isSelected("/select-tournament") ? "" : "disabled"}
+            onClick={() => {
+              history.push("/tournament/guest/matches/select-tournament");
+              setUpdate((v) => v + 1);
+            }}
+          >
+            Ongoing Tournaments
+          </span>
+          <span
+            className={!isSelected("/select-upcoming") && "disabled"}
+            onClick={() => {
+              history.push("/tournament/guest/matches/select-upcoming");
+              setUpdate((v) => v + 1);
+            }}
+          >
+            Upcoming matches
+          </span>
+          <span
+            className={!isSelected("/select-past") && "disabled"}
+            onClick={() => {
+              history.push("/tournament/guest/matches/select-past");
+              setUpdate((v) => v + 1);
+            }}
+          >
+            Past matches
+          </span>
         </div>
         <div className="title2">
           <Button
             basic
             size="mini"
             color="black"
-            onClick={() => history.push("/tournament/matches/list")}
+            onClick={() => history.push("/tournament/guest/matches/list")}
           >
             <Icon name="arrow left" /> Go to tournaments
           </Button>

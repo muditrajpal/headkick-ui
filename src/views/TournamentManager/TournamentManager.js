@@ -7,7 +7,12 @@ const TournamentManager = () => {
   const item = (
     <Grid.Column>
       <Card>
-        <List divided selection verticalAlign="middle">
+        <List
+          divided
+          selection
+          verticalAlign="middle"
+          onClick={() => history.push("/tournament/matches/schedule")}
+        >
           <List.Item className="title">
             <List.Content>
               <List.Header>Group A</List.Header>
@@ -48,7 +53,7 @@ const TournamentManager = () => {
           <Button
             basic
             size="mini"
-            color="black" 
+            color="black"
             onClick={() => history.push("/tournament/matches/list")}
           >
             <Icon name="arrow left" /> Go Back

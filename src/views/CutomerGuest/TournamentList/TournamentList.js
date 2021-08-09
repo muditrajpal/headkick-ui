@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { Button, Table, Icon, Input } from "semantic-ui-react";
 import CountryImg from "assets/imgs/c.png";
 import history from "historyObj";
@@ -18,7 +18,7 @@ const List = () => (
       </Table.Row>
     </Table.Header>
     <Table.Body>
-    <Table.Row>
+      <Table.Row>
         <Table.Cell>FIFA World Cup Trophy</Table.Cell>
         <Table.Cell>
           <img src={CountryImg} />
@@ -37,7 +37,14 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" onClick={()=>history.push("/tournament/matches/select?id=123")} />
+          <Button
+            circular
+            color="blue"
+            icon="angle right"
+            onClick={() =>
+              history.push("/tournament/guest/matches/select-tournament?id=123")
+            }
+          />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -59,7 +66,14 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" onClick={()=>history.push("/tournament/matches/select?id=123")} />
+          <Button
+            circular
+            color="blue"
+            icon="angle right"
+            onClick={() =>
+              history.push("/tournament/guest/matches/select-tournament?id=123")
+            }
+          />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -81,7 +95,14 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" onClick={()=>history.push("/tournament/matches/select?id=123")} />
+          <Button
+            circular
+            color="blue"
+            icon="angle right"
+            onClick={() =>
+              history.push("/tournament/guest/matches/select-tournament?id=123")
+            }
+          />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -103,7 +124,14 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" onClick={()=>history.push("/tournament/matches/select?id=123")} />
+          <Button
+            circular
+            color="blue"
+            icon="angle right"
+            onClick={() =>
+              history.push("/tournament/guest/matches/select-tournament?id=123")
+            }
+          />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -125,7 +153,14 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right" onClick={()=>history.push("/tournament/matches/select?id=123")} />
+          <Button
+            circular
+            color="blue"
+            icon="angle right"
+            onClick={() =>
+              history.push("/tournament/guest/matches/select-tournament?id=123")
+            }
+          />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -147,7 +182,14 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right"  onClick={()=>history.push("/tournament/matches/select?id=123")} />
+          <Button
+            circular
+            color="blue"
+            icon="angle right"
+            onClick={() =>
+              history.push("/tournament/guest/matches/select-tournament?id=123")
+            }
+          />
         </Table.Cell>
       </Table.Row>
       <Table.Row>
@@ -169,29 +211,69 @@ const List = () => (
           <Icon name="instagram" />
         </Table.Cell>
         <Table.Cell>
-          <Button circular color="blue" icon="angle right"  onClick={()=>history.push("/tournament/matches/select?id=123")}  />
+          <Button
+            circular
+            color="blue"
+            icon="angle right"
+            onClick={() =>
+              history.push("/tournament/guest/matches/select-tournament?id=123")
+            }
+          />
         </Table.Cell>
       </Table.Row>
     </Table.Body>
   </Table>
 );
+function isSelected(path) {
+  return window.location.pathname.indexOf(path) > -1;
+}
 
 const TournamentList = () => {
+  const [update, setUpdate] = useState(0);
+
   return (
     <div className="tournamentListCustomer">
       <div className="listItem">
         <div className="title">
-          <span>Ongoing Tournaments</span>
-          <span className="disabled">Upcoming matches</span>
-          <span className="disabled">Past matches</span>
+          <span
+            className={isSelected("/matches/list") ? "" : "disabled"}
+            onClick={() => {
+              history.push("/tournament/guest/matches/select-tournament");
+              setUpdate((v) => v + 1);
+            }}
+          >
+            Ongoing Tournaments
+          </span>
+          <span
+            className={!isSelected("/select-upcoming") && "disabled"}
+            onClick={() => {
+              history.push("/tournament/guest/matches/select-upcoming");
+              setUpdate((v) => v + 1);
+            }}
+          >
+            Upcoming matches
+          </span>
+          <span
+            className={!isSelected("/select-past") && "disabled"}
+            onClick={() => {
+              history.push("/tournament/guest/matches/select-past");
+              setUpdate((v) => v + 1);
+            }}
+          >
+            Past matches
+          </span>
         </div>
         <div className="title2">
           Tournaments happening around the world
-          <Input icon='search' placeholder='Search...' className="searchInput"/>
+          <Input
+            icon="search"
+            placeholder="Search..."
+            className="searchInput"
+          />
         </div>
         {List()}
       </div>
-      <CustomerGuestMatchModal/>
+      <CustomerGuestMatchModal />
     </div>
   );
 };

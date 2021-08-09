@@ -13,6 +13,7 @@ export const getActiveRoute = (routes) => {
         return [routes[i], i];
       }
     }
+    console.log([routes[i], i]);
   }
   return null;
 };
