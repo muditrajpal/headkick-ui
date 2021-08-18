@@ -10,8 +10,8 @@ const Tournament = () => {
     <div className="tournamentLayout">
       <TournamentNav
         activeTab={activeRoute && activeRoute.length ? activeRoute[1] : null}
-       type="guest"
-     />
+        type="guest"
+      />
       <Switch>
         {getRoutes(routes)}
         <Redirect from="/tournament" to="/tournament/overview" />
