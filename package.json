@@ -2,14 +2,15 @@
   "name": "pokedex",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/muditrajpal/headkick-ui",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "axios": "^0.21.0",
-    "immer": "^8.0.0",
+    "axios": "^0.21.1",
+    "immer": "^8.0.4",
     "localforage": "^1.9.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "query-string": "^6.13.7",
@@ -22,7 +23,7 @@
     "react-spinners": "^0.9.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.2",
-    "slate": "^0.59.0",
+    "slate": "^0.65.3",
     "slate-react": "^0.59.0",
     "styled-components": "^5.2.0"
   },
@@ -30,7 +31,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^3.2.3",
     "prettier": "2.1.2"
   }
 }
