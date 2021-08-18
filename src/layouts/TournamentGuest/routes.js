@@ -6,7 +6,6 @@ import TournamentManagerPast from "views/CutomerGuest/TournamentManagerPast";
 import TournamentPlayersList from "views/CutomerGuest/TournamentPlayersList";
 import TournamentPlayersManager from "views/CutomerGuest/TournamentPlayersManager";
 
-
 export default [
   {
     path: "/overview",
@@ -24,12 +23,12 @@ export default [
         component: TournamentList,
       },
       {
-        path: "/matches/select",
+        path: "/matches/select-tournament",
         layout: "/tournament/guest",
         component: TournamentManager,
       },
       {
-        path: "/matches/select-upcomming",
+        path: "/matches/select-upcoming",
         layout: "/tournament/guest",
         component: TournamentManagerUpcoming,
       },
@@ -41,15 +40,15 @@ export default [
     ],
   },
   {
-    path: "/players/list",
-    name: "Players",
-    component: TournamentPlayersList,
+    path: "/academies",
+    name: "Academies",
+    component: TournamentOverview,
     layout: "/tournament/guest",
   },
   {
-    path: "/players",
     collapse: true,
     name: "Players",
+
     views: [
       {
         path: "/players/list",
@@ -60,13 +59,8 @@ export default [
         path: "/players/manage",
         layout: "/tournament/guest",
         component: TournamentPlayersManager,
-      }
+      },
     ],
   },
-  {
-   
-  },
-  {
-   
-  },
+  {},
 ];
