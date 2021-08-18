@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/muditrajpal/headkick-ui/static/css/main.ce4b65a3.chunk.css",
-    "main.js": "/muditrajpal/headkick-ui/static/js/main.9510a7ff.chunk.js",
-    "main.js.map": "/muditrajpal/headkick-ui/static/js/main.9510a7ff.chunk.js.map",
-    "runtime-main.js": "/muditrajpal/headkick-ui/static/js/runtime-main.279c213a.js",
-    "runtime-main.js.map": "/muditrajpal/headkick-ui/static/js/runtime-main.279c213a.js.map",
+    "main.js": "/muditrajpal/headkick-ui/static/js/main.73673f16.chunk.js",
+    "main.js.map": "/muditrajpal/headkick-ui/static/js/main.73673f16.chunk.js.map",
+    "runtime-main.js": "/muditrajpal/headkick-ui/static/js/runtime-main.c5aada21.js",
+    "runtime-main.js.map": "/muditrajpal/headkick-ui/static/js/runtime-main.c5aada21.js.map",
     "static/css/2.5b8013a9.chunk.css": "/muditrajpal/headkick-ui/static/css/2.5b8013a9.chunk.css",
-    "static/js/2.1bb3a072.chunk.js": "/muditrajpal/headkick-ui/static/js/2.1bb3a072.chunk.js",
-    "static/js/2.1bb3a072.chunk.js.map": "/muditrajpal/headkick-ui/static/js/2.1bb3a072.chunk.js.map",
+    "static/js/2.00c072fb.chunk.js": "/muditrajpal/headkick-ui/static/js/2.00c072fb.chunk.js",
+    "static/js/2.00c072fb.chunk.js.map": "/muditrajpal/headkick-ui/static/js/2.00c072fb.chunk.js.map",
     "index.html": "/muditrajpal/headkick-ui/index.html",
-    "precache-manifest.40062e3c99d517477587a8d0a2311671.js": "/muditrajpal/headkick-ui/precache-manifest.40062e3c99d517477587a8d0a2311671.js",
+    "precache-manifest.18f70ea52575a9be7e6130c7bc6dc2df.js": "/muditrajpal/headkick-ui/precache-manifest.18f70ea52575a9be7e6130c7bc6dc2df.js",
     "service-worker.js": "/muditrajpal/headkick-ui/service-worker.js",
     "static/css/2.5b8013a9.chunk.css.map": "/muditrajpal/headkick-ui/static/css/2.5b8013a9.chunk.css.map",
     "static/css/main.ce4b65a3.chunk.css.map": "/muditrajpal/headkick-ui/static/css/main.ce4b65a3.chunk.css.map",
-    "static/js/2.1bb3a072.chunk.js.LICENSE.txt": "/muditrajpal/headkick-ui/static/js/2.1bb3a072.chunk.js.LICENSE.txt",
+    "static/js/2.00c072fb.chunk.js.LICENSE.txt": "/muditrajpal/headkick-ui/static/js/2.00c072fb.chunk.js.LICENSE.txt",
     "static/media/semantic.min.css": "/muditrajpal/headkick-ui/static/media/outline-icons.ef60a4f6.woff",
     "static/media/cartIcon.bf0d0a40.svg": "/muditrajpal/headkick-ui/static/media/cartIcon.bf0d0a40.svg",
     "static/media/SignUpProfileModal.scss": "/muditrajpal/headkick-ui/static/media/coachSignUp.8a28d9ee.png",
@@ -24,10 +24,10 @@
     "static/media/profileIcon.c3da5b61.svg": "/muditrajpal/headkick-ui/static/media/profileIcon.c3da5b61.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.279c213a.js",
+    "static/js/runtime-main.c5aada21.js",
     "static/css/2.5b8013a9.chunk.css",
-    "static/js/2.1bb3a072.chunk.js",
+    "static/js/2.00c072fb.chunk.js",
     "static/css/main.ce4b65a3.chunk.css",
-    "static/js/main.9510a7ff.chunk.js"
+    "static/js/main.73673f16.chunk.js"
   ]
 }

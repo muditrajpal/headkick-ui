@@ -1,31 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9287e1d0b991ae431786ae930546f14c",
+    "revision": "ce210a25f3aff4b2c8cdfe1bd702b24d",
     "url": "/muditrajpal/headkick-ui/index.html"
   },
   {
-    "revision": "5d170fa63b4b3ecea2b5",
+    "revision": "1ca8469fcc9337b54853",
     "url": "/muditrajpal/headkick-ui/static/css/2.5b8013a9.chunk.css"
   },
   {
-    "revision": "2adcf2c144d5ea94b830",
+    "revision": "62969cbbf3e7fe4ff84d",
     "url": "/muditrajpal/headkick-ui/static/css/main.ce4b65a3.chunk.css"
   },
   {
-    "revision": "5d170fa63b4b3ecea2b5",
-    "url": "/muditrajpal/headkick-ui/static/js/2.1bb3a072.chunk.js"
+    "revision": "1ca8469fcc9337b54853",
+    "url": "/muditrajpal/headkick-ui/static/js/2.00c072fb.chunk.js"
   },
   {
     "revision": "87e7323c05be4d750a450ac6fbbf7cfa",
-    "url": "/muditrajpal/headkick-ui/static/js/2.1bb3a072.chunk.js.LICENSE.txt"
+    "url": "/muditrajpal/headkick-ui/static/js/2.00c072fb.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2adcf2c144d5ea94b830",
-    "url": "/muditrajpal/headkick-ui/static/js/main.9510a7ff.chunk.js"
+    "revision": "62969cbbf3e7fe4ff84d",
+    "url": "/muditrajpal/headkick-ui/static/js/main.73673f16.chunk.js"
   },
   {
-    "revision": "257aacc865859d8d7718",
-    "url": "/muditrajpal/headkick-ui/static/js/runtime-main.279c213a.js"
+    "revision": "54322f3951ab410dd6f0",
+    "url": "/muditrajpal/headkick-ui/static/js/runtime-main.c5aada21.js"
   },
   {
     "revision": "13db00b7a34fee4d819ab7f9838cc428",

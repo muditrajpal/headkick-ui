@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/muditrajpal/headkick-ui/precache-manifest.40062e3c99d517477587a8d0a2311671.js"
+  "/muditrajpal/headkick-ui/precache-manifest.18f70ea52575a9be7e6130c7bc6dc2df.js"
 );
 
 self.addEventListener('message', (event) => {
